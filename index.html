@@ -3,51 +3,31 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Tesla-ийн 5 загварын цахилгаан машинуудын танилцуулга, харьцуулалт." />
   <title>Tesla — Ирээдүйн жолоодлого</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Roboto:wght@700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-  <!-- Header / 30 -->
-  <header class="hero">
-    <img class="hero__bg" src="images/hero.png" alt="" />
-    <div class="hero__overlay"></div>
-    <div class="hero__container">
-      <div class="hero__column">
-        <div class="hero__content">
-          <h1 class="h1">Ирээдүйн жолоодлогод тавтай морил</h1>
-          <p class="text-medium">Tesla-ийн хамгийн шилдэг 5 загварын цахилгаан машинууд</p>
-        </div>
-        <div class="actions">
-          <a href="#models" class="btn btn--primary">Загваруудтай танилцах</a>
-          <a href="#compare" class="btn btn--secondary">Харьцуулах</a>
-        </div>
-      </div>
-    </div>
-  </header>
-
-  <!-- Navbar / 1 -->
-  <nav class="navbar">
+  <!-- ===== Navbar ===== -->
+  <nav class="navbar" id="navbar">
     <div class="navbar__container">
-      <a href="#" class="navbar__logo"><img src="images/logo.svg" alt="Tesla" width="70" height="36" /></a>
-      <div class="navbar__column">
+      <a href="#top" class="logo" aria-label="Tesla — нүүр хуудас">TESLA</a>
+
+      <button class="navbar__toggle" id="navToggle" type="button" aria-label="Цэс нээх" aria-expanded="false" aria-controls="navMenu">
+        <span></span><span></span><span></span>
+      </button>
+
+      <div class="navbar__menu" id="navMenu">
         <ul class="navbar__links">
           <li><a href="#model-3" class="nav-link">Model 3</a></li>
           <li><a href="#model-y" class="nav-link">Model Y</a></li>
           <li><a href="#model-yl" class="nav-link">Model Y L</a></li>
-          <li>
-            <a href="#cybertruck" class="nav-link">Cybertruck
-              <img src="images/chevron-down.svg" alt="" width="24" height="24" />
-            </a>
-          </li>
-          <li>
-            <a href="#roadster" class="nav-link">Roadster
-              <img src="images/chevron-down.svg" alt="" width="24" height="24" />
-            </a>
-          </li>
+          <li><a href="#cybertruck" class="nav-link">Cybertruck</a></li>
+          <li><a href="#roadster" class="nav-link">Roadster</a></li>
         </ul>
         <div class="actions">
           <a href="#compare" class="btn btn--secondary btn--sm">Харьцуулалт</a>
@@ -57,257 +37,263 @@
     </div>
   </nav>
 
-  <main id="models">
+  <!-- ===== Hero ===== -->
+  <header class="hero" id="top">
+    <img class="hero__bg" src="images/hero.png" alt="" />
+    <div class="hero__overlay"></div>
+    <div class="hero__content">
+      <p class="eyebrow eyebrow--light">Цахилгаан автомашин</p>
+      <h1 class="h1">Ирээдүйн жолоодлогод тавтай морил</h1>
+      <p class="text-medium">Tesla-ийн хамгийн шилдэг 5 загварын цахилгаан машинууд</p>
+      <div class="actions actions--center">
+        <a href="#model-3" class="btn btn--primary">Загваруудтай танилцах</a>
+        <a href="#compare" class="btn btn--outline-light">Харьцуулах</a>
+      </div>
+    </div>
+    <a href="#model-3" class="hero__scroll" aria-label="Доош гүйлгэх"></a>
+  </header>
 
-    <!-- Layout / 26 — Model 3 -->
-    <section class="layout26" id="model-3">
+  <main>
+
+    <!-- ===== Model 3 ===== -->
+    <section class="model-section" id="model-3">
+      <div class="container model-section__grid">
+        <div class="model reveal">
+          <p class="eyebrow">Спорт седан</p>
+          <h2 class="h2">Model 3</h2>
+          <p class="model__lead">Tesla-ийн хамгийн хямд үнэтэй загвар. Энгийн, цэвэрхэн дизайнтай, ашиглалтын зардал бага.</p>
+          <ul class="features">
+            <li>Урд суудал болон жолооны хүрд халаалттай</li>
+            <li>16 инчийн төв дэлгэц, 7 чанга яригчтай аудио систем</li>
+            <li>Supercharger-т 15 минут цэнэглэхэд 274 км хүртэл замын нөөц нэмэгдэнэ</li>
+          </ul>
+          <dl class="specs">
+            <div class="spec"><dt>Нэг цэнэглэлтээр</dt><dd>517 км</dd></div>
+            <div class="spec"><dt>0–97 км/ц</dt><dd>5.8 с</dd></div>
+            <div class="spec"><dt>Ачааны багтаамж</dt><dd>680 л</dd></div>
+            <div class="spec"><dt>Эхлэх үнэ</dt><dd>$36,990</dd></div>
+          </dl>
+          <div class="actions">
+            <a href="https://www.tesla.com/model3/design" class="btn btn--primary" target="_blank" rel="noopener">Захиалах</a>
+            <a href="model-3.html" class="btn btn--link">Дэлгэрэнгүй <span class="arrow" aria-hidden="true">→</span></a>
+          </div>
+        </div>
+        <div class="model-visual model-visual--sedan reveal" aria-hidden="true">
+          <span class="model-visual__name">Model 3</span>
+          <span class="model-visual__tag">Седан</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Model Y ===== -->
+    <section class="model-section model-section--photo" id="model-y">
+      <div class="model-section__photo"><img src="images/model-y.png" alt="Цагаан өнгийн Tesla Model Y уулын замд" loading="lazy" /></div>
+      <div class="model-section__body">
+        <div class="model reveal">
+          <p class="eyebrow">Дунд оврын SUV</p>
+          <h2 class="h2">Model Y</h2>
+          <p class="model__lead">Өдөр тутмын хэрэглээ болон холын аялалд тохирсон гэр бүлийн автомашин.</p>
+          <ul class="features">
+            <li>5 хүний суудалтай</li>
+            <li>NHTSA аюулгүй байдлын үнэлгээгээр 5 од авсан</li>
+          </ul>
+          <dl class="specs">
+            <div class="spec"><dt>Нэг цэнэглэлтээр</dt><dd>560 км</dd></div>
+            <div class="spec"><dt>0–97 км/ц</dt><dd>6.8 с</dd></div>
+            <div class="spec"><dt>Ачааны багтаамж</dt><dd>2,095 л</dd></div>
+            <div class="spec"><dt>Эхлэх үнэ</dt><dd>$39,990</dd></div>
+          </dl>
+          <div class="actions">
+            <a href="https://www.tesla.com/modely/design" class="btn btn--primary" target="_blank" rel="noopener">Захиалах</a>
+            <a href="https://www.tesla.com/modely" class="btn btn--link" target="_blank" rel="noopener">Дэлгэрэнгүй <span class="arrow" aria-hidden="true">→</span></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Model Y L ===== -->
+    <section class="model-section" id="model-yl">
+      <div class="container model-section__grid">
+        <div class="model reveal">
+          <p class="eyebrow"><span class="badge">Шинэ</span> 6 суудалтай SUV</p>
+          <h2 class="h2">Model Y L</h2>
+          <p class="model__lead">Model Y-ээс тэнхлэг хоорондын зай нь урт тул салон илүү өргөн, 3 эгнээ суудалтай.</p>
+          <ul class="features">
+            <li>Model Y-ийн бүх үндсэн онцлог хэвээр</li>
+            <li>Их бие нь уртасч, 3 дахь эгнээний суудал нэмэгдсэн</li>
+            <li>Premium тоноглолтой</li>
+          </ul>
+          <dl class="specs">
+            <div class="spec"><dt>Нэг цэнэглэлтээр (CLTC)</dt><dd>751 км</dd></div>
+            <div class="spec"><dt>Суудлын тоо</dt><dd>6</dd></div>
+            <div class="spec"><dt>Тэнхлэг хоорондын зай</dt><dd>3,040 мм</dd></div>
+            <div class="spec"><dt>Эхлэх үнэ</dt><dd>$61,990</dd></div>
+          </dl>
+          <div class="actions">
+            <a href="https://www.tesla.com" class="btn btn--primary" target="_blank" rel="noopener">Захиалах</a>
+            <a href="https://www.tesla.com" class="btn btn--link" target="_blank" rel="noopener">Дэлгэрэнгүй <span class="arrow" aria-hidden="true">→</span></a>
+          </div>
+        </div>
+        <div class="model-visual model-visual--suv reveal" aria-hidden="true">
+          <span class="model-visual__name">Model Y L</span>
+          <span class="model-visual__tag">6 суудалтай</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Cybertruck ===== -->
+    <section class="model-section model-section--photo" id="cybertruck">
+      <div class="model-section__photo"><img src="images/cybertruck.png" alt="Tesla Cybertruck зэвэрдэггүй ган их биетэй пикап" loading="lazy" /></div>
+      <div class="model-section__body">
+        <div class="model reveal">
+          <p class="eyebrow">Пикап</p>
+          <h2 class="h2">Cybertruck</h2>
+          <p class="model__lead">Гадна их бие нь зэвэрдэггүй гангаар хийгдсэн, бартаат замд зориулсан пикап.</p>
+          <ul class="features">
+            <li>Ачааны тэвш 1.8 × 1.2 м</li>
+            <li>Бартаат замын горимуудтай: гулгаатай зам, ус туулах</li>
+            <li>Premium тоноглолтой</li>
+          </ul>
+          <dl class="specs">
+            <div class="spec"><dt>Нэг цэнэглэлтээр</dt><dd>523 км</dd></div>
+            <div class="spec"><dt>0–97 км/ц</dt><dd>2.6 с</dd></div>
+            <div class="spec"><dt>Тэвшний даац</dt><dd>1,134 кг</dd></div>
+            <div class="spec"><dt>Эхлэх үнэ</dt><dd>$109,990</dd></div>
+          </dl>
+          <div class="actions">
+            <a href="https://www.tesla.com/cybertruck/design" class="btn btn--primary" target="_blank" rel="noopener">Захиалах</a>
+            <a href="https://www.tesla.com/cybertruck" class="btn btn--link" target="_blank" rel="noopener">Дэлгэрэнгүй <span class="arrow" aria-hidden="true">→</span></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Roadster ===== -->
+    <section class="model-section" id="roadster">
+      <div class="container model-section__grid">
+        <div class="model reveal">
+          <p class="eyebrow"><span class="badge">Урьдчилсан захиалга</span> Спорт машин</p>
+          <h2 class="h2">Roadster</h2>
+          <p class="model__lead">Tesla-ийн хамгийн хурдан загвар. Хөнгөн, бат бөх материалаар хийгдсэн.</p>
+          <ul class="features">
+            <li>2+2 буюу 4 суудалтай</li>
+            <li>Хүйтэн хийн түлхэгчтэй (SpaceX багц)</li>
+            <li>Авдаг дээвэртэй</li>
+          </ul>
+          <dl class="specs">
+            <div class="spec"><dt>Нэг цэнэглэлтээр</dt><dd>1,000 км</dd></div>
+            <div class="spec"><dt>0–97 км/ц</dt><dd>1.9 с</dd></div>
+            <div class="spec"><dt>Дээд хурд</dt><dd>400+ км/ц</dd></div>
+            <div class="spec"><dt>Эхлэх үнэ</dt><dd>$200,000</dd></div>
+          </dl>
+          <div class="actions">
+            <a href="https://www.tesla.com/roadster" class="btn btn--primary" target="_blank" rel="noopener">Урьдчилан захиалах</a>
+            <a href="https://www.tesla.com/roadster" class="btn btn--link" target="_blank" rel="noopener">Дэлгэрэнгүй <span class="arrow" aria-hidden="true">→</span></a>
+          </div>
+        </div>
+        <div class="model-visual model-visual--sport reveal" aria-hidden="true">
+          <span class="model-visual__name">Roadster</span>
+          <span class="model-visual__tag">Спорт</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Харьцуулалт ===== -->
+    <section class="compare" id="compare">
       <div class="container">
-        <div class="layout26__component">
-          <div class="model">
-            <div class="model__content">
-              <div class="model__title">
-                <h2 class="h2">Model 3</h2>
-                <div class="text-medium">
-                  <p>Спорт седан</p>
-                  <p>Tesla-ийн хамгийн хямд үнэтэй загвар. Энгийн цэвэрхэн дизайнтай. Ашиглалтын зардал бага.</p>
-                  <p>* Урд суудал болон жолооны хүрд халаалттай</p>
-                  <p>* 16 инчийн төв дэлгэц, 7 чанга яригчтай аудио систем</p>
-                  <p>* Supercharger-тай 15 минут цэнэглэхэд 274 км хүртэлх замын нөөц нэмэгдэнэ</p>
-                </div>
-              </div>
-              <div class="specs">
-                <div class="specs__row">
-                  <div class="spec"><p class="h2">517 км</p><p class="text-regular">Нэг цэнэгээр</p></div>
-                  <div class="spec"><p class="h2">5.8 с</p><p class="text-regular">0-97 км/ц</p></div>
-                </div>
-                <div class="specs__row">
-                  <div class="spec"><p class="h2">680л</p><p class="text-regular">Ачааны багтаамж</p></div>
-                  <div class="spec"><p class="h2">Эхлэх үнэ</p><p class="text-regular">$ 36,990</p></div>
-                </div>
-              </div>
-            </div>
-            <div class="actions actions--lg">
-              <a href="#" class="btn btn--secondary">Захиалах</a>
-              <a href="#" class="btn btn--link">Дэлгэрэнгүй <img src="images/chevron-right.svg" alt="" width="24" height="24" /></a>
-            </div>
-          </div>
-          <button class="lightbox" type="button" aria-label="Model 3 видео тоглуулах">
-            <img class="lightbox__bg" src="images/lightbox.png" alt="" />
-            <span class="lightbox__overlay"></span>
-            <img class="lightbox__play" src="images/play.svg" alt="" width="64" height="64" />
-          </button>
+        <div class="section-head reveal">
+          <p class="eyebrow">Харьцуулалт</p>
+          <h2 class="h3">Танд аль загвар тохирох вэ?</h2>
         </div>
+        <div class="table-wrap reveal">
+          <table class="compare__table">
+            <thead>
+              <tr>
+                <th scope="col">Загвар</th>
+                <th scope="col">Төрөл</th>
+                <th scope="col">Суудал</th>
+                <th scope="col">Нэг цэнэглэлтээр</th>
+                <th scope="col">Эхлэх үнэ</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><th scope="row"><a href="model-3.html">Model 3</a></th><td>Седан</td><td>5</td><td>517 км</td><td>$36,990</td></tr>
+              <tr><th scope="row"><a href="#model-y">Model Y</a></th><td>SUV</td><td>5</td><td>560 км</td><td>$39,990</td></tr>
+              <tr><th scope="row"><a href="#model-yl">Model Y L</a></th><td>SUV</td><td>6</td><td>751 км*</td><td>$61,990</td></tr>
+              <tr><th scope="row"><a href="#cybertruck">Cybertruck</a></th><td>Пикап</td><td>5</td><td>523 км</td><td>$109,990</td></tr>
+              <tr><th scope="row"><a href="#roadster">Roadster</a></th><td>Спорт</td><td>4</td><td>1,000 км</td><td>$200,000</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="compare__note">* CLTC стандартаар. Үнэ болон үзүүлэлтүүд улс, тоноглолоос хамаарч өөр байж болно.</p>
       </div>
     </section>
 
-    <!-- Layout / 568 — Model Y -->
-    <section class="layout568" id="model-y">
-      <div class="layout568__image"><img src="images/model-y.png" alt="Tesla Model Y" /></div>
-      <div class="layout568__content">
-        <div class="model">
-          <div class="model__content">
-            <div class="model__title">
-              <h2 class="h2">Model Y</h2>
-              <div class="text-medium">
-                <p>Дунд оврын SUV</p>
-                <p>Өдөр тутмын хэрэглээ, хол замд тохирох гэр бүлийн хэрэглээнд тохирсон.</p>
-                <p>* 5 хүний суудалтай</p>
-                <p>* NHTSA буюу аюулгүй байдлын үнэлгээгээр 5 од авсан</p>
-                <p>&#8203;</p>
-              </div>
-            </div>
-            <div class="specs">
-              <div class="specs__row">
-                <div class="spec"><p class="h2">560 км</p><p class="text-regular">Нэг цэнэглэлтээр</p></div>
-                <div class="spec"><p class="h2">6.8 с</p><p class="text-regular">0-97 км/ц</p></div>
-              </div>
-              <div class="specs__row">
-                <div class="spec"><p class="h2">2,095 л</p><p class="text-regular">Ачааны багтаамж</p></div>
-                <div class="spec"><p class="h2">Эхлэх үнэ</p><p class="text-regular">$ 39,990</p></div>
-              </div>
-            </div>
-          </div>
-          <div class="actions actions--lg">
-            <a href="#" class="btn btn--secondary">Захиалах</a>
-            <a href="#" class="btn btn--link">Дэлгэрэнгүй <img src="images/chevron-right.svg" alt="" width="24" height="24" /></a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Layout / 26 — Model YL -->
-    <section class="layout26" id="model-yl">
+    <!-- ===== Цэнэглэлт ===== -->
+    <section class="stats" id="charging">
       <div class="container">
-        <div class="layout26__component">
-          <div class="model">
-            <div class="model__content">
-              <div class="model__title">
-                <h2 class="h2">Model YL</h2>
-                <div class="text-medium">
-                  <p>ШИНЭ ЗАГВАР</p>
-                  <p>Тэнхлэг хоорондын зай нь Model Y-ээс урт</p>
-                  <p>* Model Y-ийн бүх үндсэн онцлог хэвээр</p>
-                  <p>* Гол ялгаа нь илүү урт болсон</p>
-                  <p>* Premium тоноглолтой</p>
-                </div>
-              </div>
-              <div class="specs">
-                <div class="specs__row">
-                  <div class="spec"><p class="h2">517 км</p><p class="text-regular">Нэг цэнэгээр</p></div>
-                  <div class="spec"><p class="h2">5.8 с</p><p class="text-regular">0-97 км/ц</p></div>
-                </div>
-                <div class="specs__row">
-                  <div class="spec"><p class="h2">680л</p><p class="text-regular">Ачааны багтаамж</p></div>
-                  <div class="spec"><p class="h2">Эхлэх үнэ</p><p class="text-regular">$ 61,990</p></div>
-                </div>
-              </div>
-            </div>
-            <div class="actions actions--lg">
-              <a href="#" class="btn btn--secondary">Захиалах</a>
-              <a href="#" class="btn btn--link">Дэлгэрэнгүй <img src="images/chevron-right.svg" alt="" width="24" height="24" /></a>
-            </div>
-          </div>
-          <button class="lightbox" type="button" aria-label="Model YL видео тоглуулах">
-            <img class="lightbox__bg" src="images/lightbox.png" alt="" />
-            <span class="lightbox__overlay"></span>
-            <img class="lightbox__play" src="images/play.svg" alt="" width="64" height="64" />
-          </button>
+        <div class="section-head reveal">
+          <p class="eyebrow eyebrow--light">Supercharger сүлжээ</p>
+          <h2 class="h3">Хаана ч цэнэглэх боломжтой</h2>
         </div>
-      </div>
-    </section>
-
-    <!-- Layout / 568 — Cybertruck -->
-    <section class="layout568" id="cybertruck">
-      <div class="layout568__image"><img src="images/cybertruck.png" alt="Tesla Cybertruck" /></div>
-      <div class="layout568__content">
-        <div class="model">
-          <div class="model__content">
-            <div class="model__title">
-              <h2 class="h2">Cybertruck</h2>
-              <div class="text-medium">
-                <p>Гадна их бие нь зэвэрдэггүй гангаар хийгдсэн.</p>
-                <p>* Ачааны тэвш 1,8 х 1,2 м, даац 1,134 кг хүртэл</p>
-                <p>* Бартаат замын горимуудтай : Гулгаа зам, ус туулах,</p>
-                <p>* Premium тоноглолтой</p>
-              </div>
-            </div>
-            <div class="specs">
-              <div class="specs__row">
-                <div class="spec"><p class="h2">523 км</p><p class="text-regular">Нэг цэнэглэлтээр</p></div>
-                <div class="spec"><p class="h2">2.6 с</p><p class="text-regular">0-97 км/ц</p></div>
-              </div>
-              <div class="specs__row">
-                <div class="spec"><p class="h2">2,095 л</p><p class="text-regular">Ачааны багтаамж</p></div>
-                <div class="spec"><p class="h2">Эхлэх үнэ</p><p class="text-regular">$ 109,990</p></div>
-              </div>
-            </div>
-          </div>
-          <div class="actions actions--lg">
-            <a href="#" class="btn btn--secondary">Захиалах</a>
-            <a href="#" class="btn btn--link">Дэлгэрэнгүй <img src="images/chevron-right.svg" alt="" width="24" height="24" /></a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Layout / 26 — Roadster -->
-    <section class="layout26" id="roadster">
-      <div class="container">
-        <div class="layout26__component">
-          <div class="model">
-            <div class="model__content">
-              <div class="model__title">
-                <h2 class="h2">Roadster</h2>
-                <div class="text-medium">
-                  <p>Спорт загвар - Урьдчилсан захиалга</p>
-                  <p>* Хөнгөн, бат бөх материалаар хийгдсэн.</p>
-                  <p>* 2 суудалтай</p>
-                  <p>* Хүйтэн хийн түлхэгчтэй,</p>
-                </div>
-              </div>
-              <div class="specs">
-                <div class="specs__row">
-                  <div class="spec"><p class="h2">517 km</p><p class="text-regular">Нэг цэнэглэлтээр</p></div>
-                  <div class="spec"><p class="h2">1 с</p><p class="text-regular">0-97 km/h</p></div>
-                </div>
-              </div>
-            </div>
-            <div class="actions actions--lg">
-              <a href="#" class="btn btn--secondary">Урьдчилан захиалах</a>
-              <a href="#" class="btn btn--link">Дэлгэрэнгүй <img src="images/chevron-right.svg" alt="" width="24" height="24" /></a>
-            </div>
-          </div>
-          <button class="lightbox" type="button" aria-label="Roadster видео тоглуулах">
-            <img class="lightbox__bg" src="images/lightbox.png" alt="" />
-            <span class="lightbox__overlay"></span>
-            <img class="lightbox__play" src="images/play.svg" alt="" width="64" height="64" />
-          </button>
-        </div>
-      </div>
-    </section>
-
-    <!-- Stats / 12 -->
-    <section class="stats" id="compare">
-      <div class="container stats__container">
-        <h2 class="h3">Хаана ч цэнэглэх боломжтой</h2>
         <div class="stats__row">
-          <div class="stat"><p class="stat__number">80,000 +</p><p class="h6">Supercharger</p></div>
-          <div class="stat"><p class="stat__number">99%</p><p class="h6">Ажиллах хугацаа</p></div>
-          <div class="stat"><p class="stat__number">15 мин</p><p class="h6">Хурдан цэнэглэлт</p></div>
+          <div class="stat reveal"><p class="stat__number">80,000+</p><p class="stat__label">Supercharger цэг</p></div>
+          <div class="stat reveal"><p class="stat__number">99%</p><p class="stat__label">Ажиллах хугацаа</p></div>
+          <div class="stat reveal"><p class="stat__number">15 мин</p><p class="stat__label">Хурдан цэнэглэлт</p></div>
         </div>
       </div>
     </section>
   </main>
 
-  <!-- Footer / 11 -->
+  <!-- ===== Footer ===== -->
   <footer class="footer" id="contact">
-    <div class="container footer__component">
+    <div class="container">
       <div class="footer__card">
         <div class="footer__info">
-          <img src="images/logo.svg" alt="Tesla" width="70" height="36" class="footer__logo" />
-          <div class="footer__details">
-            <div class="footer__block">
-              <p class="semibold">Address</p>
-              <p>3500 Deer Creek Road, Palo Alto, CA 94304</p>
-            </div>
-            <div class="footer__block">
-              <p class="semibold">Contact</p>
-              <div>
-                <a href="tel:18006138840" class="footer__contact">1-800-613-8840</a>
-                <a href="mailto:support@tesla.com" class="footer__contact">support@tesla.com</a>
-              </div>
-            </div>
+          <a href="#top" class="logo" aria-label="Tesla — нүүр хуудас">TESLA</a>
+          <div class="footer__block">
+            <p class="footer__title">Хаяг</p>
+            <p>3500 Deer Creek Road, Palo Alto, CA 94304</p>
+          </div>
+          <div class="footer__block">
+            <p class="footer__title">Холбоо барих</p>
+            <a href="tel:+18006138840" class="footer__contact">1-800-613-8840</a>
+            <a href="mailto:support@tesla.com" class="footer__contact">support@tesla.com</a>
           </div>
           <div class="footer__social">
-            <a href="#" aria-label="Facebook"><img src="images/facebook.svg" alt="" width="24" height="24" /></a>
-            <a href="#" aria-label="Instagram"><img src="images/instagram.svg" alt="" width="24" height="24" /></a>
-            <a href="#" aria-label="X"><img src="images/x.svg" alt="" width="24" height="24" /></a>
-            <a href="#" aria-label="LinkedIn"><img src="images/linkedin.svg" alt="" width="24" height="24" /></a>
-            <a href="#" aria-label="YouTube"><img src="images/youtube.svg" alt="" width="24" height="24" /></a>
+            <a href="https://www.facebook.com/tesla" aria-label="Facebook" target="_blank" rel="noopener"><img src="images/facebook.svg" alt="" width="24" height="24" /></a>
+            <a href="https://www.instagram.com/teslamotors" aria-label="Instagram" target="_blank" rel="noopener"><img src="images/instagram.svg" alt="" width="24" height="24" /></a>
+            <a href="https://x.com/tesla" aria-label="X" target="_blank" rel="noopener"><img src="images/x.svg" alt="" width="24" height="24" /></a>
+            <a href="https://www.linkedin.com/company/tesla-motors" aria-label="LinkedIn" target="_blank" rel="noopener"><img src="images/linkedin.svg" alt="" width="24" height="24" /></a>
+            <a href="https://www.youtube.com/tesla" aria-label="YouTube" target="_blank" rel="noopener"><img src="images/youtube.svg" alt="" width="24" height="24" /></a>
           </div>
         </div>
         <div class="footer__links">
-          <ul class="footer__list">
-            <li><a href="#models">"Загварууд"</a></li>
-            <li><a href="#model-3">Model 3</a></li>
-            <li><a href="#model-y">Model Y</a></li>
-            <li><a href="#model-yl">Model Y L</a></li>
-            <li><a href="#cybertruck">Cybertruck</a></li>
-            <li><a href="#roadster">Roadster</a></li>
-          </ul>
-          <ul class="footer__list">
-            <li><a href="#">"Хуудас"</a></li>
-            <li><a href="#">Асуулт, хариулт</a></li>
-            <li><a href="#compare">Харьцуулалт</a></li>
-            <li><a href="https://www.tesla.com">Tesla.com</a></li>
-          </ul>
+          <div>
+            <p class="footer__title">Загварууд</p>
+            <ul class="footer__list">
+              <li><a href="model-3.html">Model 3</a></li>
+              <li><a href="#model-y">Model Y</a></li>
+              <li><a href="#model-yl">Model Y L</a></li>
+              <li><a href="#cybertruck">Cybertruck</a></li>
+              <li><a href="#roadster">Roadster</a></li>
+            </ul>
+          </div>
+          <div>
+            <p class="footer__title">Хуудас</p>
+            <ul class="footer__list">
+              <li><a href="#compare">Харьцуулалт</a></li>
+              <li><a href="#charging">Цэнэглэлт</a></li>
+              <li><a href="#contact">Холбоо барих</a></li>
+              <li><a href="https://www.tesla.com" target="_blank" rel="noopener">Tesla.com</a></li>
+            </ul>
+          </div>
         </div>
       </div>
-      <div class="footer__credits">
-        <p>© 2026 Tesla</p>
-      </div>
+      <p class="footer__credits">© 2026 Tesla</p>
     </div>
   </footer>
 
+  <script src="script.js"></script>
 </body>
 </html>
