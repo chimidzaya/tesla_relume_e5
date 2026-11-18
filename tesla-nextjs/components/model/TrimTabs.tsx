@@ -3,11 +3,11 @@
 import Image from "next/image";
 import { useRef, useState, type KeyboardEvent } from "react";
 import type { Trim } from "@/data/model-details";
-import { Button } from "@/components/ui/Button";
+import { OrderButton, type OrderInfo } from "@/components/order/OrderButton";
 import { cn } from "@/lib/cn";
 
 /** Хувилбаруудын таб. Хулганаар болон ← → товчоор солигдоно (WAI-ARIA tabs загвар). */
-export function TrimTabs({ trims, orderUrl }: { trims: Trim[]; orderUrl: string }) {
+export function TrimTabs({ trims, order }: { trims: Trim[]; order: OrderInfo }) {
   const [selected, setSelected] = useState(0);
   const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
 
@@ -77,7 +77,7 @@ export function TrimTabs({ trims, orderUrl }: { trims: Trim[]; orderUrl: string 
                 </div>
               ))}
             </dl>
-            <Button href={orderUrl}>Захиалах</Button>
+            <OrderButton order={order}>Захиалах</OrderButton>
           </div>
         </div>
       ))}

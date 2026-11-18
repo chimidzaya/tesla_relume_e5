@@ -1,10 +1,11 @@
 import Image from "next/image";
 import type { ModelDetail } from "@/data/model-details";
+import { OrderButton, type OrderInfo } from "@/components/order/OrderButton";
 import { Button } from "@/components/ui/Button";
 import { Reveal } from "@/components/ui/Reveal";
 import { h2 } from "@/components/ui/typography";
 
-export function CtaBanner({ cta, orderUrl }: { cta: ModelDetail["cta"]; orderUrl: string }) {
+export function CtaBanner({ cta, order }: { cta: ModelDetail["cta"]; order: OrderInfo }) {
   return (
     <section className="relative flex min-h-[560px] items-center justify-center overflow-hidden px-gutter py-16 text-center text-on-dark lg:py-28">
       <Image src={cta.image.src} alt={cta.image.alt} fill sizes="100vw" className="object-cover" />
@@ -13,7 +14,7 @@ export function CtaBanner({ cta, orderUrl }: { cta: ModelDetail["cta"]; orderUrl
         <h2 className={h2}>{cta.title}</h2>
         <p className="text-base">{cta.text}</p>
         <div className="flex flex-wrap justify-center gap-4">
-          <Button href={orderUrl}>Захиалах</Button>
+          <OrderButton order={order}>Захиалах</OrderButton>
           <Button href={cta.secondary.href} variant="outline-light">
             {cta.secondary.label}
           </Button>

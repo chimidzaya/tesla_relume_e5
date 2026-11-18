@@ -14,7 +14,7 @@ import { Reveal } from "@/components/ui/Reveal";
 import { Section } from "@/components/ui/Section";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { getModelDetail } from "@/data/model-details";
-import { getModel, getModels } from "@/data/models";
+import { getModel, getModels, orderInfo } from "@/data/models";
 
 /** Build-ийн дараа database-д нэмэгдсэн загварын хуудсыг ч хүсэлт ирэхэд үүсгэнэ (байхгүй бол 404). */
 export const dynamicParams = true;
@@ -62,7 +62,7 @@ export default async function ModelPage({ params }: PageProps<"/models/[slug]">)
         lead={hero.lead}
         image={hero.image}
         stats={hero.stats}
-        orderUrl={model.orderUrl}
+        order={orderInfo(model)}
       />
       <SubNav items={sections} />
 
@@ -112,7 +112,7 @@ export default async function ModelPage({ params }: PageProps<"/models/[slug]">)
           <SectionHeading eyebrow={trims.eyebrow} title={trims.title} lead={trims.lead} />
         </Reveal>
         <Reveal>
-          <TrimTabs trims={trims.items} orderUrl={model.orderUrl} />
+          <TrimTabs trims={trims.items} order={orderInfo(model)} />
         </Reveal>
       </Section>
 
@@ -125,7 +125,7 @@ export default async function ModelPage({ params }: PageProps<"/models/[slug]">)
         </Reveal>
       </Section>
 
-      <CtaBanner cta={cta} orderUrl={model.orderUrl} />
+      <CtaBanner cta={cta} order={orderInfo(model)} />
     </>
   );
 }

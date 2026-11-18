@@ -2,8 +2,8 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 import { cn } from "@/lib/cn";
 
-type Variant = "primary" | "dark" | "secondary" | "glass" | "outline-light" | "link" | "link-light";
-type Size = "md" | "sm";
+export type Variant = "primary" | "dark" | "secondary" | "glass" | "outline-light" | "link" | "link-light";
+export type Size = "md" | "sm";
 
 /** REBA .btn: pill, sans 500, 0.2s өнгөний шилжилт, дарахад 1px доош суух (press feedback). */
 const base =
@@ -41,10 +41,15 @@ type ButtonProps = {
   onClick?: () => void;
 };
 
+/** Товчны class — <button> дээр ч ижил харагдуулахад ашиглана. */
+export function buttonClass(variant: Variant = "primary", size: Size = "md", className?: string) {
+  const isLink = variant === "link" || variant === "link-light";
+  return cn(base, isLink ? "min-h-[46px] text-base" : sizes[size], variants[variant], className);
+}
+
 /** Сайт доторх холбоос бол next/link, гадаад холбоос бол шинэ цонхонд нээгдэх <a> болно. */
 export function Button({ href, children, variant = "primary", size = "md", arrow, className, onClick }: ButtonProps) {
-  const isLink = variant === "link" || variant === "link-light";
-  const classes = cn(base, isLink ? "min-h-[46px] text-base" : sizes[size], variants[variant], className);
+  const classes = buttonClass(variant, size, className);
   const content = (
     <>
       {children}

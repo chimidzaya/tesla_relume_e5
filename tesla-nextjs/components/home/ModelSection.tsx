@@ -1,6 +1,8 @@
 import Image from "next/image";
-import type { Model } from "@/data/models";
+import { orderInfo, type Model } from "@/data/models";
+import { OrderButton } from "@/components/order/OrderButton";
 import { Button } from "@/components/ui/Button";
+import { formatMNT } from "@/lib/format";
 import { ModelVisual } from "@/components/ui/ModelVisual";
 import { Reveal } from "@/components/ui/Reveal";
 import { h2 } from "@/components/ui/typography";
@@ -102,11 +104,16 @@ export function ModelSection({ model, index }: Props) {
                 <Button href={`/models/${model.slug}`} variant={dark ? "link-light" : "link"} arrow>
                   Дэлгэрэнгүй
                 </Button>
-                <Button href={model.orderUrl} variant={dark ? "outline-light" : "dark"}>
+                <OrderButton order={orderInfo(model)} variant={dark ? "outline-light" : "dark"}>
                   {model.orderLabel}
-                </Button>
+                </OrderButton>
               </div>
             </div>
+            {model.deposit && (
+              <p className={cn("-mt-6 font-sans text-xs", muted)}>
+                Урьдчилгаа {formatMNT(model.deposit)} · Byl-ээр аюулгүй төлнө
+              </p>
+            )}
           </div>
         </Reveal>
       </div>

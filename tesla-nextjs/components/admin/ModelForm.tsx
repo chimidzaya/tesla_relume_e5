@@ -167,6 +167,20 @@ export function ModelForm({ initial, action }: { initial: Model; action: SaveAct
             className={inputClass}
           />
         </Field>
+        <Field
+          label="Урьдчилгаа, ₮ (заавал биш)"
+          hint="Бөглөвөл «Захиалах» нь Byl-ээр энэ дүнг төлүүлнэ. Хоосон бол дээрх холбоос руу очно."
+          error={e.deposit}
+        >
+          <input
+            name="deposit"
+            inputMode="numeric"
+            placeholder="3000000"
+            defaultValue={v.deposit ?? ""}
+            aria-invalid={invalid("deposit")}
+            className={inputClass}
+          />
+        </Field>
         <Field label="Дэлгэрэнгүй (tesla.com) холбоос" error={e.learnUrl}>
           <input
             name="learn_url"

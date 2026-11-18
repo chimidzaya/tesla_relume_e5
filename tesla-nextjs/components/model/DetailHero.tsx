@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import type { Spec } from "@/data/models";
 import type { ImageRef } from "@/data/model-details";
+import { OrderButton, type OrderInfo } from "@/components/order/OrderButton";
 import { Button } from "@/components/ui/Button";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { h1 } from "@/components/ui/typography";
@@ -12,10 +13,10 @@ type DetailHeroProps = {
   lead: string;
   image: ImageRef;
   stats: Spec[];
-  orderUrl: string;
+  order: OrderInfo;
 };
 
-export function DetailHero({ name, category, lead, image, stats, orderUrl }: DetailHeroProps) {
+export function DetailHero({ name, category, lead, image, stats, order }: DetailHeroProps) {
   return (
     <header className="relative flex min-h-svh items-end overflow-hidden px-gutter pb-16 pt-[120px] text-on-dark lg:pb-[72px]">
       <Image src={image.src} alt={image.alt} fill preload sizes="100vw" className="object-cover" />
@@ -41,7 +42,7 @@ export function DetailHero({ name, category, lead, image, stats, orderUrl }: Det
           ))}
         </dl>
         <div className="flex flex-wrap gap-4">
-          <Button href={orderUrl}>Захиалах</Button>
+          <OrderButton order={order}>Захиалах</OrderButton>
           <Button href="#trims" variant="outline-light">
             Хувилбаруудыг харах
           </Button>

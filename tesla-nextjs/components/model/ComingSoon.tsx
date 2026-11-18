@@ -1,6 +1,8 @@
 import Link from "next/link";
-import type { Model } from "@/data/models";
+import { orderInfo, type Model } from "@/data/models";
+import { OrderButton } from "@/components/order/OrderButton";
 import { Button } from "@/components/ui/Button";
+import { formatMNT } from "@/lib/format";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { FeatureList } from "@/components/ui/FeatureList";
 import { Section } from "@/components/ui/Section";
@@ -35,7 +37,20 @@ export function ComingSoon({ model }: { model: Model }) {
             <FeatureList items={model.features} />
             <SpecGrid specs={model.specs} />
           </div>
-          <div className="flex flex-col items-start gap-4 self-start rounded-xl bg-beige p-8">
+          <div className="flex flex-col gap-6 self-start">
+          {model.deposit && (
+            <div className="flex flex-col items-start gap-4 rounded-xl bg-ink p-8 text-on-dark">
+              <p className="font-sans text-2xs uppercase tracking-label text-on-dark-muted">Урьдчилан захиалах</p>
+              <p className="font-sans text-4xl font-light tracking-tight tabular-nums">{formatMNT(model.deposit)}</p>
+              <p className="text-on-dark-muted">
+                Урьдчилгаагаа Byl-ээр төлж {model.name}-д дараалалд орно. Үлдэгдлийг машин хүлээлгэн өгөхөд төлнө.
+              </p>
+              <OrderButton order={orderInfo(model)} variant="outline-light" className="mt-2">
+                {model.orderLabel}
+              </OrderButton>
+            </div>
+          )}
+          <div className="flex flex-col items-start gap-4 rounded-xl bg-beige p-8">
             <p className="text-xl font-semibold">Дэлгэрэнгүй хуудас удахгүй нэмэгдэнэ</p>
             <p className="text-muted">
               {model.name}-ийн бүрэн танилцуулгыг бэлтгэж байна. Одоохондоо албан ёсны сайтаас дэлгэрэнгүй мэдээллийг
@@ -47,6 +62,7 @@ export function ComingSoon({ model }: { model: Model }) {
                 Нүүр хуудас руу буцах
               </Button>
             </div>
+          </div>
           </div>
         </div>
       </Section>

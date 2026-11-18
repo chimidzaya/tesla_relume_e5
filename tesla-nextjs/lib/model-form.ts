@@ -75,6 +75,7 @@ export function parseModelForm(formData: FormData): { values: Model; row?: Model
     visual: visualTag ? { tag: visualTag, theme: visualTheme } : undefined,
     orderUrl: text(formData, "order_url"),
     orderLabel: text(formData, "order_label"),
+    deposit: text(formData, "deposit") ? Number(text(formData, "deposit").replace(/[\s,]/g, "")) : undefined,
     learnUrl: text(formData, "learn_url"),
     hasDetailPage: formData.get("has_detail_page") === "on",
   };
@@ -104,6 +105,9 @@ export function parseModelForm(formData: FormData): { values: Model; row?: Model
   }
   if (!URL_PATTERN.test(values.orderUrl)) errors.orderUrl = "https://-ээр эхэлсэн холбоос оруулна уу.";
   if (!URL_PATTERN.test(values.learnUrl)) errors.learnUrl = "https://-ээр эхэлсэн холбоос оруулна уу.";
+  if (values.deposit !== undefined && (!Number.isInteger(values.deposit) || values.deposit < 1000)) {
+    errors.deposit = "1,000₮-өөс дээш бүхэл тоо оруулна уу (хоосон бол Byl төлбөргүй).";
+  }
 
   if (specs.some((spec) => Boolean(spec.label) !== Boolean(spec.value))) {
     errors.specs = "Үзүүлэлт бүрийн нэр болон утгыг хоёуланг нь бөглөнө үү.";
@@ -141,6 +145,7 @@ export function parseModelForm(formData: FormData): { values: Model; row?: Model
     visual: values.visual ?? null,
     order_url: values.orderUrl,
     order_label: values.orderLabel,
+    deposit_amount: values.deposit ?? null,
     learn_url: values.learnUrl,
     has_detail_page: values.hasDetailPage,
   };

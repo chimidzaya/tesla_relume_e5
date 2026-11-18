@@ -32,6 +32,8 @@ export type Model = {
   visual?: { tag: string; theme: VisualTheme };
   orderUrl: string;
   orderLabel: string;
+  /** Төгрөгөөр. Байвал «Захиалах» товч Byl-ийн төлбөрийн хуудас руу урьдчилгаа төлүүлнэ. */
+  deposit?: number;
   learnUrl: string;
   /** data/model-details.ts дотор бүрэн контенттой эсэх */
   hasDetailPage: boolean;
@@ -56,6 +58,8 @@ export type ModelRow = {
   visual: { tag: string; theme: VisualTheme } | null;
   order_url: string;
   order_label: string;
+  /** Migration ажиллуулаагүй бол багана байхгүй байж болно */
+  deposit_amount?: number | null;
   learn_url: string;
   has_detail_page: boolean;
 };
@@ -79,6 +83,7 @@ export function toModel(row: ModelRow): Model {
     visual: row.visual ?? undefined,
     orderUrl: row.order_url,
     orderLabel: row.order_label,
+    deposit: row.deposit_amount ?? undefined,
     learnUrl: row.learn_url,
     hasDetailPage: row.has_detail_page,
   };
@@ -104,6 +109,11 @@ export const getModels = unstable_cache(
 export async function getModel(slug: string): Promise<Model | undefined> {
   const models = await getModels();
   return models.find((m) => m.slug === slug);
+}
+
+/** «Захиалах» товчинд хэрэгтэй мэдээлэл (OrderButton) */
+export function orderInfo(model: Model) {
+  return { slug: model.slug, url: model.orderUrl, deposit: model.deposit };
 }
 
 /** Цэс, хөл хэсэгт ашиглах холбоос: дэлгэрэнгүй хуудастай бол тийшээ, үгүй бол нүүр хуудасны хэсэг рүү */

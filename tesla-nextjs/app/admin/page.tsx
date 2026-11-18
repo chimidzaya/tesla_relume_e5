@@ -25,9 +25,14 @@ export default async function AdminPage({ searchParams }: PageProps<"/admin">) {
       title="Загварууд"
       email={user.email}
       actions={
-        <Link href="/admin/models/new" className={submitClass}>
-          + Шинэ загвар нэмэх
-        </Link>
+        <>
+          <Link href="/admin/models/new" className={submitClass}>
+            + Шинэ загвар нэмэх
+          </Link>
+          <Link href="/admin/orders" className="font-sans text-sm font-medium text-ink underline underline-offset-[3px]">
+            Захиалгууд (Byl) →
+          </Link>
+        </>
       }
     >
       {typeof saved === "string" && (
