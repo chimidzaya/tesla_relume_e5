@@ -1,7 +1,6 @@
 import Image from "next/image";
 import type { Model } from "@/data/models";
 import { Button } from "@/components/ui/Button";
-import { FeatureList } from "@/components/ui/FeatureList";
 import { ModelVisual } from "@/components/ui/ModelVisual";
 import { Reveal } from "@/components/ui/Reveal";
 import { Section } from "@/components/ui/Section";
@@ -23,41 +22,29 @@ function splitSpecs(model: Model) {
  * Картын шатлал (дээрээс доош): дугаар + ангилал → нэр → тайлбар → онцлог → үзүүлэлт → үнэ + үйлдэл.
  * Proximity: холбоотой элементүүд бүлэг дотроо ойр (gap-3), бүлэг хооронд зай их (gap-8).
  */
-function ModelContent({ model, index, total }: Props) {
+function ModelContent({ model, index }: Props) {
   return (
-    <div className="flex flex-col gap-8">
-      <div className="flex flex-col gap-3">
-        {/* Байрлал: хэд дэх загвар болохыг дугаараар */}
-        <p className="flex items-center gap-3 font-sans text-xs font-medium uppercase leading-snug tracking-label text-muted">
-          <span className="tabular-nums text-ink">
-            {pad(index + 1)}
-            <span className="text-muted"> / {pad(total)}</span>
-          </span>
-          <span aria-hidden="true" className="h-px w-8 bg-ink/25" />
+    <div className="flex flex-col gap-10">
+      {/* Нэр нь хамгийн том — нүд эхлээд түүн дээр тусна */}
+      <div className="flex flex-col gap-4">
+        <p className="font-sans text-xs font-medium uppercase tracking-label text-muted">
+          <span className="tabular-nums text-ink">{pad(index + 1)}</span>
+          <span className="mx-2 text-line">—</span>
           {model.category}
         </p>
         <h2 className={h2}>{model.name}</h2>
-        <p className={lead}>{model.lead}</p>
+        <p className={cn(lead, "line-clamp-2")}>{model.lead}</p>
       </div>
 
-      <FeatureList items={model.features} />
+      {/* Common Region: зөвхөн 3 гол тоо, нэг хүрээнд */}
+      <SpecGrid specs={splitSpecs(model).slice(0, 3)} variant="card" />
 
-      {/* Common Region + Similarity: бүх үзүүлэлт нэг цагаан хүрээнд, ижил хэлбэртэй */}
-      <SpecGrid specs={splitSpecs(model)} variant="card" />
-
-      {/* Uniform Connectedness: үнэ ба үйлдлүүд нэг хүрээгээр холбогдоно */}
-      <div
-        className="flex flex-wrap items-center justify-between gap-x-6 gap-y-3 rounded-2xl p-3 pl-5 shadow-[inset_0_0_0_1px_rgb(25_20_14/0.18)]"
-        style={{
-          /* Хээ + өнцөг: маш бүдэг 135° зураас — хүрээг дэвсгэрээс ялгана */
-          backgroundImage:
-            "repeating-linear-gradient(135deg, rgb(25 20 14 / 0.035) 0 1px, transparent 1px 9px)",
-        }}
-      >
-        <div>
-          <p className="font-serif text-sm italic text-muted">Эхлэх үнэ</p>
-          <p className="font-sans text-3xl font-semibold leading-tight tracking-tight tabular-nums">{model.price}</p>
-        </div>
+      {/* Үнэ + үйлдэл нэг мөрөнд */}
+      <div className="flex flex-wrap items-end justify-between gap-6">
+        <p className="font-sans text-3xl font-semibold leading-none tracking-tight tabular-nums">
+          {model.price}
+          <span className="ml-2 font-serif text-sm font-normal italic tracking-normal text-muted">-аас</span>
+        </p>
         <div className="flex flex-wrap items-center gap-2">
           <Button href={`/models/${model.slug}`} variant="link" arrow>
             Дэлгэрэнгүй
