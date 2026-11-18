@@ -16,11 +16,11 @@ export function ChargingStats() {
       </Reveal>
       <div className="grid gap-8 lg:grid-cols-3 lg:gap-12">
         {stats.map((stat) => (
-          <Reveal key={stat.label} className="border-l-2 border-royal pl-8">
-            <p className="whitespace-nowrap text-[clamp(44px,5.5vw,80px)] font-bold leading-[1.2] tracking-[-0.03em]">
+          <Reveal key={stat.label} className="border-l border-on-dark-muted/40 pl-8">
+            <p className="whitespace-nowrap font-sans text-display-2 font-semibold leading-display tracking-display">
               {stat.value}
             </p>
-            <p className="mt-2 text-[22px] font-medium text-white/80">{stat.label}</p>
+            <p className="mt-3 text-md text-on-dark-muted">{stat.label}</p>
           </Reveal>
         ))}
       </div>

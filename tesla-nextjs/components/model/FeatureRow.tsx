@@ -22,12 +22,12 @@ export function FeatureRow({
         reverse ? "lg:grid-cols-[2fr_3fr]" : "lg:grid-cols-[3fr_2fr]",
       )}
     >
-      <div className={cn("relative aspect-[16/10] overflow-hidden rounded-lg", reverse && "lg:order-2")}>
+      <div className={cn("relative aspect-[16/10] overflow-hidden rounded-xl", reverse && "lg:order-2")}>
         <Image src={image.src} alt={image.alt} fill sizes="(min-width: 1024px) 60vw, 100vw" className="object-cover" />
       </div>
       <div className="flex flex-col gap-3">
         <h3 className={h4}>{title}</h3>
-        <p className="text-lg text-muted">{text}</p>
+        <p className="text-base text-muted">{text}</p>
       </div>
     </div>
   );

@@ -6,7 +6,7 @@ const cell = "border-b border-line px-6 py-[18px] align-top";
 export function SpecsTable({ specs }: { specs: SpecsTableData }) {
   return (
     <>
-      <div className="overflow-x-auto rounded-lg border border-line bg-white">
+      <div className="overflow-x-auto rounded-xl border border-line bg-white">
         <table className="w-full min-w-[640px] border-collapse text-left">
           <thead>
             <tr>
@@ -27,13 +27,13 @@ export function SpecsTable({ specs }: { specs: SpecsTableData }) {
                 <th
                   colSpan={specs.columns.length + 1}
                   scope="colgroup"
-                  className={`${cell} pt-7 text-sm font-bold uppercase tracking-[0.06em] text-royal`}
+                  className={`${cell} pt-7 text-xs font-medium uppercase tracking-label text-muted`}
                 >
                   {group.title}
                 </th>
               </tr>
               {group.rows.map((row) => (
-                <tr key={row.label} className="transition-colors hover:bg-royal/5">
+                <tr key={row.label} className="transition-colors hover:bg-ink/5">
                   <th scope="row" className={`${cell} w-[32%] font-medium text-muted`}>
                     {row.label}
                   </th>
@@ -48,7 +48,7 @@ export function SpecsTable({ specs }: { specs: SpecsTableData }) {
           ))}
         </table>
       </div>
-      <ul className="mt-5 flex list-disc flex-col gap-1.5 pl-[18px] text-[13px] text-muted">
+      <ul className="mt-5 flex list-disc flex-col gap-1.5 pl-[18px] text-xs text-muted">
         {specs.footnotes.map((note) => (
           <li key={note}>{note}</li>
         ))}

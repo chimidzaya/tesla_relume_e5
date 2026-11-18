@@ -6,12 +6,12 @@ import { h2 } from "@/components/ui/typography";
 
 export function CtaBanner({ cta, orderUrl }: { cta: ModelDetail["cta"]; orderUrl: string }) {
   return (
-    <section className="relative flex min-h-[560px] items-center justify-center overflow-hidden px-5 py-16 text-center text-white sm:px-8 lg:px-16 lg:py-28">
+    <section className="relative flex min-h-[560px] items-center justify-center overflow-hidden px-gutter py-16 text-center text-on-dark lg:py-28">
       <Image src={cta.image.src} alt={cta.image.alt} fill sizes="100vw" className="object-cover" />
-      <div className="absolute inset-0 bg-black/45" />
+      <div className="absolute inset-0 bg-black/50" />
       <Reveal className="relative flex flex-col items-center gap-5">
         <h2 className={h2}>{cta.title}</h2>
-        <p className="text-lg">{cta.text}</p>
+        <p className="text-base">{cta.text}</p>
         <div className="flex flex-wrap justify-center gap-4">
           <Button href={orderUrl}>Захиалах</Button>
           <Button href={cta.secondary.href} variant="outline-light">

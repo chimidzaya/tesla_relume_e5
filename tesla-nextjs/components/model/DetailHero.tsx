@@ -17,13 +17,13 @@ type DetailHeroProps = {
 
 export function DetailHero({ name, category, lead, image, stats, orderUrl }: DetailHeroProps) {
   return (
-    <header className="relative flex min-h-svh items-end overflow-hidden px-5 pb-16 pt-[120px] text-white sm:px-8 lg:px-16 lg:pb-[72px]">
+    <header className="relative flex min-h-svh items-end overflow-hidden px-gutter pb-16 pt-[120px] text-on-dark lg:pb-[72px]">
       <Image src={image.src} alt={image.alt} fill preload sizes="100vw" className="object-cover" />
-      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,0.45)_0%,transparent_30%),linear-gradient(0deg,rgba(0,0,0,0.75)_0%,rgba(0,0,0,0.25)_50%,transparent_70%)]" />
+      <div className="absolute inset-0 bg-[linear-gradient(180deg,var(--overlay)_0%,transparent_30%),linear-gradient(0deg,var(--overlay-strong)_0%,var(--overlay-soft)_50%,transparent_70%)]" />
 
       <div className="relative mx-auto flex w-full max-w-site flex-col gap-5">
-        <nav aria-label="Breadcrumb" className="flex gap-2 text-sm text-white/75">
-          <Link href="/" className="hover:text-white hover:underline">
+        <nav aria-label="Breadcrumb" className="flex gap-2 text-sm text-on-dark-muted">
+          <Link href="/" className="hover:text-on-dark hover:underline">
             Нүүр
           </Link>
           <span aria-hidden="true">/</span>
@@ -31,12 +31,12 @@ export function DetailHero({ name, category, lead, image, stats, orderUrl }: Det
         </nav>
         <Eyebrow tone="light">{category}</Eyebrow>
         <h1 className={h1}>{name}</h1>
-        <p className="max-w-[600px] text-lg text-white/90">{lead}</p>
+        <p className="max-w-[564px] text-base text-on-dark-muted">{lead}</p>
         <dl className="my-2 flex flex-wrap gap-x-7 gap-y-3 sm:gap-x-12 sm:gap-y-4">
           {stats.map((stat) => (
             <div key={stat.label} className="flex flex-col-reverse gap-0.5">
-              <dt className="text-sm text-white/75">{stat.label}</dt>
-              <dd className="text-2xl font-semibold leading-[1.2] tracking-[-0.02em] sm:text-[32px]">{stat.value}</dd>
+              <dt className="text-sm text-on-dark-muted">{stat.label}</dt>
+              <dd className="text-2xl font-semibold leading-tight tracking-tight sm:text-[32px]">{stat.value}</dd>
             </div>
           ))}
         </dl>

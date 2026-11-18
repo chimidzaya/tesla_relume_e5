@@ -11,7 +11,7 @@ type Status =
   | { state: "error"; message: string; errors?: ContactErrors };
 
 const inputClass =
-  "w-full rounded border border-line bg-white px-3.5 py-2.5 text-[15px] outline-none transition-colors placeholder:text-muted/70 focus:border-royal";
+  "w-full rounded-lg border border-line bg-paper px-3.5 py-2.5 font-sans text-base text-ink outline-none transition-colors duration-200 placeholder:text-muted/70 focus:border-ink";
 
 /** «Холбоо барих» маягт — мэдээллийг /api/contact (Node.js сервер) руу илгээнэ. */
 export function ContactForm() {
@@ -45,7 +45,7 @@ export function ContactForm() {
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-3" noValidate>
-      <p className="text-sm font-semibold">Бидэнд бичих</p>
+      <p className="font-sans text-sm font-semibold">Бидэнд бичих</p>
 
       <Field label="Нэр" error={errors?.name}>
         <input name="name" type="text" autoComplete="name" maxLength={80} required className={inputClass} />
@@ -60,7 +60,7 @@ export function ContactForm() {
       <button
         type="submit"
         disabled={status.state === "sending"}
-        className="mt-1 inline-flex min-h-10 items-center justify-center rounded-full bg-gradient-to-r from-pink to-royal px-6 text-[15px] font-medium text-white shadow-[0_8px_24px_-8px_color-mix(in_srgb,var(--color-pink)_60%,transparent)] transition-all hover:-translate-y-0.5 disabled:opacity-60"
+        className="mt-1 inline-flex min-h-10 items-center justify-center rounded-full bg-taupe px-6 self-start font-sans text-base font-medium text-ink transition-[background-color,transform] duration-200 hover:bg-taupe-hover active:translate-y-px disabled:opacity-60"
       >
         {status.state === "sending" ? "Илгээж байна…" : "Илгээх"}
       </button>
@@ -69,9 +69,9 @@ export function ContactForm() {
         role="status"
         aria-live="polite"
         className={cn(
-          "min-h-5 text-sm",
-          status.state === "success" && "text-green-700",
-          status.state === "error" && "text-red-700",
+          "min-h-5 font-sans text-sm",
+          status.state === "success" && "text-on-dark",
+          status.state === "error" && "text-[#f2b8a8]",
         )}
       >
         {status.state === "success" || status.state === "error" ? status.message : ""}
@@ -83,9 +83,9 @@ export function ContactForm() {
 function Field({ label, error, children }: { label: string; error?: string; children: ReactNode }) {
   return (
     <label className="flex flex-col gap-1 text-sm">
-      <span className="text-muted">{label}</span>
+      <span className="font-sans text-on-dark-muted">{label}</span>
       {children}
-      {error && <span className="text-red-700">{error}</span>}
+      {error && <span className="text-[#f2b8a8]">{error}</span>}
     </label>
   );
 }

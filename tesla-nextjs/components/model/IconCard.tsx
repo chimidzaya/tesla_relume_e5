@@ -23,13 +23,13 @@ export const icons: Record<IconName, ReactNode> = {
 
 export function IconCard({ icon, title, text }: { icon: IconName; title: string; text: string }) {
   return (
-    <div className="flex h-full flex-col gap-2.5 rounded-lg bg-surface p-7">
-      <span className="mb-2 grid size-12 place-items-center rounded-xl bg-royal" aria-hidden="true">
+    <div className="flex h-full flex-col gap-2.5 rounded-xl bg-beige p-7">
+      <span className="mb-2 grid size-12 place-items-center rounded-full bg-paper text-ink" aria-hidden="true">
         <svg
           viewBox="0 0 24 24"
           className="size-6"
           fill="none"
-          stroke="white"
+          stroke="currentColor"
           strokeWidth={2}
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -37,8 +37,8 @@ export function IconCard({ icon, title, text }: { icon: IconName; title: string;
           {icons[icon]}
         </svg>
       </span>
-      <h3 className="text-lg font-semibold">{title}</h3>
-      <p className="text-[15px] text-muted">{text}</p>
+      <h3 className="text-md">{title}</h3>
+      <p className="text-sm text-muted">{text}</p>
     </div>
   );
 }

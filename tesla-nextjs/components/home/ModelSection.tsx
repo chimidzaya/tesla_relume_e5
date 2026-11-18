@@ -7,14 +7,14 @@ import { ModelVisual } from "@/components/ui/ModelVisual";
 import { Reveal } from "@/components/ui/Reveal";
 import { Section } from "@/components/ui/Section";
 import { SpecGrid } from "@/components/ui/SpecGrid";
-import { h2 } from "@/components/ui/typography";
+import { h2, lead } from "@/components/ui/typography";
 
 function ModelContent({ model }: { model: Model }) {
   return (
     <div className="flex flex-col gap-5">
       <Eyebrow badge={model.badge}>{model.category}</Eyebrow>
       <h2 className={h2}>{model.name}</h2>
-      <p className="max-w-[560px] text-lg text-muted">{model.lead}</p>
+      <p className={lead}>{model.lead}</p>
       <FeatureList items={model.features} />
       <SpecGrid specs={model.specs} />
       <div className="mt-2 flex flex-wrap items-center gap-6">
@@ -34,7 +34,7 @@ function ModelContent({ model }: { model: Model }) {
 export function ModelSection({ model }: { model: Model }) {
   if (model.image) {
     return (
-      <section id={model.slug} className="grid bg-surface lg:grid-cols-2">
+      <section id={model.slug} className="grid bg-beige lg:grid-cols-2">
         <div className="relative min-h-[280px] sm:min-h-[420px] lg:min-h-[720px]">
           <Image
             src={model.image.src}
@@ -44,7 +44,7 @@ export function ModelSection({ model }: { model: Model }) {
             className="object-cover"
           />
         </div>
-        <div className="flex items-center px-5 py-16 sm:px-8 sm:py-20 lg:py-28 lg:pl-20 lg:pr-16">
+        <div className="flex items-center px-gutter pb-section-bottom pt-section-top lg:pl-20">
           <Reveal className="w-full max-w-[560px]">
             <ModelContent model={model} />
           </Reveal>

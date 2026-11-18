@@ -11,20 +11,20 @@ import { h1 } from "@/components/ui/typography";
 export function ComingSoon({ model }: { model: Model }) {
   return (
     <>
-      <header className="bg-ink px-5 pb-16 pt-[140px] text-white sm:px-8 lg:px-16 lg:pb-20">
+      <header className="bg-ink px-gutter pb-16 pt-[140px] text-on-dark lg:pb-20">
         <div className="mx-auto flex max-w-site flex-col gap-5">
-          <nav aria-label="Breadcrumb" className="flex gap-2 text-sm text-white/75">
-            <Link href="/" className="hover:text-white hover:underline">
+          <nav aria-label="Breadcrumb" className="flex gap-2 text-sm text-on-dark-muted">
+            <Link href="/" className="hover:text-on-dark hover:underline">
               Нүүр
             </Link>
             <span aria-hidden="true">/</span>
             <span aria-current="page">{model.name}</span>
           </nav>
-          <Eyebrow tone="periwinkle" badge={model.badge}>
+          <Eyebrow tone="on-dark" badge={model.badge}>
             {model.category}
           </Eyebrow>
           <h1 className={h1}>{model.name}</h1>
-          <p className="max-w-[600px] text-lg text-white/85">{model.lead}</p>
+          <p className="max-w-[564px] text-base text-on-dark-muted">{model.lead}</p>
         </div>
       </header>
 
@@ -35,7 +35,7 @@ export function ComingSoon({ model }: { model: Model }) {
             <FeatureList items={model.features} />
             <SpecGrid specs={model.specs} />
           </div>
-          <div className="flex flex-col items-start gap-4 self-start rounded-lg bg-surface p-8">
+          <div className="flex flex-col items-start gap-4 self-start rounded-xl bg-beige p-8">
             <p className="text-xl font-semibold">Дэлгэрэнгүй хуудас удахгүй нэмэгдэнэ</p>
             <p className="text-muted">
               {model.name}-ийн бүрэн танилцуулгыг бэлтгэж байна. Одоохондоо албан ёсны сайтаас дэлгэрэнгүй мэдээллийг

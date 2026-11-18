@@ -25,7 +25,7 @@ export function TrimTabs({ trims, orderUrl }: { trims: Trim[]; orderUrl: string 
       <div
         role="tablist"
         aria-label="Хувилбарууд"
-        className="mb-8 flex gap-1 rounded-lg bg-surface p-1 sm:inline-flex"
+        className="mb-8 flex gap-1 rounded-full bg-beige p-1 sm:inline-flex"
       >
         {trims.map((trim, i) => (
           <button
@@ -42,8 +42,8 @@ export function TrimTabs({ trims, orderUrl }: { trims: Trim[]; orderUrl: string 
             onClick={() => setSelected(i)}
             onKeyDown={(event) => handleKeyDown(event, i)}
             className={cn(
-              "flex-1 rounded-md px-2 py-2.5 font-medium transition-colors sm:flex-none sm:px-6",
-              selected === i ? "bg-white text-ink shadow-[0_1px_3px_rgba(0,0,0,0.12)]" : "text-muted hover:text-ink",
+              "flex-1 rounded-full px-2 py-2.5 font-medium transition-colors duration-200 sm:flex-none sm:px-6",
+              selected === i ? "bg-ink text-on-dark" : "text-muted hover:text-ink",
             )}
           >
             {trim.name}
@@ -60,20 +60,20 @@ export function TrimTabs({ trims, orderUrl }: { trims: Trim[]; orderUrl: string 
           hidden={selected !== i}
           className="grid items-center gap-8 lg:grid-cols-[3fr_2fr] lg:gap-14"
         >
-          <div className="relative aspect-video overflow-hidden rounded-lg bg-[#f0f0f0]">
+          <div className="relative aspect-video overflow-hidden rounded-xl bg-beige">
             <Image src={trim.image.src} alt={trim.image.alt} fill sizes="(min-width: 1024px) 60vw, 100vw" className="object-cover" />
           </div>
           <div className="flex flex-col items-start gap-4">
-            <p className="text-4xl font-bold leading-[1.1] tracking-[-0.02em] sm:text-[44px]">
+            <p className="font-sans text-2xl font-semibold leading-tight tracking-tight sm:text-[40px]">
               {trim.price}
-              <span className="text-lg font-medium text-muted">-оос</span>
+              <span className="text-md font-medium text-muted">-оос</span>
             </p>
             <p className="text-muted">{trim.summary}</p>
             <dl className="my-2 grid w-full grid-cols-3 gap-4 border-y border-line py-5">
               {trim.stats.map((stat) => (
                 <div key={stat.label} className="flex flex-col gap-0.5">
                   <dd className="text-xl font-semibold sm:text-2xl">{stat.value}</dd>
-                  <dt className="text-[13px] text-muted">{stat.label}</dt>
+                  <dt className="text-xs text-muted">{stat.label}</dt>
                 </div>
               ))}
             </dl>

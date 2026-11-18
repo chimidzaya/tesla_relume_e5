@@ -1,25 +1,62 @@
 @import "tailwindcss";
 
-/* ===== Дизайн токенууд (хуучин style.css-ийн :root хувьсагчид) ===== */
+/* ===== Дизайн токенууд — REBA дизайн системийн үндсэн (global.css) токенууд =====
+   Tailwind-д bg-paper, text-ink, border-line, bg-taupe гэх мэтээр ашиглана.
+   Түүхий hex, px биш токен хэрэглэнэ. /styleguide хуудас эдгээрийг шууд уншдаг. */
 @theme {
-  /* Эмэгтэйлэг, зөөлөн палитр: сарнай ягаан + ягаавтар хүрэн + цайвар ягаан дэвсгэр.
-     «royal» нэрийг хадгалсан тул бүх бүрэлдэхүүн хэсэг автоматаар шинэ өнгө авна. */
-  /* royal, pink: цагаан дээр WCAG AA (≥4.5:1) хангана */
-  --color-royal: #b84a76;
-  --color-royal-dark: #a33f68;
-  --color-periwinkle: #f5b8cf;
-  --color-pink: #c04680;
-  --color-pink-dark: #a53a6c;
-  --color-ink: #2e1a2b;
-  --color-muted: #7a6573;
-  --color-surface: #fdf2f6;
-  --color-line: rgb(120 40 80 / 0.12);
+  /* Өнгө: нэг дулаан өнгөний гэр бүл — цаас, бараан бэх, үйлдэлд taupe */
+  --color-ink: #19140e;
+  --color-muted: #6b5d52;
+  --color-paper: #ffffff;
+  --color-beige: #ebe4d9;
+  --color-line: #d4ccc0;
+  --color-taupe: #bab2a5;
+  --color-taupe-hover: #a9a093;
+  --color-brown: #2b180a;
+  --color-brown-muted: #94877c;
+  --color-on-dark: #ffffff;
+  --color-on-dark-muted: #ddd5c9;
+  --color-shade: #000000;
 
-  /* 1280px хүртэлх төв контейнер: max-w-site */
-  --container-site: 80rem;
+  /* Хэмжээний шатлал · 1.25 — 10 · 12 · 14 · 16 · 20 · 24 · 32 · 40.
+     12/14/16/24px нь Tailwind-ийн text-xs/sm/base/2xl-тэй ижил тул зөвхөн дутууг нэмнэ. */
+  --text-2xs: 10px;
+  --text-md: 20px;
+  --text-h2: clamp(32px, 2.4vw + 14px, 48px);
+  --text-display-1: clamp(52px, 9vw, 136px);
+  --text-display-2: clamp(40px, 6vw, 88px);
+  --text-display-3: clamp(40px, 4vw + 8px, 64px);
+
+  /* Мөрийн өндөр */
+  --leading-display: 1.05;
+  --leading-tight: 1.2;
+  --leading-snug: 1.3;
+  --leading-body: 1.5;
+
+  /* Үсэг хоорондын зай */
+  --tracking-display: -0.03em;
+  --tracking-tight: -0.02em;
+  --tracking-label: 0.08em;
+  --tracking-tagline: 0.12em;
+
+  /* Зай: 8pt шатлал (Tailwind-ийн 4px шатлалтай давхцана) + байршлын токенууд */
+  --spacing-gutter: clamp(16px, 6vw, 92px);
+  --spacing-section-top: clamp(64px, 9.5vw, 144px);
+  --spacing-section-bottom: clamp(48px, 6.4vw, 96px);
+  --container-site: 1328px;
 
   /* Дээд цэс бүтэн харагдах өргөн (1152px): nav: */
   --breakpoint-nav: 72rem;
+
+  /* Хэлбэр: REBA-гийн radius-sm 8 · radius 12 · radius-lg 24 · pill нь
+     Tailwind-ийн rounded-lg · rounded-xl · rounded-3xl · rounded-full-тэй яг таарна. */
+
+  /* Хөдөлгөөн */
+  --ease-out: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-snap: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-calm: cubic-bezier(0.25, 0.1, 0.25, 1);
+  --ease-page: cubic-bezier(0.65, 0, 0.15, 1);
 
   --animate-scroll-dot: scroll-dot 1.8s infinite;
 
@@ -36,35 +73,59 @@
 }
 
 @theme inline {
-  --font-sans: var(--font-inter), system-ui, -apple-system, "Segoe UI", sans-serif;
-  --font-display: var(--font-playfair), Georgia, "Times New Roman", serif;
+  --font-sans: var(--font-onest), system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-serif: var(--font-literata), Georgia, "Times New Roman", serif;
+  --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+}
+
+/* Tailwind-ийн theme-д ордоггүй токенууд (хугацаа, бүрхүүл, header) */
+:root {
+  --dur-instant: 0.1s;
+  --dur-micro: 0.2s;
+  --dur-short: 0.3s;
+  --dur-medium: 0.4s;
+  --dur-long: 0.8s;
+  --dur-page: 1.2s;
+  --dur-ambient: 1.6s;
+
+  --overlay-soft: color-mix(in srgb, var(--color-shade) 32%, transparent);
+  --overlay: color-mix(in srgb, var(--color-shade) 50%, transparent);
+  --overlay-strong: color-mix(in srgb, var(--color-shade) 80%, transparent);
+
+  --header-h: 72px;
 }
 
 @layer base {
   html {
     scroll-behavior: smooth;
     /* Тогтмол дээд цэсний доор гарчиг нуугдахгүй байх */
-    scroll-padding-top: 72px;
+    scroll-padding-top: var(--header-h);
   }
 
   /* Дотоод цэстэй хуудсанд нэмэлт зай */
   html:has([data-subnav]) {
-    scroll-padding-top: 124px;
+    scroll-padding-top: calc(var(--header-h) + 52px);
   }
 
   body {
-    @apply bg-white font-sans text-ink antialiased;
+    @apply bg-paper font-sans text-base leading-body text-ink antialiased;
+    text-rendering: optimizeLegibility;
   }
 
+  /* Sans гарчиг, serif тайлбар */
   h1,
   h2,
-  h3 {
-    font-family: var(--font-display);
+  h3,
+  h4 {
+    font-family: var(--font-sans);
+    font-weight: 600;
+    letter-spacing: var(--tracking-tight);
+    line-height: var(--leading-tight);
+    text-wrap: balance;
   }
 
-  ::selection {
-    background: var(--color-periwinkle);
-    color: var(--color-ink);
+  p {
+    font-family: var(--font-serif);
   }
 
   button:not(:disabled) {
@@ -72,8 +133,13 @@
   }
 
   :focus-visible {
-    outline: 2px solid var(--color-royal);
+    outline: 2px solid currentColor;
     outline-offset: 3px;
+  }
+
+  ::selection {
+    background: var(--color-beige);
+    color: var(--color-ink);
   }
 }
 
@@ -81,10 +147,10 @@
    `.js` класс зөвхөн JavaScript ажиллаж байхад нэмэгдэх тул JS-гүй үед агуулга шууд харагдана. */
 .js [data-reveal] {
   opacity: 0;
-  transform: translateY(24px);
+  transform: translateY(16px);
   transition:
-    opacity 0.7s ease,
-    transform 0.7s ease;
+    opacity var(--dur-long) var(--ease-out),
+    transform var(--dur-long) var(--ease-out);
 }
 
 .js [data-reveal].is-visible {
@@ -92,18 +158,22 @@
   transform: none;
 }
 
+/* Reduced motion: бүх хөдөлгөөн зогсоно */
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
   }
 
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
   .js [data-reveal] {
     opacity: 1;
     transform: none;
-    transition: none;
-  }
-
-  .animate-scroll-dot {
-    animation: none;
   }
 }

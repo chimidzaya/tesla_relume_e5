@@ -46,8 +46,12 @@ export function Navbar() {
     <nav
       aria-label="Үндсэн цэс"
       className={cn(
-        "fixed inset-x-0 top-0 z-50 h-[72px] px-5 transition-[background-color,color,box-shadow] duration-300 sm:px-8 lg:px-16",
-        solid ? "bg-white/95 text-ink shadow-[0_1px_0_var(--color-line)] backdrop-blur-md" : "text-white",
+        // Transparent → Solid Header: 40px-ээс доош гүйлгэхэд cream дэвсгэр + hairline · --dur-medium.
+        // Тунгалаг үед header scrim (ink 35% → transparent) бичвэрийг уншигдахуйц болгоно.
+        "fixed inset-x-0 top-0 z-50 h-[72px] px-gutter transition-[background-color,color,box-shadow] duration-[var(--dur-medium)]",
+        solid
+          ? "bg-beige text-ink shadow-[0_1px_0_var(--color-line)]"
+          : "bg-[linear-gradient(180deg,rgb(25_20_14/0.35),transparent)] text-on-dark",
       )}
     >
       <div className="mx-auto flex h-full max-w-site items-center justify-between">
@@ -84,7 +88,7 @@ export function Navbar() {
         <div
           id="nav-menu"
           className={cn(
-            "absolute inset-x-0 top-[72px] flex-col gap-4 bg-white px-5 pb-6 pt-4 text-ink shadow-[0_12px_24px_rgba(0,0,0,0.08)] sm:px-8",
+            "absolute inset-x-0 top-[72px] flex-col gap-4 bg-beige px-gutter pb-6 pt-4 text-ink shadow-[0_1px_0_var(--color-line)]",
             open ? "flex" : "hidden",
             "nav:static nav:flex nav:flex-row nav:items-center nav:gap-8 nav:bg-transparent nav:p-0 nav:text-inherit nav:shadow-none",
           )}
@@ -99,8 +103,8 @@ export function Navbar() {
                     onClick={close}
                     aria-current={active ? "page" : undefined}
                     className={cn(
-                      "block whitespace-nowrap rounded px-3 py-3 font-medium transition-colors hover:bg-gray-500/15 nav:py-1.5",
-                      active && "text-royal nav:rounded-none nav:text-inherit nav:shadow-[inset_0_-2px_0_currentColor]",
+                      "block whitespace-nowrap rounded-lg px-3 py-3 font-medium transition-colors duration-200 hover:bg-current/[0.08] active:opacity-60 nav:py-1.5",
+                      active && "text-ink nav:rounded-none nav:text-inherit nav:shadow-[inset_0_-2px_0_currentColor]",
                     )}
                   >
                     {link.label}

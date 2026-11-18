@@ -5,20 +5,24 @@ import { cn } from "@/lib/cn";
 type Variant = "primary" | "secondary" | "glass" | "outline-light" | "link";
 type Size = "md" | "sm";
 
+/** REBA .btn: pill, sans 500, 0.2s өнгөний шилжилт, дарахад 1px доош суух (press feedback). */
 const base =
-  "inline-flex items-center justify-center gap-2 rounded-full font-medium whitespace-nowrap transition-all duration-300";
+  "inline-flex items-center justify-center gap-2 rounded-full font-sans font-medium leading-body whitespace-nowrap transition-[background-color,color,transform] duration-200 ease-in-out active:translate-y-px";
 
 const sizes: Record<Size, string> = {
-  md: "min-h-[46px] px-7 py-2.5 text-base",
-  sm: "min-h-10 px-5 py-[7px] text-[15px]",
+  md: "min-h-[46px] px-6 py-2.5 text-base",
+  sm: "min-h-10 px-5 py-[7px] text-sm",
 };
 
 const variants: Record<Variant, string> = {
-  primary: "bg-gradient-to-r from-pink to-royal text-white shadow-[0_8px_24px_-8px_color-mix(in_srgb,var(--color-pink)_60%,transparent)] hover:-translate-y-0.5 hover:shadow-[0_12px_28px_-8px_color-mix(in_srgb,var(--color-pink)_75%,transparent)]",
-  secondary: "bg-periwinkle/40 text-ink hover:bg-periwinkle/60",
-  /** Бараан зурган дээрх хагас тунгалаг товч */
-  glass: "bg-white/15 text-white hover:bg-white/25",
-  "outline-light": "border-[1.5px] border-white/85 bg-white/10 text-white hover:bg-white hover:text-ink",
+  /** btn--primary: гол үйлдэл (захиалга) — taupe */
+  primary: "bg-taupe text-ink hover:bg-taupe-hover",
+  /** btn--dark: цайвар дэвсгэр дээрх хоёрдогч, outline */
+  secondary: "text-ink shadow-[inset_0_0_0_1px_var(--color-ink)] hover:bg-ink/[0.08]",
+  /** btn--ghost: бараан, зураг дээрх хоёрдогч */
+  glass: "text-on-dark shadow-[inset_0_0_0_1px_rgb(255_255_255/0.6)] hover:bg-white/[0.12]",
+  /** btn--light: бараан, зураг дээрх гол үйлдэл */
+  "outline-light": "bg-paper text-ink hover:bg-[color-mix(in_srgb,var(--color-paper)_85%,var(--color-ink))]",
   link: "group px-1 text-ink",
 };
 

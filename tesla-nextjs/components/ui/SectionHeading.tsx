@@ -1,6 +1,6 @@
 import { cn } from "@/lib/cn";
 import { Eyebrow } from "./Eyebrow";
-import { h3 } from "./typography";
+import { h3, lead as leadClass } from "./typography";
 
 /** Хэсгийн гарчиг: жижиг дээд гарчиг + том гарчиг + тайлбар. */
 export function SectionHeading({
@@ -19,10 +19,10 @@ export function SectionHeading({
 }) {
   const dark = tone === "dark-bg";
   return (
-    <div className={cn("mb-10 flex max-w-3xl flex-col gap-3 lg:mb-14", className)}>
-      <Eyebrow tone={dark ? "periwinkle" : "blue"}>{eyebrow}</Eyebrow>
+    <div className={cn("mb-10 flex max-w-3xl flex-col gap-4 lg:mb-14", className)}>
+      <Eyebrow tone={dark ? "on-dark" : "default"}>{eyebrow}</Eyebrow>
       <h2 className={h3}>{title}</h2>
-      {lead && <p className={cn("mt-1 text-lg", dark ? "text-white/75" : "text-muted")}>{lead}</p>}
+      {lead && <p className={cn(leadClass, dark && "text-on-dark-muted")}>{lead}</p>}
     </div>
   );
 }

@@ -3,7 +3,7 @@ import type { ImageRef } from "@/data/model-details";
 
 export function InfoCard({ image, title, text }: { image: ImageRef; title: string; text: string }) {
   return (
-    <article className="h-full overflow-hidden rounded-lg border border-line bg-white">
+    <article className="h-full overflow-hidden rounded-xl border border-line bg-white">
       <div className="relative aspect-[4/3]">
         <Image
           src={image.src}

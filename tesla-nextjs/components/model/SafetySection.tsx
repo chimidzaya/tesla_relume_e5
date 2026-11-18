@@ -10,7 +10,7 @@ export function SafetySection({ id, safety }: { id: string; safety: ModelDetail[
   return (
     <Section id={id} tone="dark">
       <Reveal className="grid items-center gap-10 lg:grid-cols-2 lg:gap-20">
-        <div className="relative aspect-[16/10] overflow-hidden rounded-lg lg:aspect-square">
+        <div className="relative aspect-[16/10] overflow-hidden rounded-xl lg:aspect-square">
           <Image
             src={safety.image.src}
             alt={safety.image.alt}
@@ -20,13 +20,13 @@ export function SafetySection({ id, safety }: { id: string; safety: ModelDetail[
           />
         </div>
         <div className="flex flex-col gap-5">
-          <Eyebrow tone="periwinkle">{safety.eyebrow}</Eyebrow>
+          <Eyebrow tone="on-dark">{safety.eyebrow}</Eyebrow>
           <h2 className={h3}>{safety.title}</h2>
-          {safety.lead && <p className="text-white/75">{safety.lead}</p>}
+          {safety.lead && <p className="text-on-dark-muted">{safety.lead}</p>}
           <FeatureList items={safety.items} tone="light" />
-          <div className="rounded-r-lg border-l-[3px] border-periwinkle bg-white/5 px-6 py-5">
+          <div className="rounded-r-lg border-l-[3px] border-on-dark-muted bg-white/5 px-6 py-5">
             <strong>{safety.note.title}</strong>
-            <p className="mt-1.5 text-[15px] text-white/75">{safety.note.text}</p>
+            <p className="mt-1.5 text-sm text-on-dark-muted">{safety.note.text}</p>
           </div>
         </div>
       </Reveal>

@@ -1,5 +1,11 @@
-/** Гарчгийн хэмжээнүүд — Figma-ийн H1/H2/H3, дэлгэцийн хэмжээгээр багасна. */
-export const h1 = "text-[38px] font-semibold leading-[1.1] tracking-[-0.02em] sm:text-[52px] lg:text-7xl";
-export const h2 = "text-[34px] font-semibold leading-[1.15] tracking-[-0.02em] sm:text-[42px] lg:text-[52px]";
-export const h3 = "text-[28px] font-semibold leading-[1.2] tracking-[-0.01em] sm:text-4xl lg:text-[44px]";
-export const h4 = "text-2xl font-semibold leading-[1.25] tracking-[-0.01em] sm:text-[28px]";
+/** Гарчгийн хэв маяг — REBA-гийн display, h2 токенууд (globals.css). Бүгд sans 600. */
+/** Hero гарчиг · --text-display-2 clamp(40px, 6vw, 88px) */
+export const h1 = "text-display-2 font-semibold leading-display tracking-display";
+/** Загварын нэр, CTA · --text-display-3 clamp(40px, 4vw + 8px, 64px) */
+export const h2 = "text-display-3 font-semibold leading-display tracking-display";
+/** Хэсгийн гарчиг · --text-h2 clamp(32px, 2.4vw + 14px, 48px) */
+export const h3 = "text-h2 font-semibold leading-tight tracking-tight";
+/** Жижиг гарчиг · 24px */
+export const h4 = "text-2xl font-semibold leading-tight tracking-tight";
+/** Lead · serif, muted */
+export const lead = "max-w-[564px] font-serif text-base leading-body text-muted";

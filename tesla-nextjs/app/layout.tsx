@@ -1,19 +1,19 @@
 import type { Metadata } from "next";
-import { Inter, Lora } from "next/font/google";
+import { Literata, Onest } from "next/font/google";
 import Script from "next/script";
 import { Footer } from "@/components/layout/Footer";
 import { Navbar } from "@/components/layout/Navbar";
 import "./globals.css";
 
-const inter = Inter({
-  variable: "--font-inter",
-  // Монгол Ө, Ү үсэг cyrillic-ext багцад байдаг
+/** Sans: гарчиг, товч, label, тоо. Монгол Ө, Ү нь cyrillic-ext багцад байдаг. */
+const onest = Onest({
+  variable: "--font-onest",
   subsets: ["latin", "cyrillic", "cyrillic-ext"],
 });
 
-/** Гарчгуудад зориулсан гоёмсог serif фонт (Ө, Ү үсгийг дэмждэг) */
-const playfair = Lora({
-  variable: "--font-playfair",
+/** Serif: тайлбар, бичвэр (<p>). */
+const literata = Literata({
+  variable: "--font-literata",
   subsets: ["latin", "cyrillic", "cyrillic-ext"],
 });
 
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="mn" className={`${inter.variable} ${playfair.variable}`} suppressHydrationWarning>
+    <html lang="mn" className={`${onest.variable} ${literata.variable}`} suppressHydrationWarning>
       <body>
         {/* Reveal анимацыг зөвхөн JS ажиллаж байхад идэвхжүүлнэ */}
         <Script id="js-flag" strategy="beforeInteractive">

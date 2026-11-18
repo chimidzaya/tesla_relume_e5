@@ -15,23 +15,23 @@ export function SgSection({
   title: string;
   intro?: ReactNode;
   children: ReactNode;
-  tone?: "white" | "surface";
+  tone?: "white" | "beige";
 }) {
   return (
     <section
       id={id}
       className={cn(
-        "border-t border-line px-5 py-16 sm:px-8 lg:px-16 lg:py-24",
-        tone === "surface" ? "bg-surface" : "bg-white",
+        "border-t border-line px-gutter pb-section-bottom pt-section-top",
+        tone === "beige" ? "bg-beige" : "bg-paper",
       )}
     >
       <div className="mx-auto max-w-site">
-        <header className="mb-10 flex flex-col gap-3 lg:mb-14">
-          <h2 className="flex items-baseline gap-4 text-[34px] font-semibold leading-[1.15] tracking-[-0.02em] sm:text-[42px]">
-            <span className="font-sans text-base font-semibold tabular-nums text-royal">{num}</span>
+        <header className="mb-10 flex flex-col gap-4 lg:mb-14">
+          <h2 className="flex items-baseline gap-4 text-h2">
+            <span className="font-mono text-sm font-medium tabular-nums text-muted">{num}</span>
             {title}
           </h2>
-          {intro && <p className="max-w-3xl text-lg text-muted">{intro}</p>}
+          {intro && <p className="max-w-[564px] text-muted">{intro}</p>}
         </header>
         <div className="flex flex-col gap-14">{children}</div>
       </div>
@@ -44,7 +44,7 @@ export function SgSub({ title, note, children }: { title: string; note?: ReactNo
   return (
     <div className="flex flex-col gap-5">
       <div className="flex flex-col gap-1">
-        <h3 className="text-2xl font-semibold tracking-[-0.01em]">{title}</h3>
+        <h3 className="text-2xl">{title}</h3>
         {note && <p className="text-muted">{note}</p>}
       </div>
       {children}
@@ -57,7 +57,7 @@ export function Code({ children, className }: { children: ReactNode; className?:
   return (
     <code
       className={cn(
-        "rounded bg-ink/[0.06] px-1.5 py-0.5 font-mono text-[13px] text-ink [overflow-wrap:anywhere]",
+        "rounded bg-ink/[0.06] px-1.5 py-0.5 font-mono text-xs text-ink [overflow-wrap:anywhere]",
         className,
       )}
     >
@@ -66,13 +66,23 @@ export function Code({ children, className }: { children: ReactNode; className?:
   );
 }
 
-/** Жишээ + нэр + тайлбартай мөр (хэмжээ, зай, хэлбэрийн жагсаалтад). */
-export function SpecRow({ name, value, note, children }: { name: ReactNode; value?: ReactNode; note?: ReactNode; children?: ReactNode }) {
+/** Жишээ + нэр + тайлбартай мөр (хэмжээ, зай, хөдөлгөөний жагсаалтад). */
+export function SpecRow({
+  name,
+  value,
+  note,
+  children,
+}: {
+  name: ReactNode;
+  value?: ReactNode;
+  note?: ReactNode;
+  children?: ReactNode;
+}) {
   return (
-    <li className="grid gap-3 border-b border-line py-5 md:grid-cols-[minmax(0,240px)_minmax(0,1fr)] md:gap-8">
-      <div className="flex flex-col gap-1 text-sm">
+    <li className="grid gap-3 border-b border-line py-5 md:grid-cols-[minmax(0,260px)_minmax(0,1fr)] md:gap-8">
+      <div className="flex flex-col gap-1 font-sans text-sm">
         <span>{name}</span>
-        {value && <span className="font-mono text-[13px] text-muted">{value}</span>}
+        {value && <span className="font-mono text-xs text-muted">{value}</span>}
         {note && <span className="text-muted">{note}</span>}
       </div>
       {children && <div className="min-w-0">{children}</div>}
@@ -99,15 +109,20 @@ export function Specimen({
     <figure className="flex flex-col gap-3">
       <div
         className={cn(
-          "min-h-[140px] rounded-lg border border-line p-6 sm:p-8",
+          "min-h-[140px] rounded-xl border border-line p-6 sm:p-8",
           !block && "flex flex-wrap items-center gap-6",
-          dark ? "border-transparent bg-ink text-white" : "bg-white",
+          dark ? "border-transparent bg-ink text-on-dark" : "bg-paper",
           className,
         )}
       >
         {children}
       </div>
-      <figcaption className="text-sm text-muted">{label}</figcaption>
+      <figcaption className="font-sans text-sm text-muted">{label}</figcaption>
     </figure>
   );
+}
+
+/** Өнгөний жижиг дээж */
+export function Swatch({ color, className }: { color: string; className?: string }) {
+  return <span className={cn("inline-block size-5 rounded-full border border-line align-middle", className)} style={{ background: color }} />;
 }

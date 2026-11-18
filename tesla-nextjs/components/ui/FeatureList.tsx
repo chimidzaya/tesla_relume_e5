@@ -18,15 +18,15 @@ function CheckIcon({ className }: { className?: string }) {
 }
 
 /** ✓ тэмдэгтэй онцлогийн жагсаалт. */
-export function FeatureList({ items, tone = "blue" }: { items: string[]; tone?: "blue" | "light" }) {
+export function FeatureList({ items, tone = "default" }: { items: string[]; tone?: "default" | "light" }) {
   return (
-    <ul className="flex flex-col gap-2.5">
+    <ul className="flex flex-col gap-2.5 font-serif">
       {items.map((item) => (
         <li key={item} className="flex gap-3">
           <CheckIcon
             className={cn(
-              "mt-[3px] size-[18px] shrink-0 rounded-full p-[4px] text-white",
-              tone === "light" ? "bg-periwinkle" : "bg-royal",
+              "mt-[3px] size-[18px] shrink-0 rounded-full p-[4px]",
+              tone === "light" ? "bg-on-dark-muted text-ink" : "bg-beige text-ink",
             )}
           />
           <span>{item}</span>

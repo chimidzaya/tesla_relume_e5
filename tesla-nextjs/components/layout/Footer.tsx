@@ -18,27 +18,27 @@ const pageLinks = [
   { label: "Холбоо барих", href: "#contact" },
 ];
 
-const linkClass = "block py-1.5 text-sm text-muted transition-colors hover:text-royal";
+const linkClass = "block py-1.5 font-sans text-sm text-on-dark-muted transition-colors duration-200 hover:text-on-dark hover:underline";
 
 export function Footer() {
   return (
-    <footer id="contact" className="px-5 pb-10 pt-12 sm:px-8 lg:px-16 lg:pt-20">
+    <footer id="contact" className="bg-ink px-gutter pb-10 pt-section-bottom text-on-dark">
       <div className="mx-auto max-w-site">
-        <div className="grid gap-10 rounded-lg bg-surface p-6 sm:p-8 lg:grid-cols-[1fr_auto_minmax(0,360px)] lg:gap-16 lg:p-12">
+        <div className="grid gap-10 lg:grid-cols-[1fr_auto_minmax(0,360px)] lg:gap-16">
           <div className="flex flex-col gap-6 text-sm">
             <Logo className="mb-2 self-start text-xl" />
             <div className="flex flex-col gap-1">
-              <p className="font-semibold">Хаяг</p>
+              <p className="font-sans font-semibold">Хаяг</p>
               <p>3500 Deer Creek Road, Palo Alto, CA 94304</p>
             </div>
             <div className="flex flex-col gap-1">
-              <p className="font-semibold">Холбоо барих</p>
-              <a href="tel:+18006138840" className="self-start underline underline-offset-[3px] hover:text-royal">
+              <p className="font-sans font-semibold">Холбоо барих</p>
+              <a href="tel:+18006138840" className="self-start underline underline-offset-[3px] hover:text-on-dark-muted">
                 1-800-613-8840
               </a>
               <a
                 href="mailto:support@tesla.com"
-                className="self-start underline underline-offset-[3px] hover:text-royal"
+                className="self-start underline underline-offset-[3px] hover:text-on-dark-muted"
               >
                 support@tesla.com
               </a>
@@ -53,7 +53,7 @@ export function Footer() {
                   rel="noopener noreferrer"
                   className="opacity-75 transition-opacity hover:opacity-100"
                 >
-                  <Image src={social.icon} alt="" width={24} height={24} unoptimized />
+                  <Image src={social.icon} alt="" width={24} height={24} unoptimized className="invert" />
                 </a>
               ))}
             </div>
@@ -61,7 +61,7 @@ export function Footer() {
 
           <div className="flex gap-12 sm:gap-20">
             <div>
-              <p className="mb-1 text-sm font-semibold">Загварууд</p>
+              <p className="mb-1 font-sans text-sm font-semibold">Загварууд</p>
               <ul>
                 {models.map((model) => (
                   <li key={model.slug}>
@@ -73,7 +73,7 @@ export function Footer() {
               </ul>
             </div>
             <div>
-              <p className="mb-1 text-sm font-semibold">Хуудас</p>
+              <p className="mb-1 font-sans text-sm font-semibold">Хуудас</p>
               <ul>
                 {pageLinks.map((link) => (
                   <li key={link.href}>
@@ -93,7 +93,7 @@ export function Footer() {
 
           <ContactForm />
         </div>
-        <p className="mt-8 text-sm text-muted">© 2026 Tesla</p>
+        <p className="mt-10 border-t border-on-dark-muted/20 pt-8 font-sans text-sm text-on-dark-muted">© 2026 Tesla</p>
       </div>
     </footer>
   );

@@ -14,7 +14,7 @@ export function SpecGrid({ specs }: { specs: Spec[] }) {
           )}
         >
           <dt className="text-sm text-muted">{spec.label}</dt>
-          <dd className="text-[26px] font-semibold leading-[1.15] tracking-[-0.02em] sm:text-[30px] lg:text-4xl">
+          <dd className="text-2xl font-semibold leading-tight tracking-tight sm:text-[32px]">
             {spec.value}
           </dd>
         </div>

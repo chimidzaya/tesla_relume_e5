@@ -12,11 +12,11 @@ export function CompareTable({ models }: { models: Model[] }) {
   const notes = models.filter((model) => model.rangeNote);
 
   return (
-    <Section id="compare" tone="surface">
+    <Section id="compare" tone="beige">
       <Reveal>
         <SectionHeading eyebrow="Харьцуулалт" title="Танд аль загвар тохирох вэ?" />
       </Reveal>
-      <Reveal className="overflow-x-auto rounded-lg border border-line bg-white">
+      <Reveal className="overflow-x-auto rounded-xl border border-line bg-white">
         <table className="w-full min-w-[640px] border-collapse text-left">
           <thead>
             <tr>
@@ -33,9 +33,9 @@ export function CompareTable({ models }: { models: Model[] }) {
           </thead>
           <tbody>
             {models.map((model) => (
-              <tr key={model.slug} className="transition-colors hover:bg-royal/5 [&:last-child>*]:border-b-0">
+              <tr key={model.slug} className="transition-colors hover:bg-ink/5 [&:last-child>*]:border-b-0">
                 <th scope="row" className={`${cell} font-semibold`}>
-                  <Link href={modelHref(model)} className="hover:text-royal">
+                  <Link href={modelHref(model)} className="hover:text-ink">
                     {model.name}
                   </Link>
                 </th>

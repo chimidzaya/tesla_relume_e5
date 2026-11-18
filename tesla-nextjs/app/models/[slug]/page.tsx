@@ -75,7 +75,7 @@ export default async function ModelPage({ params }: PageProps<"/models/[slug]">)
         </div>
       </Section>
 
-      <Section id="interior" tone="surface">
+      <Section id="interior" tone="beige">
         <Reveal>
           <SectionHeading eyebrow={interior.eyebrow} title={interior.title} lead={interior.lead} />
         </Reveal>
@@ -112,7 +112,7 @@ export default async function ModelPage({ params }: PageProps<"/models/[slug]">)
         </Reveal>
       </Section>
 
-      <Section id="specs" tone="surface">
+      <Section id="specs" tone="beige">
         <Reveal>
           <SectionHeading eyebrow={specs.eyebrow} title={specs.title} lead={specs.lead} />
         </Reveal>
