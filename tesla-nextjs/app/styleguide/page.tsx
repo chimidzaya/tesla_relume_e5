@@ -16,7 +16,7 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 import { SpecGrid } from "@/components/ui/SpecGrid";
 import { h1, h2, h3, h4, lead } from "@/components/ui/typography";
 import type { IconName } from "@/data/model-details";
-import { models } from "@/data/models";
+import { getModels } from "@/data/models";
 
 export const metadata: Metadata = {
   title: "Дизайн систем",
@@ -260,7 +260,7 @@ const durations = [
 export default async function StyleguidePage() {
   const colors = await readColorTokens();
   const colorValue = Object.fromEntries(colors.map((c) => [c.name, c.value]));
-  const sample = models[0];
+  const [sample] = await getModels();
 
   return (
     <>

@@ -14,19 +14,23 @@ import { Reveal } from "@/components/ui/Reveal";
 import { Section } from "@/components/ui/Section";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { getModelDetail } from "@/data/model-details";
-import { getModel, models } from "@/data/models";
+import { getModel, getModels } from "@/data/models";
 
-/** Жагсаалтад байхгүй загвар руу орвол 404 буцаана. */
-export const dynamicParams = false;
+/** Build-ийн дараа database-д нэмэгдсэн загварын хуудсыг ч хүсэлт ирэхэд үүсгэнэ (байхгүй бол 404). */
+export const dynamicParams = true;
+
+/** Загваруудын мэдээлэл Supabase-ээс ирдэг тул хуудсыг 60 секунд тутам шинэчилнэ. */
+export const revalidate = 60;
 
 /** Бүх загварын хуудсыг build хийх үед урьдчилан бэлдэнэ. */
-export function generateStaticParams() {
+export async function generateStaticParams() {
+  const models = await getModels();
   return models.map((model) => ({ slug: model.slug }));
 }
 
 export async function generateMetadata({ params }: PageProps<"/models/[slug]">): Promise<Metadata> {
   const { slug } = await params;
-  const model = getModel(slug);
+  const model = await getModel(slug);
   if (!model) return {};
   return { title: model.name, description: model.lead };
 }
@@ -42,7 +46,7 @@ const sections: SubNavItem[] = [
 
 export default async function ModelPage({ params }: PageProps<"/models/[slug]">) {
   const { slug } = await params;
-  const model = getModel(slug);
+  const model = await getModel(slug);
   if (!model) notFound();
 
   const detail = getModelDetail(slug);

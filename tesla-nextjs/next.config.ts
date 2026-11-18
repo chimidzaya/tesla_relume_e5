@@ -1,8 +1,18 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  // Сайтын бүх хуудас статик тул Cache Components шаардлагагүй.
-  // Унтраасан үед app/models/[slug]/page.tsx-ийн `dynamicParams = false` ажиллаж, байхгүй загварт 404 буцаана.
+  // Cache Components унтраалттай. Загваруудын мэдээлэл Supabase-ээс ирдэг бөгөөд
+  // хуудсууд ISR-ээр (revalidate = 60) статикаар үүсч, 60 секунд тутам шинэчлэгдэнэ.
+  images: {
+    // Admin-аас хуулсан зургууд Supabase Storage-ийн `model-images` bucket-д хадгалагдана.
+    remotePatterns: [new URL("https://emnshrpreieiuzrqvbhj.supabase.co/storage/v1/object/public/model-images/**")],
+  },
+  experimental: {
+    serverActions: {
+      // Admin маягтаар 4MB хүртэлх зураг хуулахад (анхдагч хязгаар 1MB).
+      bodySizeLimit: "5mb",
+    },
+  },
   turbopack: {
     rules: {
       "*.css": {

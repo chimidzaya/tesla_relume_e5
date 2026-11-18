@@ -1,7 +1,10 @@
 /**
- * Бүх загварын мэдээлэл — сайтын цорын ганц эх сурвалж.
- * Нүүр хуудасны хэсгүүд, харьцуулах хүснэгт, цэс, хөл хэсэг бүгд эндээс уншина.
+ * Бүх загварын мэдээлэл — Supabase-ийн `public.models` хүснэгтээс уншина.
+ * Нүүр хуудасны хэсгүүд, харьцуулах хүснэгт, цэс, хөл хэсэг бүгд getModels()-ийг ашиглана.
  */
+
+import { unstable_cache } from "next/cache";
+import { supabase } from "@/lib/supabase";
 
 export type Spec = { label: string; value: string };
 
@@ -9,6 +12,8 @@ export type VisualTheme = "blue" | "slate" | "red";
 
 export type Model = {
   slug: string;
+  /** Нүүр хуудас, цэс дээрх дараалал (бага нь эхэнд) */
+  sortOrder: number;
   name: string;
   category: string;
   badge?: string;
@@ -32,139 +37,76 @@ export type Model = {
   hasDetailPage: boolean;
 };
 
-export const models: Model[] = [
-  {
-    slug: "model-3",
-    name: "Model 3",
-    category: "Спорт седан",
-    lead: "Tesla-ийн хамгийн хямд үнэтэй загвар. Энгийн, цэвэрхэн дизайнтай, ашиглалтын зардал бага.",
-    features: [
-      "Урд суудал болон жолооны хүрд халаалттай",
-      "16 инчийн төв дэлгэц, 7 чанга яригчтай аудио систем",
-      "Supercharger-т 15 минут цэнэглэхэд 274 км хүртэл замын нөөц нэмэгдэнэ",
-    ],
-    specs: [
-      { label: "Нэг цэнэглэлтээр", value: "517 км" },
-      { label: "0–97 км/ц", value: "5.8 с" },
-      { label: "Ачааны багтаамж", value: "680 л" },
-      { label: "Эхлэх үнэ", value: "$36,990" },
-    ],
-    type: "Седан",
-    seats: 5,
-    range: "517 км",
-    price: "$36,990",
-    visual: { tag: "Седан", theme: "blue" },
-    orderUrl: "https://www.tesla.com/model3/design",
-    orderLabel: "Захиалах",
-    learnUrl: "https://www.tesla.com/model3",
-    hasDetailPage: true,
-  },
-  {
-    slug: "model-y",
-    name: "Model Y",
-    category: "Дунд оврын SUV",
-    lead: "Өдөр тутмын хэрэглээ болон холын аялалд тохирсон гэр бүлийн автомашин.",
-    features: ["5 хүний суудалтай", "NHTSA аюулгүй байдлын үнэлгээгээр 5 од авсан"],
-    specs: [
-      { label: "Нэг цэнэглэлтээр", value: "560 км" },
-      { label: "0–97 км/ц", value: "6.8 с" },
-      { label: "Ачааны багтаамж", value: "2,095 л" },
-      { label: "Эхлэх үнэ", value: "$39,990" },
-    ],
-    type: "SUV",
-    seats: 5,
-    range: "560 км",
-    price: "$39,990",
-    image: { src: "/images/model-y.png", alt: "Цагаан өнгийн Tesla Model Y уулын замд" },
-    orderUrl: "https://www.tesla.com/modely/design",
-    orderLabel: "Захиалах",
-    learnUrl: "https://www.tesla.com/modely",
-    hasDetailPage: false,
-  },
-  {
-    slug: "model-yl",
-    name: "Model Y L",
-    category: "6 суудалтай SUV",
-    badge: "Шинэ",
-    lead: "Model Y-ээс тэнхлэг хоорондын зай нь урт тул салон илүү өргөн, 3 эгнээ суудалтай.",
-    features: [
-      "Model Y-ийн бүх үндсэн онцлог хэвээр",
-      "Их бие нь уртасч, 3 дахь эгнээний суудал нэмэгдсэн",
-      "Premium тоноглолтой",
-    ],
-    specs: [
-      { label: "Нэг цэнэглэлтээр (CLTC)", value: "751 км" },
-      { label: "Суудлын тоо", value: "6" },
-      { label: "Тэнхлэг хоорондын зай", value: "3,040 мм" },
-      { label: "Эхлэх үнэ", value: "$61,990" },
-    ],
-    type: "SUV",
-    seats: 6,
-    range: "751 км",
-    rangeNote: "CLTC стандартаар",
-    price: "$61,990",
-    visual: { tag: "6 суудалтай", theme: "slate" },
-    orderUrl: "https://www.tesla.com",
-    orderLabel: "Захиалах",
-    learnUrl: "https://www.tesla.com",
-    hasDetailPage: false,
-  },
-  {
-    slug: "cybertruck",
-    name: "Cybertruck",
-    category: "Пикап",
-    lead: "Гадна их бие нь зэвэрдэггүй гангаар хийгдсэн, бартаат замд зориулсан пикап.",
-    features: [
-      "Ачааны тэвш 1.8 × 1.2 м",
-      "Бартаат замын горимуудтай: гулгаатай зам, ус туулах",
-      "Premium тоноглолтой",
-    ],
-    specs: [
-      { label: "Нэг цэнэглэлтээр", value: "523 км" },
-      { label: "0–97 км/ц", value: "2.6 с" },
-      { label: "Тэвшний даац", value: "1,134 кг" },
-      { label: "Эхлэх үнэ", value: "$109,990" },
-    ],
-    type: "Пикап",
-    seats: 5,
-    range: "523 км",
-    price: "$109,990",
-    image: { src: "/images/cybertruck.png", alt: "Tesla Cybertruck зэвэрдэггүй ган их биетэй пикап" },
-    orderUrl: "https://www.tesla.com/cybertruck/design",
-    orderLabel: "Захиалах",
-    learnUrl: "https://www.tesla.com/cybertruck",
-    hasDetailPage: false,
-  },
-  {
-    slug: "roadster",
-    name: "Roadster",
-    category: "Спорт машин",
-    badge: "Урьдчилсан захиалга",
-    lead: "Tesla-ийн хамгийн хурдан загвар. Хөнгөн, бат бөх материалаар хийгдсэн.",
-    features: ["2+2 буюу 4 суудалтай", "Хүйтэн хийн түлхэгчтэй (SpaceX багц)", "Авдаг дээвэртэй"],
-    specs: [
-      { label: "Нэг цэнэглэлтээр", value: "1,000 км" },
-      { label: "0–97 км/ц", value: "1.9 с" },
-      { label: "Дээд хурд", value: "400+ км/ц" },
-      { label: "Эхлэх үнэ", value: "$200,000" },
-    ],
-    type: "Спорт",
-    seats: 4,
-    range: "1,000 км",
-    price: "$200,000",
-    visual: { tag: "Спорт", theme: "red" },
-    orderUrl: "https://www.tesla.com/roadster",
-    orderLabel: "Урьдчилан захиалах",
-    learnUrl: "https://www.tesla.com/roadster",
-    hasDetailPage: false,
-  },
-];
+/** Database-ийн мөрийн хэлбэр (snake_case) */
+export type ModelRow = {
+  slug: string;
+  sort_order: number;
+  name: string;
+  category: string;
+  badge: string | null;
+  lead: string;
+  features: string[];
+  specs: Spec[];
+  type: string;
+  seats: number;
+  range: string;
+  range_note: string | null;
+  price: string;
+  image: { src: string; alt: string } | null;
+  visual: { tag: string; theme: VisualTheme } | null;
+  order_url: string;
+  order_label: string;
+  learn_url: string;
+  has_detail_page: boolean;
+};
 
-export function getModel(slug: string): Model | undefined {
+export function toModel(row: ModelRow): Model {
+  return {
+    slug: row.slug,
+    sortOrder: row.sort_order,
+    name: row.name,
+    category: row.category,
+    badge: row.badge ?? undefined,
+    lead: row.lead,
+    features: row.features,
+    specs: row.specs,
+    type: row.type,
+    seats: row.seats,
+    range: row.range,
+    rangeNote: row.range_note ?? undefined,
+    price: row.price,
+    image: row.image ?? undefined,
+    visual: row.visual ?? undefined,
+    orderUrl: row.order_url,
+    orderLabel: row.order_label,
+    learnUrl: row.learn_url,
+    hasDetailPage: row.has_detail_page,
+  };
+}
+
+/** Кэшийн шошго — admin хэсэг хадгалахад үүнийг шинэчилж, сайт шууд шинэ мэдээлэл харуулна. */
+export const MODELS_CACHE_TAG = "models";
+
+/** Database-д шууд (admin-аас бус) өөрчлөлт орвол сайтад хамгийн ихдээ 60 секундийн дараа харагдана. */
+export const MODELS_REVALIDATE_SECONDS = 60;
+
+/** Бүх загварыг sort_order-оор эрэмбэлж авна. Үр дүн нь кэшлэгдэнэ. */
+export const getModels = unstable_cache(
+  async (): Promise<Model[]> => {
+    const { data, error } = await supabase.from("models").select("*").order("sort_order");
+    if (error) throw new Error(`Загваруудыг Supabase-ээс уншиж чадсангүй: ${error.message}`);
+    return (data as ModelRow[]).map(toModel);
+  },
+  ["models"],
+  { tags: [MODELS_CACHE_TAG], revalidate: MODELS_REVALIDATE_SECONDS },
+);
+
+export async function getModel(slug: string): Promise<Model | undefined> {
+  const models = await getModels();
   return models.find((m) => m.slug === slug);
 }
 
 /** Цэс, хөл хэсэгт ашиглах холбоос: дэлгэрэнгүй хуудастай бол тийшээ, үгүй бол нүүр хуудасны хэсэг рүү */
-export function modelHref(model: Model): string {
+export function modelHref(model: Pick<Model, "slug" | "hasDetailPage">): string {
   return model.hasDetailPage ? `/models/${model.slug}` : `/#${model.slug}`;
 }

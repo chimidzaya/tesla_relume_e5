@@ -3,6 +3,7 @@ import { Literata, Onest } from "next/font/google";
 import Script from "next/script";
 import { Footer } from "@/components/layout/Footer";
 import { Navbar } from "@/components/layout/Navbar";
+import { getModels, modelHref } from "@/data/models";
 import "./globals.css";
 
 /** Sans: гарчиг, товч, label, тоо. Монгол Ө, Ү нь cyrillic-ext багцад байдаг. */
@@ -25,7 +26,10 @@ export const metadata: Metadata = {
   description: "Tesla-ийн 5 загварын цахилгаан машинуудын танилцуулга, харьцуулалт.",
 };
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default async function RootLayout({ children }: LayoutProps<"/">) {
+  const models = await getModels();
+  const navLinks = models.map((model) => ({ label: model.name, href: modelHref(model) }));
+
   return (
     <html lang="mn" className={`${onest.variable} ${literata.variable}`} suppressHydrationWarning>
       <body>
@@ -33,7 +37,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <Script id="js-flag" strategy="beforeInteractive">
           {`document.documentElement.classList.add("js")`}
         </Script>
-        <Navbar />
+        <Navbar links={navLinks} />
         <main>{children}</main>
         <Footer />
       </body>

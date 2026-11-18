@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
-import { modelHref, models } from "@/data/models";
+import { getModels, modelHref } from "@/data/models";
+import { AdminLink } from "./AdminLink";
 import { ContactForm } from "./ContactForm";
 import { Logo } from "./Logo";
 
@@ -21,7 +22,9 @@ const pageLinks = [
 
 const linkClass = "block py-1.5 font-sans text-sm text-on-dark-muted transition-colors duration-200 hover:text-on-dark hover:underline";
 
-export function Footer() {
+export async function Footer() {
+  const models = await getModels();
+
   return (
     <footer id="contact" className="bg-ink px-gutter pb-10 pt-section-bottom text-on-dark">
       <div className="mx-auto max-w-site">
@@ -88,6 +91,7 @@ export function Footer() {
                     Tesla.com
                   </a>
                 </li>
+                <AdminLink className={linkClass} />
               </ul>
             </div>
           </div>

@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState, useSyncExternalStore } from "react";
-import { modelHref, models } from "@/data/models";
 import { cn } from "@/lib/cn";
 import { Button } from "@/components/ui/Button";
 import { Logo } from "./Logo";
@@ -24,9 +23,10 @@ function useScrolled() {
   );
 }
 
-const links = models.map((model) => ({ label: model.name, href: modelHref(model) }));
+export type NavLink = { label: string; href: string };
 
-export function Navbar() {
+/** `links` — загваруудын холбоос; layout нь Supabase-ээс уншаад дамжуулна. */
+export function Navbar({ links }: { links: NavLink[] }) {
   const pathname = usePathname();
   const scrolled = useScrolled();
   const [open, setOpen] = useState(false);
