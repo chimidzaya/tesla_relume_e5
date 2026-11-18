@@ -78,7 +78,7 @@ export function ModelSection({ model, index, total }: Props) {
       <section id={model.slug} className="group grid bg-beige lg:grid-cols-2">
         <div
           className={cn(
-            "relative min-h-[280px] overflow-hidden sm:min-h-[420px] lg:min-h-[720px]",
+            "relative min-h-[280px] overflow-hidden bg-brown-muted sm:min-h-[420px] lg:min-h-[720px]",
             imageRight && "lg:order-2",
           )}
         >
@@ -87,6 +87,8 @@ export function ModelSection({ model, index, total }: Props) {
             alt={model.image.alt}
             fill
             sizes="(min-width: 1024px) 50vw, 100vw"
+            /* Гүйлгэж очих үед хоосон харагдахгүйн тулд эхнээсээ ачаална (5 зураг, тус бүр ~60KB) */
+            loading="eager"
             className="object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-[1.03]"
           />
           {model.badge && <Sticker>{model.badge}</Sticker>}
