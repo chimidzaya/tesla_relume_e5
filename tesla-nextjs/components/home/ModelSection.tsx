@@ -3,127 +3,113 @@ import type { Model } from "@/data/models";
 import { Button } from "@/components/ui/Button";
 import { ModelVisual } from "@/components/ui/ModelVisual";
 import { Reveal } from "@/components/ui/Reveal";
-import { Section } from "@/components/ui/Section";
-import { SpecGrid } from "@/components/ui/SpecGrid";
-import { h2, lead } from "@/components/ui/typography";
+import { h2 } from "@/components/ui/typography";
 import { cn } from "@/lib/cn";
 
-type Props = { model: Model; index: number; total: number };
+type Props = { model: Model; index: number };
 
 const pad = (n: number) => String(n).padStart(2, "0");
 
-/** Захиалах товчтой нэг холбогдсон хүрээнд харуулах тул үнийг үзүүлэлтийн тороос салгана. */
-function splitSpecs(model: Model) {
+/** Үнийг тусад нь харуулах тул үзүүлэлтийн тороос хасаж, гол 3-ыг үлдээнэ. */
+function keySpecs(model: Model) {
   const specs = model.specs.filter((spec) => spec.value !== model.price);
-  return specs.length > 0 ? specs : model.specs;
+  return (specs.length > 0 ? specs : model.specs).slice(0, 3);
 }
 
-/**
- * Картын шатлал (дээрээс доош): дугаар + ангилал → нэр → тайлбар → онцлог → үзүүлэлт → үнэ + үйлдэл.
- * Proximity: холбоотой элементүүд бүлэг дотроо ойр (gap-3), бүлэг хооронд зай их (gap-8).
- */
-function ModelContent({ model, index }: Props) {
-  return (
-    <div className="flex flex-col gap-10">
-      {/* Нэр нь хамгийн том — нүд эхлээд түүн дээр тусна */}
-      <div className="flex flex-col gap-4">
-        <p className="font-sans text-xs font-medium uppercase tracking-label text-muted">
-          <span className="tabular-nums text-ink">{pad(index + 1)}</span>
-          <span className="mx-2 text-line">—</span>
-          {model.category}
-        </p>
-        <h2 className={h2}>{model.name}</h2>
-        <p className={cn(lead, "line-clamp-2")}>{model.lead}</p>
-      </div>
-
-      {/* Common Region: зөвхөн 3 гол тоо, нэг хүрээнд */}
-      <SpecGrid specs={splitSpecs(model).slice(0, 3)} variant="card" />
-
-      {/* Үнэ + үйлдэл нэг мөрөнд */}
-      <div className="flex flex-wrap items-end justify-between gap-6">
-        <p className="font-sans text-3xl font-semibold leading-none tracking-tight tabular-nums">
-          {model.price}
-          <span className="ml-2 font-serif text-sm font-normal italic tracking-normal text-muted">-аас</span>
-        </p>
-        <div className="flex flex-wrap items-center gap-2">
-          <Button href={`/models/${model.slug}`} variant="link" arrow>
-            Дэлгэрэнгүй
-          </Button>
-          <Button href={model.orderUrl} variant="dark">
-            {model.orderLabel}
-          </Button>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-/** «Шинэ», «Урьдчилсан захиалга» гэх мэт шошгыг зураг дээр бага зэрэг хазайлгаж онцолно. */
+/** «Шинэ», «Урьдчилсан захиалга» — зураг дээр бага зэрэг хазайсан наалт */
 function Sticker({ children }: { children: string }) {
   return (
-    <span className="absolute left-5 top-5 z-10 -rotate-3 rounded-full bg-paper px-4 py-2 font-sans text-xs font-semibold uppercase leading-none tracking-label text-ink shadow-[0_6px_20px_rgb(0_0_0/0.18)] sm:left-8 sm:top-8">
+    <span className="absolute left-4 top-4 z-10 -rotate-2 rounded-full bg-paper px-3.5 py-1.5 font-sans text-2xs font-semibold uppercase leading-none tracking-tagline text-ink shadow-[0_6px_20px_rgb(0_0_0/0.2)] sm:left-6 sm:top-6">
       {children}
     </span>
   );
 }
 
 /**
- * Нэг загварын танилцуулга. Зурагтай загвар хагас/хагас байрлалаар —
- * зураг нь ээлжлэн зүүн, баруун талд гарч хэмнэл үүсгэнэ.
+ * Нэг загварын танилцуулга.
+ * - Хэсгүүд цайвар / бараан ээлжилнэ (хэмнэл, загвар бүр тусдаа «бүлэг» — Common Region)
+ * - Зураг 7/12, бичвэр 5/12 — зураг давамгайлна; байрлал нь ээлжлэн солигдоно
+ * - Шатлал: нэр → 3 гол тоо → үнэ → үйлдэл. Тоонууд нимгэн, том (font-light) — тансаг харагдана
  */
-export function ModelSection({ model, index, total }: Props) {
-  if (model.image) {
-    const imageRight = index % 2 === 1;
-    return (
-      <section id={model.slug} className="group grid bg-beige lg:grid-cols-2">
-        {/* Зураг тайрагдахгүй: өөрийн харьцаагаараа бүтнээрээ, дугуй булантай хүрээнд */}
-        <div
-          className={cn(
-            "flex items-center px-gutter pt-12 lg:py-section-top",
-            imageRight ? "lg:order-2 lg:pl-0" : "lg:pr-0",
-          )}
-        >
-          <div className="relative w-full overflow-hidden rounded-3xl bg-brown-muted shadow-[0_20px_50px_rgb(25_20_14/0.18)]">
-            <Image
-              src={model.image.src}
-              alt={model.image.alt}
-              width={1600}
-              height={1000}
-              sizes="(min-width: 1024px) 45vw, 100vw"
-              /* Гүйлгэж очих үед хоосон харагдахгүйн тулд эхнээсээ ачаална */
-              loading="eager"
-              className="block h-auto w-full transition-transform duration-[1200ms] ease-out group-hover:scale-[1.03]"
-            />
-            {model.badge && <Sticker>{model.badge}</Sticker>}
-          </div>
-        </div>
-        <div
-          className={cn(
-            "flex items-center px-gutter pb-section-bottom pt-12 lg:pt-section-top",
-            imageRight ? "lg:justify-end lg:pr-16" : "lg:pl-16",
-          )}
-        >
-          <Reveal className="w-full max-w-[560px]">
-            <ModelContent model={model} index={index} total={total} />
-          </Reveal>
-        </div>
-      </section>
-    );
-  }
+export function ModelSection({ model, index }: Props) {
+  const dark = index % 2 === 1;
+  const flip = index % 2 === 1;
+  const muted = dark ? "text-on-dark-muted" : "text-muted";
+  const rule = dark ? "border-white/15" : "border-line";
 
   return (
-    <Section id={model.slug}>
-      <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
-        <Reveal>
-          <ModelContent model={model} index={index} total={total} />
-        </Reveal>
-        {model.visual && (
-          <Reveal className="relative">
-            <ModelVisual name={model.name} tag={model.visual.tag} theme={model.visual.theme} />
+    <section
+      id={model.slug}
+      className={cn(
+        "group px-gutter py-section-bottom lg:py-section-top",
+        dark ? "bg-ink text-on-dark" : "bg-paper text-ink",
+      )}
+    >
+      <div className="mx-auto grid max-w-site items-center gap-10 lg:grid-cols-12 lg:gap-16">
+        <Reveal className={cn("lg:col-span-7", flip && "lg:order-2")}>
+          <div className="relative overflow-hidden rounded-2xl bg-brown-muted">
+            {model.image ? (
+              <Image
+                src={model.image.src}
+                alt={model.image.alt}
+                width={1600}
+                height={1000}
+                sizes="(min-width: 1024px) 58vw, 100vw"
+                loading="eager"
+                className="block h-auto w-full transition-transform duration-[1400ms] ease-out group-hover:scale-[1.03]"
+              />
+            ) : (
+              model.visual && <ModelVisual name={model.name} tag={model.visual.tag} theme={model.visual.theme} />
+            )}
             {model.badge && <Sticker>{model.badge}</Sticker>}
-          </Reveal>
-        )}
+          </div>
+        </Reveal>
+
+        <Reveal className="lg:col-span-5">
+          <div className="flex flex-col gap-10">
+            <div className="flex flex-col gap-4">
+              <p className={cn("font-sans text-xs font-medium uppercase tracking-label", muted)}>
+                <span className={dark ? "text-on-dark" : "text-ink"}>{pad(index + 1)}</span>
+                <span className="mx-3 opacity-40">/</span>
+                {model.category}
+              </p>
+              <h2 className={h2}>{model.name}</h2>
+              <p className={cn("line-clamp-2 max-w-[440px] font-serif leading-body", muted)}>{model.lead}</p>
+            </div>
+
+            <dl className={cn("grid grid-cols-3 border-y py-6", rule)}>
+              {keySpecs(model).map((spec, i) => (
+                <div
+                  key={spec.label}
+                  className={cn("flex flex-col-reverse justify-end gap-2", i > 0 && cn("border-l pl-3 sm:pl-6", rule))}
+                >
+                  <dt className={cn("pr-2 font-sans text-2xs uppercase leading-snug tracking-label", muted)}>
+                    {spec.label}
+                  </dt>
+                  <dd className="whitespace-nowrap font-sans text-xl font-light leading-none tracking-tight tabular-nums sm:text-[28px]">
+                    {spec.value}
+                  </dd>
+                </div>
+              ))}
+            </dl>
+
+            <div className="flex flex-wrap items-end justify-between gap-6">
+              <div>
+                <p className={cn("font-sans text-2xs uppercase tracking-label", muted)}>Эхлэх үнэ</p>
+                <p className="mt-1 font-sans text-2xl font-medium tracking-tight tabular-nums">{model.price}</p>
+              </div>
+              <div className="flex flex-wrap items-center gap-3">
+                <Button href={`/models/${model.slug}`} variant={dark ? "link-light" : "link"} arrow>
+                  Дэлгэрэнгүй
+                </Button>
+                <Button href={model.orderUrl} variant={dark ? "outline-light" : "dark"}>
+                  {model.orderLabel}
+                </Button>
+              </div>
+            </div>
+          </div>
+        </Reveal>
       </div>
-    </Section>
+    </section>
   );
 }

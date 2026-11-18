@@ -3,35 +3,53 @@ import { Button } from "@/components/ui/Button";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { h1 } from "@/components/ui/typography";
 
-export function Hero({ firstSectionId }: { firstSectionId: string }) {
+export type HeroStat = { value: string; label: string };
+
+/**
+ * Кино маягийн нүүр: зураг бүтэн дэлгэцээр, бичвэр зүүн доод буланд (уншигдах зам — F хэлбэр),
+ * доод мөрөнд гурван гол тоо. Төвд байрласан олон товчноос илүү тайван, «үнэтэй» харагдана.
+ */
+export function Hero({ firstSectionId, stats }: { firstSectionId: string; stats: HeroStat[] }) {
   return (
-    <header
-      id="top"
-      className="relative flex min-h-svh items-center justify-center overflow-hidden px-gutter pb-24 pt-[120px] text-center text-on-dark"
-    >
+    <header id="top" className="relative flex min-h-svh flex-col justify-end overflow-hidden text-on-dark">
       <Image src="/images/hero.png" alt="" fill preload sizes="100vw" className="object-cover" />
-      {/* --overlay-soft → --overlay → --overlay-strong */}
-      <div className="absolute inset-0 bg-[linear-gradient(180deg,var(--overlay)_0%,var(--overlay-soft)_45%,var(--overlay-strong)_100%)]" />
+      {/* Доороос болон зүүнээс бараан — бичвэр уншигдана, зургийн дээд хэсэг цэлмэг үлдэнэ */}
+      <div className="absolute inset-0 bg-[linear-gradient(0deg,rgb(12_10_7/0.92)_0%,rgb(12_10_7/0.45)_40%,rgb(12_10_7/0.1)_70%,rgb(12_10_7/0.35)_100%)]" />
+      <div className="absolute inset-0 bg-[linear-gradient(90deg,rgb(12_10_7/0.55)_0%,transparent_60%)]" />
 
-      <div className="relative flex max-w-[880px] flex-col items-center gap-6">
-        <Eyebrow tone="light">Цахилгаан автомашин</Eyebrow>
-        <h1 className={h1}>Ирээдүйн жолоодлогод тавтай морил</h1>
-        <p className="max-w-[564px] text-base text-on-dark-muted">Tesla-ийн хамгийн шилдэг 5 загварын цахилгаан машинууд</p>
-        <div className="mt-2 flex w-full flex-col gap-4 sm:w-auto sm:flex-row">
-          <Button href={`#${firstSectionId}`}>Загваруудтай танилцах</Button>
-          <Button href="#compare" variant="outline-light">
-            Харьцуулах
-          </Button>
+      <div className="relative mx-auto w-full max-w-site px-gutter pb-10 pt-40">
+        <div className="flex max-w-[760px] flex-col gap-6">
+          <Eyebrow tone="light">Цахилгаан автомашин · 2026</Eyebrow>
+          <h1 className={h1}>Ирээдүйн жолоодлогод тавтай морил</h1>
+          <p className="max-w-[480px] text-md leading-snug text-on-dark-muted">
+            Таван загвар. Нэг зорилго — цэвэр эрчим хүчээр илүү хол, илүү хурдан.
+          </p>
+          <div className="mt-2 flex flex-wrap items-center gap-3">
+            <Button href={`#${firstSectionId}`} variant="outline-light">
+              Загваруудтай танилцах
+            </Button>
+            <Button href="#compare" variant="glass">
+              Харьцуулах
+            </Button>
+          </div>
         </div>
-      </div>
 
-      <a
-        href={`#${firstSectionId}`}
-        aria-label="Доош гүйлгэх"
-        className="absolute bottom-8 left-1/2 h-[42px] w-[26px] -translate-x-1/2 rounded-[14px] border-2 border-white/70"
-      >
-        <span className="absolute left-1/2 top-2 h-2 w-1 -translate-x-1/2 animate-scroll-dot rounded-sm bg-white" />
-      </a>
+        {stats.length > 0 && (
+          <dl className="mt-16 grid grid-cols-3 border-t border-white/20 pt-6 lg:mt-24">
+            {stats.map((stat, i) => (
+              <div
+                key={stat.label}
+                className={`flex flex-col-reverse gap-1 ${i > 0 ? "border-l border-white/20 pl-4 sm:pl-8" : "pr-4"}`}
+              >
+                <dt className="font-sans text-2xs uppercase tracking-label text-on-dark-muted sm:text-xs">{stat.label}</dt>
+                <dd className="whitespace-nowrap font-sans text-xl font-light tracking-tight tabular-nums sm:text-4xl">
+                  {stat.value}
+                </dd>
+              </div>
+            ))}
+          </dl>
+        )}
+      </div>
     </header>
   );
 }

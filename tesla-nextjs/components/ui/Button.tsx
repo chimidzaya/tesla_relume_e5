@@ -2,7 +2,7 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 import { cn } from "@/lib/cn";
 
-type Variant = "primary" | "dark" | "secondary" | "glass" | "outline-light" | "link";
+type Variant = "primary" | "dark" | "secondary" | "glass" | "outline-light" | "link" | "link-light";
 type Size = "md" | "sm";
 
 /** REBA .btn: pill, sans 500, 0.2s өнгөний шилжилт, дарахад 1px доош суух (press feedback). */
@@ -26,6 +26,8 @@ const variants: Record<Variant, string> = {
   /** btn--light: бараан, зураг дээрх гол үйлдэл */
   "outline-light": "bg-paper text-ink hover:bg-[color-mix(in_srgb,var(--color-paper)_85%,var(--color-ink))]",
   link: "group px-1 text-ink",
+  /** Бараан дэвсгэр дээрх холбоос */
+  "link-light": "group px-1 text-on-dark",
 };
 
 type ButtonProps = {
@@ -41,7 +43,8 @@ type ButtonProps = {
 
 /** Сайт доторх холбоос бол next/link, гадаад холбоос бол шинэ цонхонд нээгдэх <a> болно. */
 export function Button({ href, children, variant = "primary", size = "md", arrow, className, onClick }: ButtonProps) {
-  const classes = cn(base, variant === "link" ? "min-h-[46px] text-base" : sizes[size], variants[variant], className);
+  const isLink = variant === "link" || variant === "link-light";
+  const classes = cn(base, isLink ? "min-h-[46px] text-base" : sizes[size], variants[variant], className);
   const content = (
     <>
       {children}

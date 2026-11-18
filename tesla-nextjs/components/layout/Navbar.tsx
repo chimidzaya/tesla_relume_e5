@@ -50,7 +50,7 @@ export function Navbar({ links }: { links: NavLink[] }) {
         // Тунгалаг үед header scrim (ink 35% → transparent) бичвэрийг уншигдахуйц болгоно.
         "fixed inset-x-0 top-0 z-50 h-[72px] px-gutter transition-[background-color,color,box-shadow] duration-[var(--dur-medium)]",
         solid
-          ? "bg-beige text-ink shadow-[0_1px_0_var(--color-line)]"
+          ? "bg-paper/85 text-ink shadow-[0_1px_0_var(--color-line)] backdrop-blur-xl"
           : "bg-[linear-gradient(180deg,rgb(25_20_14/0.35),transparent)] text-on-dark",
       )}
     >
@@ -88,7 +88,7 @@ export function Navbar({ links }: { links: NavLink[] }) {
         <div
           id="nav-menu"
           className={cn(
-            "absolute inset-x-0 top-[72px] flex-col gap-4 bg-beige px-gutter pb-6 pt-4 text-ink shadow-[0_1px_0_var(--color-line)]",
+            "absolute inset-x-0 top-[72px] flex-col gap-4 bg-paper px-gutter pb-6 pt-4 text-ink shadow-[0_1px_0_var(--color-line)]",
             open ? "flex" : "hidden",
             "nav:static nav:flex nav:flex-row nav:items-center nav:gap-8 nav:bg-transparent nav:p-0 nav:text-inherit nav:shadow-none",
           )}
@@ -123,7 +123,13 @@ export function Navbar({ links }: { links: NavLink[] }) {
             >
               Харьцуулалт
             </Button>
-            <Button href="#contact" size="sm" className="flex-1 nav:flex-none" onClick={close}>
+            <Button
+              href="#contact"
+              size="sm"
+              variant={solid ? "dark" : "outline-light"}
+              className="flex-1 nav:flex-none"
+              onClick={close}
+            >
               Холбоо барих
             </Button>
           </div>
