@@ -2,7 +2,7 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 import { cn } from "@/lib/cn";
 
-type Variant = "primary" | "secondary" | "glass" | "outline-light" | "link";
+type Variant = "primary" | "dark" | "secondary" | "glass" | "outline-light" | "link";
 type Size = "md" | "sm";
 
 /** REBA .btn: pill, sans 500, 0.2s өнгөний шилжилт, дарахад 1px доош суух (press feedback). */
@@ -17,6 +17,8 @@ const sizes: Record<Size, string> = {
 const variants: Record<Variant, string> = {
   /** btn--primary: гол үйлдэл (захиалга) — taupe */
   primary: "bg-taupe text-ink hover:bg-taupe-hover",
+  /** Цайвар (beige) дэвсгэр дээрх гол үйлдэл — хамгийн өндөр тодрол */
+  dark: "bg-ink text-on-dark hover:bg-brown",
   /** btn--dark: цайвар дэвсгэр дээрх хоёрдогч, outline */
   secondary: "text-ink shadow-[inset_0_0_0_1px_var(--color-ink)] hover:bg-ink/[0.08]",
   /** btn--ghost: бараан, зураг дээрх хоёрдогч */

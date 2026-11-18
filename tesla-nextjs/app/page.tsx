@@ -13,8 +13,8 @@ export default async function HomePage() {
   return (
     <>
       <Hero firstSectionId={models[0]?.slug ?? "compare"} />
-      {models.map((model) => (
-        <ModelSection key={model.slug} model={model} />
+      {models.map((model, index) => (
+        <ModelSection key={model.slug} model={model} index={index} total={models.length} />
       ))}
       <CompareTable models={models} />
       <ChargingStats />
