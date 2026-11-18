@@ -16,6 +16,7 @@ const pageLinks = [
   { label: "Харьцуулалт", href: "/#compare" },
   { label: "Цэнэглэлт", href: "/#charging" },
   { label: "Холбоо барих", href: "#contact" },
+  { label: "Дизайн систем", href: "/styleguide" },
 ];
 
 const linkClass = "block py-1.5 font-sans text-sm text-on-dark-muted transition-colors duration-200 hover:text-on-dark hover:underline";

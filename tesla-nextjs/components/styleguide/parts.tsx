@@ -1,40 +1,30 @@
 import type { ReactNode } from "react";
 import { cn } from "@/lib/cn";
 
-/** Styleguide-ийн дугаартай хэсэг: «01 Зарчим» гэх мэт. */
+/** Styleguide-ийн дугаартай хэсэг: «01 Зарчим» гэх мэт. Баруун талын нэг баганад hairline-аар тусгаарлагдана. */
 export function SgSection({
   id,
   num,
   title,
   intro,
   children,
-  tone = "white",
 }: {
   id: string;
   num: string;
   title: string;
   intro?: ReactNode;
   children: ReactNode;
-  tone?: "white" | "beige";
 }) {
   return (
-    <section
-      id={id}
-      className={cn(
-        "border-t border-line px-gutter pb-section-bottom pt-section-top",
-        tone === "beige" ? "bg-beige" : "bg-paper",
-      )}
-    >
-      <div className="mx-auto max-w-site">
-        <header className="mb-10 flex flex-col gap-4 lg:mb-14">
-          <h2 className="flex items-baseline gap-4 text-h2">
-            <span className="font-mono text-sm font-medium tabular-nums text-muted">{num}</span>
-            {title}
-          </h2>
-          {intro && <p className="max-w-[564px] text-muted">{intro}</p>}
-        </header>
-        <div className="flex flex-col gap-14">{children}</div>
-      </div>
+    <section id={id} className="border-t border-line py-16 first:border-t-0 first:pt-0 lg:py-20">
+      <header className="mb-10 flex flex-col gap-4">
+        <h2 className="flex items-baseline gap-4 text-h2">
+          <span className="font-mono text-sm font-medium tabular-nums text-muted">{num}</span>
+          {title}
+        </h2>
+        {intro && <p className="max-w-[564px] text-muted">{intro}</p>}
+      </header>
+      <div className="flex flex-col gap-14">{children}</div>
     </section>
   );
 }

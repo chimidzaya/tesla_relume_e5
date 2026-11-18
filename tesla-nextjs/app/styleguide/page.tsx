@@ -5,8 +5,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { IconCard, icons } from "@/components/model/IconCard";
 import { InfoCard } from "@/components/model/InfoCard";
-import { SubNav, type SubNavItem } from "@/components/model/SubNav";
 import { RevealDemo } from "@/components/styleguide/MotionDemo";
+import { SgToc, type TocItem } from "@/components/styleguide/SgToc";
 import { Code, SgSection, SgSub, Specimen, SpecRow, Swatch } from "@/components/styleguide/parts";
 import { Button } from "@/components/ui/Button";
 import { Badge, Eyebrow } from "@/components/ui/Eyebrow";
@@ -24,19 +24,19 @@ export const metadata: Metadata = {
   robots: { index: false },
 };
 
-const sections: SubNavItem[] = [
-  { id: "principles", label: "01 Зарчим" },
-  { id: "brand", label: "02 Брэнд" },
-  { id: "color", label: "03 Өнгө" },
-  { id: "type", label: "04 Үсэг" },
-  { id: "space", label: "05 Зай" },
-  { id: "shape", label: "06 Хэлбэр" },
-  { id: "lines", label: "07 Шугам" },
-  { id: "shadow", label: "08 Сүүдэр, бүрхүүл" },
-  { id: "icons", label: "09 Дүрс" },
-  { id: "components", label: "10 Компонент" },
-  { id: "sections", label: "11 Хэсгүүд" },
-  { id: "motion", label: "12 Хөдөлгөөн" },
+const sections: TocItem[] = [
+  { id: "principles", num: "01", label: "Зарчим" },
+  { id: "brand", num: "02", label: "Брэнд" },
+  { id: "color", num: "03", label: "Өнгө" },
+  { id: "type", num: "04", label: "Үсэг" },
+  { id: "space", num: "05", label: "Зай" },
+  { id: "shape", num: "06", label: "Хэлбэр" },
+  { id: "lines", num: "07", label: "Шугам" },
+  { id: "shadow", num: "08", label: "Сүүдэр, бүрхүүл" },
+  { id: "icons", num: "09", label: "Дүрс" },
+  { id: "components", num: "10", label: "Компонент" },
+  { id: "sections", num: "11", label: "Хэсгүүд" },
+  { id: "motion", num: "12", label: "Хөдөлгөөн" },
 ];
 
 /* ---------- Өнгө: globals.css-ээс build хийх үед шууд уншина ---------- */
@@ -252,7 +252,10 @@ export default async function StyleguidePage() {
         </div>
       </header>
 
-      <SubNav items={sections} />
+      <div className="px-gutter">
+        <div className="mx-auto grid max-w-site gap-x-16 pb-section-bottom lg:grid-cols-[200px_minmax(0,1fr)] lg:pt-section-top">
+          <SgToc items={sections} />
+          <div className="min-w-0 pt-12 lg:pt-0">
 
       {/* 01 */}
       <SgSection id="principles" num="01" title="Зарчим">
@@ -272,9 +275,12 @@ export default async function StyleguidePage() {
       </SgSection>
 
       {/* 02 */}
-      <SgSection id="brand" num="02" title="Брэнд" tone="beige">
-        <div className="grid gap-6 md:grid-cols-3">
+      <SgSection id="brand" num="02" title="Брэнд">
+        <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
           <Specimen label={<>Цаасан дээр · <Code>text-ink</Code></>} className="justify-center">
+            <span className="-mr-[0.42em] text-[28px] font-bold leading-none tracking-[0.42em] text-ink">TESLA</span>
+          </Specimen>
+          <Specimen label={<>Cream дээр · <Code>bg-beige</Code></>} className="justify-center border-transparent bg-beige!">
             <span className="-mr-[0.42em] text-[28px] font-bold leading-none tracking-[0.42em] text-ink">TESLA</span>
           </Specimen>
           <Specimen dark label={<>Бараан дээр · <Code>text-on-dark</Code></>} className="justify-center">
@@ -366,7 +372,7 @@ export default async function StyleguidePage() {
       </SgSection>
 
       {/* 04 */}
-      <SgSection id="type" num="04" title="Үсэг" tone="beige">
+      <SgSection id="type" num="04" title="Үсэг">
         <SgSub title="Үсгийн гэр бүл" note="Onest, Literata хоёулаа cyrillic-ext багцтай тул монгол Ө, Ү зөв харагдана.">
           <div className="grid gap-6 md:grid-cols-3">
             {families.map((f) => (
@@ -476,7 +482,7 @@ export default async function StyleguidePage() {
       </SgSection>
 
       {/* 06 */}
-      <SgSection id="shape" num="06" title="Хэлбэр" tone="beige">
+      <SgSection id="shape" num="06" title="Хэлбэр">
         <ul className="grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-6">
           {radii.map((r) => (
             <li key={r.token} className="flex flex-col gap-3">
@@ -550,7 +556,7 @@ export default async function StyleguidePage() {
       </SgSection>
 
       {/* 08 */}
-      <SgSection id="shadow" num="08" title="Сүүдэр, бүрхүүл" tone="beige" intro={<>Overlay-ууд <Code>--color-shade</Code> дээр суурилна. Drop shadow бараг хэрэглэдэггүй — шугам, гадаргуугаар ялгана.</>}>
+      <SgSection id="shadow" num="08" title="Сүүдэр, бүрхүүл" intro={<>Overlay-ууд <Code>--color-shade</Code> дээр суурилна. Drop shadow бараг хэрэглэдэггүй — шугам, гадаргуугаар ялгана.</>}>
         <SgSub title="Overlay токен">
           <div className="grid gap-6 md:grid-cols-3">
             {[
@@ -632,7 +638,7 @@ export default async function StyleguidePage() {
       </SgSection>
 
       {/* 10 */}
-      <SgSection id="components" num="10" title="Компонент" tone="beige">
+      <SgSection id="components" num="10" title="Компонент">
         <SgSub title="Button" note={<><Code>components/ui/Button.tsx</Code> — pill, Onest 500, 0.2s өнгө, дарахад 1px доош.</>}>
           <div className="grid gap-6 md:grid-cols-2">
             <Specimen label={<><Code>primary</Code> taupe · <Code>secondary</Code> outline · <Code>link</Code> — цайвар дээр</>}>
@@ -734,7 +740,7 @@ export default async function StyleguidePage() {
         id="motion"
         num="12"
         title="Хөдөлгөөн"
-        tone="beige"
+       
         intro={<><Code>prefers-reduced-motion</Code> асаалттай үед бүх transition, animation 0.01ms болно (globals.css).</>}
       >
         <SgSub title="Сайт дээрх хөдөлгөөн">
@@ -789,6 +795,9 @@ export default async function StyleguidePage() {
           </div>
         </SgSub>
       </SgSection>
+          </div>
+        </div>
+      </div>
     </>
   );
 }
