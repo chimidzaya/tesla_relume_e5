@@ -60,7 +60,7 @@ export function ContactForm() {
       <button
         type="submit"
         disabled={status.state === "sending"}
-        className="mt-1 inline-flex min-h-10 items-center justify-center rounded-full bg-gradient-to-r from-pink to-royal px-6 text-[15px] font-medium text-white shadow-[0_8px_24px_-8px_rgb(217_87_143/0.6)] transition-all hover:-translate-y-0.5 disabled:opacity-60"
+        className="mt-1 inline-flex min-h-10 items-center justify-center rounded-full bg-gradient-to-r from-pink to-royal px-6 text-[15px] font-medium text-white shadow-[0_8px_24px_-8px_color-mix(in_srgb,var(--color-pink)_60%,transparent)] transition-all hover:-translate-y-0.5 disabled:opacity-60"
       >
         {status.state === "sending" ? "Илгээж байна…" : "Илгээх"}
       </button>

@@ -1,7 +1,8 @@
 import type { ReactNode } from "react";
 import type { IconName } from "@/data/model-details";
 
-const icons: Record<IconName, ReactNode> = {
+/** Дүрсний path-ууд (24×24, stroke). Styleguide хуудас ч ашиглана. */
+export const icons: Record<IconName, ReactNode> = {
   thermometer: <path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z" />,
   phone: (
     <>

@@ -4,11 +4,12 @@
 @theme {
   /* Эмэгтэйлэг, зөөлөн палитр: сарнай ягаан + ягаавтар хүрэн + цайвар ягаан дэвсгэр.
      «royal» нэрийг хадгалсан тул бүх бүрэлдэхүүн хэсэг автоматаар шинэ өнгө авна. */
-  --color-royal: #c2527f;
+  /* royal, pink: цагаан дээр WCAG AA (≥4.5:1) хангана */
+  --color-royal: #b84a76;
   --color-royal-dark: #a33f68;
   --color-periwinkle: #f5b8cf;
-  --color-pink: #d9578f;
-  --color-pink-dark: #b8427a;
+  --color-pink: #c04680;
+  --color-pink-dark: #a53a6c;
   --color-ink: #2e1a2b;
   --color-muted: #7a6573;
   --color-surface: #fdf2f6;

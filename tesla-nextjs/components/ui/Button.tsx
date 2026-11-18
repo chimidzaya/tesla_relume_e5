@@ -14,7 +14,7 @@ const sizes: Record<Size, string> = {
 };
 
 const variants: Record<Variant, string> = {
-  primary: "bg-gradient-to-r from-pink to-royal text-white shadow-[0_8px_24px_-8px_rgb(217_87_143/0.6)] hover:-translate-y-0.5 hover:shadow-[0_12px_28px_-8px_rgb(217_87_143/0.75)]",
+  primary: "bg-gradient-to-r from-pink to-royal text-white shadow-[0_8px_24px_-8px_color-mix(in_srgb,var(--color-pink)_60%,transparent)] hover:-translate-y-0.5 hover:shadow-[0_12px_28px_-8px_color-mix(in_srgb,var(--color-pink)_75%,transparent)]",
   secondary: "bg-periwinkle/40 text-ink hover:bg-periwinkle/60",
   /** Бараан зурган дээрх хагас тунгалаг товч */
   glass: "bg-white/15 text-white hover:bg-white/25",
