@@ -20,13 +20,17 @@ async function siteOrigin() {
  */
 export async function startCheckout(formData: FormData) {
   const slug = String(formData.get("slug") ?? "");
+  const back = `/order/${encodeURIComponent(slug)}`;
+
+  // Constraint: нөхцөлийг зөвшөөрөөгүй бол (JS унтраалттай үед ч) төлбөр рүү явуулахгүй
+  if (formData.get("agree") !== "on") redirect(`${back}?error=agree`);
 
   const { data: model } = await supabase
     .from("models")
     .select("slug, name, deposit_amount")
     .eq("slug", slug)
     .maybeSingle<{ slug: string; name: string; deposit_amount: number | null }>();
-  if (!model?.deposit_amount) redirect(`/order/cancel?error=1&model=${encodeURIComponent(slug)}`);
+  if (!model?.deposit_amount) redirect("/");
 
   let checkoutUrl: string;
   try {
@@ -52,7 +56,7 @@ export async function startCheckout(formData: FormData) {
     checkoutUrl = checkout.url;
   } catch (error) {
     console.error("[byl] checkout:", error);
-    redirect(`/order/cancel?error=1&model=${encodeURIComponent(model.slug)}`);
+    redirect(`${back}?error=1`);
   }
 
   redirect(checkoutUrl);

@@ -1,37 +1,41 @@
 import type { Metadata } from "next";
-import { OrderResult } from "@/components/order/OrderResult";
+import { OrderResult, StatusIcon } from "@/components/order/OrderResult";
+import { OrderSteps } from "@/components/order/OrderSteps";
 import { Button } from "@/components/ui/Button";
 import { getModel } from "@/data/models";
 
-export const metadata: Metadata = { title: "Захиалга цуцлагдлаа", robots: { index: false } };
+export const metadata: Metadata = { title: "Төлбөр цуцлагдлаа", robots: { index: false } };
 
-/** Byl дээр «Цуцлах» дарсан, эсвэл төлбөрийн хуудас үүсгэхэд алдаа гарсан үед. */
+/**
+ * Byl дээр «Буцах / Цуцлах» дарсан үед. Хэрэглэгчид 3 зүйлийг тод хэлнэ:
+ * юу болсон (зогссон), мөнгө хасагдаагүй, дахин яаж оролдох.
+ */
 export default async function OrderCancelPage({ searchParams }: PageProps<"/order/cancel">) {
-  const { model: slug, error } = await searchParams;
+  const { model: slug } = await searchParams;
   const model = typeof slug === "string" ? await getModel(slug) : undefined;
-  const failed = error === "1";
 
   return (
     <OrderResult
-      eyebrow="Захиалга"
-      title={failed ? "Төлбөрийн хуудас нээгдсэнгүй" : "Төлбөр цуцлагдлаа"}
+      steps={<OrderSteps current={1} state="stopped" />}
+      icon={<StatusIcon status="stopped" />}
+      eyebrow="Төлбөр хийгдээгүй"
+      title="Төлбөр цуцлагдлаа"
       actions={
         <>
-          {model && (
-            <Button href={`/models/${model.slug}`} variant="outline-light">
-              {model.name} руу буцах
+          {model?.deposit && (
+            <Button href={`/order/${model.slug}`} variant="outline-light" arrow>
+              Дахин оролдох
             </Button>
           )}
-          <Button href="/" variant="glass">
-            Нүүр хуудас
+          <Button href={model ? `/models/${model.slug}` : "/"} variant="glass">
+            {model ? `${model.name} руу буцах` : "Нүүр хуудас"}
           </Button>
         </>
       }
     >
       <p>
-        {failed
-          ? "Түр зуурын алдаа гарлаа. Хэсэг хүлээгээд дахин оролдоно уу. Мөнгө хасагдаагүй."
-          : "Таны данснаас мөнгө хасагдаагүй. Хүссэн үедээ дахин захиалж болно."}
+        <span className="text-on-dark">Таны данснаас мөнгө хасагдаагүй.</span> Захиалга хадгалагдаагүй тул хүссэн үедээ
+        дахин эхлүүлж болно.
       </p>
     </OrderResult>
   );
