@@ -111,7 +111,7 @@ const sizeScale = [
 ];
 
 const displayScale = [
-  { token: "--text-display-1", cls: "text-display-1", px: "clamp(52px, 9vw, 136px)", use: "Нөөц — хамгийн том hero" },
+  { token: "--text-display-1", cls: "text-display-1", px: "clamp(52px, 9vw, 136px)", use: "Одоогоор ашиглагдаагүй" },
   { token: "--text-display-2", cls: "text-display-2", px: "clamp(40px, 6vw, 88px)", use: "Нүүр, загварын hero (h1), тоон үзүүлэлт" },
   { token: "--text-display-3", cls: "text-display-3", px: "clamp(40px, 4vw + 8px, 64px)", use: "Загварын нэр, CTA (h2)" },
 ];
@@ -203,34 +203,58 @@ const pageSections = [
 
 /* ---------- Хөдөлгөөн ---------- */
 
-const motions = [
-  { name: "Scroll Reveal", where: "ui/Reveal.tsx · globals.css", spec: "opacity 0 → 1, translateY(16px) → 0 · --dur-long --ease-out", trigger: "Хэсэг дэлгэцэнд 10% орж ирэхэд (нэг удаа)" },
-  { name: "Press Feedback", where: "ui/Button.tsx", spec: "өнгө · 0.2s ease; :active translateY(1px)", trigger: "Товч дээр hover, дарах" },
-  { name: "Arrow Nudge", where: "ui/Button.tsx (link)", spec: "→ translateX(4px)", trigger: "«Дэлгэрэнгүй →» дээр hover" },
-  { name: "Transparent → Solid Header", where: "layout/Navbar.tsx", spec: "дэвсгэр, бичвэр, hairline · --dur-medium", trigger: "40px-ээс доош гүйлгэх" },
-  { name: "Hamburger → X", where: "layout/Navbar.tsx", spec: "translate + rotate(±45°) · 0.2s", trigger: "Утасны цэс нээх, хаах" },
-  { name: "Tap Dim", where: "layout/Navbar.tsx", spec: ":active opacity 0.6", trigger: "Цэсний холбоос товших" },
-  { name: "Scrollspy Tabs", where: "model/SubNav.tsx", spec: "идэвхтэй таб өнгө, зураас · 0.2s", trigger: "Хуудас гүйлгэх" },
-  { name: "Scroll Dot", where: "home/Hero.tsx", spec: "opacity 1 → 0, translateY(0 → 14px) · 1.8s infinite", trigger: "Нүүр хуудас ачаалахад" },
-  { name: "Smooth Anchor Scroll", where: "globals.css", spec: "html { scroll-behavior: smooth }", trigger: "#холбоос дарах" },
+type Motion = {
+  name: string;
+  slug: string;
+  purpose: "Шилжилт" | "Reveal" | "Hover" | "Дарах хариу" | "Төлөв";
+  trigger: string;
+  pages: string;
+  where: string;
+  spec: string;
+  reduced: string;
+  href?: string;
+};
+
+/** REBA шиг: Macro — хуудас, хэсгийн түвшин; Micro — нэг элементийн хариу үйлдэл. */
+const motionGroups: { title: string; items: Motion[] }[] = [
+  {
+    title: "Macro · хуудас, хэсгийн түвшин: шилжилт, reveal, гүйлгэх",
+    items: [
+      { name: "Scroll Reveal", slug: "scroll-reveal", purpose: "Reveal", trigger: "Хэсэг дэлгэцэнд 10% орж ирэхэд (нэг удаа)", pages: "Нүүр, загвар", where: "ui/Reveal.tsx · globals.css", spec: "opacity 0 → 1, translateY(16px) → 0 · --dur-long --ease-out", reduced: "Reveal хийхгүй, шууд харагдана", href: "/#compare" },
+      { name: "Transparent → Solid Header", slug: "header-solidify", purpose: "Төлөв", trigger: "40px-ээс доош гүйлгэх", pages: "Бүх хуудас", where: "layout/Navbar.tsx", spec: "дэвсгэр, бичвэр, hairline · --dur-medium", reduced: "Шууд солигдоно", href: "/" },
+      { name: "Smooth Anchor Scroll", slug: "smooth-anchor-scroll", purpose: "Шилжилт", trigger: "#холбоос дарах", pages: "Бүх хуудас", where: "globals.css", spec: "html { scroll-behavior: smooth }", reduced: "scroll-behavior: auto" },
+      { name: "Scroll Dot", slug: "scroll-dot", purpose: "Төлөв", trigger: "Нүүр хуудас ачаалахад", pages: "Нүүр", where: "home/Hero.tsx", spec: "opacity 1 → 0, translateY(0 → 14px) · 1.8s infinite", reduced: "Нэг удаа тоглоод зогсоно", href: "/" },
+    ],
+  },
+  {
+    title: "Micro · нэг элементийн хариу үйлдэл: hover, дарах, төлөв",
+    items: [
+      { name: "Press Feedback", slug: "press-feedback", purpose: "Дарах хариу", trigger: "Товч дээр hover, дарах", pages: "Бүх хуудас", where: "ui/Button.tsx", spec: "өнгө · 0.2s ease; :active translateY(1px)", reduced: "Шууд" },
+      { name: "Arrow Nudge", slug: "arrow-nudge", purpose: "Hover", trigger: "«Дэлгэрэнгүй →» дээр hover", pages: "Нүүр", where: "ui/Button.tsx (link)", spec: "→ translateX(4px)", reduced: "Шууд", href: "/#model-3" },
+      { name: "Hamburger → X", slug: "hamburger-morph", purpose: "Төлөв", trigger: "Утасны цэс нээх, хаах (<1152px)", pages: "Бүх хуудас", where: "layout/Navbar.tsx", spec: "translate + rotate(±45°) · 0.2s", reduced: "Шууд" },
+      { name: "Tap Dim", slug: "tap-dim", purpose: "Дарах хариу", trigger: "Цэсний холбоос товших", pages: "Бүх хуудас", where: "layout/Navbar.tsx", spec: ":active opacity 0.6", reduced: "Шууд" },
+      { name: "Scrollspy Tabs", slug: "scrollspy-tabs", purpose: "Төлөв", trigger: "Хуудас гүйлгэх", pages: "Загвар, styleguide", where: "model/SubNav.tsx · styleguide/SgToc.tsx", spec: "идэвхтэй таб өнгө, зураас · 0.2s", reduced: "Өнгө шууд солигдоно", href: "/models/model-3#overview" },
+      { name: "Link Color Hover", slug: "link-hover", purpose: "Hover", trigger: "Холбоос, хүснэгтийн мөр дээр hover", pages: "Бүх хуудас", where: "Footer, CompareTable, SpecsTable", spec: "color, background-color · 0.2s", reduced: "Шууд", href: "/#compare" },
+    ],
+  },
 ];
 
 const easings = [
   { token: "--ease-out", value: "cubic-bezier(.2, .7, .2, 1)", use: "Scroll Reveal" },
-  { token: "--ease-standard", value: "cubic-bezier(.4, 0, .2, 1)", use: "Drawer" },
+  { token: "--ease-standard", value: "cubic-bezier(.4, 0, .2, 1)", use: "Одоогоор ашиглагдаагүй" },
   { token: "--ease-snap", value: "cubic-bezier(.22, 1, .36, 1)", use: "Одоогоор ашиглагдаагүй" },
-  { token: "--ease-calm", value: "cubic-bezier(.25, .1, .25, 1)", use: "Зураг hover zoom, accordion" },
-  { token: "--ease-page", value: "cubic-bezier(.65, 0, .15, 1)", use: "Хуудасны шилжилт" },
+  { token: "--ease-calm", value: "cubic-bezier(.25, .1, .25, 1)", use: "Одоогоор ашиглагдаагүй" },
+  { token: "--ease-page", value: "cubic-bezier(.65, 0, .15, 1)", use: "Одоогоор ашиглагдаагүй" },
 ];
 
 const durations = [
-  { token: "--dur-instant", value: ".1s" },
-  { token: "--dur-micro", value: ".2s", use: "Press Feedback, Tap Dim, Scrollspy" },
-  { token: "--dur-short", value: ".3s" },
-  { token: "--dur-medium", value: ".4s", use: "Solid Header" },
+  { token: "--dur-instant", value: ".1s", use: "Одоогоор ашиглагдаагүй" },
+  { token: "--dur-micro", value: ".2s", use: "Press Feedback, Tap Dim, Scrollspy (duration-200)" },
+  { token: "--dur-short", value: ".3s", use: "Одоогоор ашиглагдаагүй" },
+  { token: "--dur-medium", value: ".4s", use: "Transparent → Solid Header" },
   { token: "--dur-long", value: ".8s", use: "Scroll Reveal" },
-  { token: "--dur-page", value: "1.2s" },
-  { token: "--dur-ambient", value: "1.6s" },
+  { token: "--dur-page", value: "1.2s", use: "Одоогоор ашиглагдаагүй" },
+  { token: "--dur-ambient", value: "1.6s", use: "Одоогоор ашиглагдаагүй" },
 ];
 
 export default async function StyleguidePage() {
@@ -743,15 +767,40 @@ export default async function StyleguidePage() {
        
         intro={<><Code>prefers-reduced-motion</Code> асаалттай үед бүх transition, animation 0.01ms болно (globals.css).</>}
       >
-        <SgSub title="Сайт дээрх хөдөлгөөн">
-          <ul className="border-t border-line">
-            {motions.map((m) => (
-              <SpecRow key={m.name} name={<strong>{m.name}</strong>} value={m.where} note={m.trigger}>
-                <span className="font-mono text-xs">{m.spec}</span>
-              </SpecRow>
-            ))}
-          </ul>
-        </SgSub>
+        {motionGroups.map((group) => (
+          <SgSub key={group.title} title={group.title}>
+            <ul className="border-t border-line">
+              {group.items.map((m) => (
+                <li key={m.slug} id={m.slug} className="flex flex-col gap-3 border-b border-line py-5 font-sans text-sm">
+                  <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+                    <strong className="text-base">{m.name}</strong>
+                    <Code>{m.slug}</Code>
+                    <span className="rounded-full bg-beige px-2.5 py-0.5 text-xs">{m.purpose}</span>
+                  </div>
+                  <dl className="grid gap-x-6 gap-y-1.5 text-muted sm:grid-cols-[110px_minmax(0,1fr)]">
+                    <dt className="text-ink">Үүсгэгч</dt>
+                    <dd>{m.trigger}</dd>
+                    <dt className="text-ink">Хуудас</dt>
+                    <dd>{m.pages}</dd>
+                    <dt className="text-ink">Хаана</dt>
+                    <dd>
+                      <Code>{m.where}</Code>
+                    </dd>
+                    <dt className="text-ink">Тохиргоо</dt>
+                    <dd className="font-mono text-xs">{m.spec}</dd>
+                    <dt className="text-ink">Reduced</dt>
+                    <dd>{m.reduced}</dd>
+                  </dl>
+                  {m.href && (
+                    <Link href={m.href} className="self-start font-medium text-ink underline-offset-4 hover:underline">
+                      Хуудсан дээр харах ↗
+                    </Link>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </SgSub>
+        ))}
 
         <div className="grid gap-10 md:grid-cols-2">
           <SgSub title="Easing">
