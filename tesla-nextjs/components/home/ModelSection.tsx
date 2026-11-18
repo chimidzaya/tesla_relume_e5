@@ -76,27 +76,31 @@ export function ModelSection({ model, index, total }: Props) {
     const imageRight = index % 2 === 1;
     return (
       <section id={model.slug} className="group grid bg-beige lg:grid-cols-2">
+        {/* Зураг тайрагдахгүй: өөрийн харьцаагаараа бүтнээрээ, дугуй булантай хүрээнд */}
         <div
           className={cn(
-            "relative min-h-[280px] overflow-hidden bg-brown-muted sm:min-h-[420px] lg:min-h-[720px]",
-            imageRight && "lg:order-2",
+            "flex items-center px-gutter pt-12 lg:py-section-top",
+            imageRight ? "lg:order-2 lg:pl-0" : "lg:pr-0",
           )}
         >
-          <Image
-            src={model.image.src}
-            alt={model.image.alt}
-            fill
-            sizes="(min-width: 1024px) 50vw, 100vw"
-            /* Гүйлгэж очих үед хоосон харагдахгүйн тулд эхнээсээ ачаална (5 зураг, тус бүр ~60KB) */
-            loading="eager"
-            className="object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-[1.03]"
-          />
-          {model.badge && <Sticker>{model.badge}</Sticker>}
+          <div className="relative w-full overflow-hidden rounded-3xl bg-brown-muted shadow-[0_20px_50px_rgb(25_20_14/0.18)]">
+            <Image
+              src={model.image.src}
+              alt={model.image.alt}
+              width={1600}
+              height={1000}
+              sizes="(min-width: 1024px) 45vw, 100vw"
+              /* Гүйлгэж очих үед хоосон харагдахгүйн тулд эхнээсээ ачаална */
+              loading="eager"
+              className="block h-auto w-full transition-transform duration-[1200ms] ease-out group-hover:scale-[1.03]"
+            />
+            {model.badge && <Sticker>{model.badge}</Sticker>}
+          </div>
         </div>
         <div
           className={cn(
-            "flex items-center px-gutter pb-section-bottom pt-section-top",
-            imageRight ? "lg:justify-end lg:pr-20" : "lg:pl-20",
+            "flex items-center px-gutter pb-section-bottom pt-12 lg:pt-section-top",
+            imageRight ? "lg:justify-end lg:pr-16" : "lg:pl-16",
           )}
         >
           <Reveal className="w-full max-w-[560px]">
