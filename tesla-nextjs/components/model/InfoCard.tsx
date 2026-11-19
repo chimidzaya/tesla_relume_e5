@@ -3,7 +3,8 @@ import type { ImageRef } from "@/data/model-details";
 
 export function InfoCard({ image, title, text }: { image: ImageRef; title: string; text: string }) {
   return (
-    <article className="group h-full overflow-hidden rounded-xl border border-line bg-white transition duration-300 ease-out hover:shadow-xl hover:shadow-ink/10 motion-safe:hover:-translate-y-1">
+    // spotlight: хулганы орчимд хүрээ бараан болж, дотор нь дулаан туяа (SpotlightGroup дотор)
+    <article className="spotlight group relative h-full overflow-hidden rounded-xl bg-white inset-ring inset-ring-line transition duration-300 ease-out hover:shadow-xl hover:shadow-ink/10 motion-safe:hover:-translate-y-1">
       <div className="relative aspect-[4/3] overflow-hidden">
         <Image
           src={image.src}

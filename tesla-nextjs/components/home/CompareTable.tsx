@@ -3,6 +3,7 @@ import { modelHref, type Model } from "@/data/models";
 import { Reveal } from "@/components/ui/Reveal";
 import { Section } from "@/components/ui/Section";
 import { SectionHeading } from "@/components/ui/SectionHeading";
+import { SpotlightGroup } from "@/components/ui/SpotlightGroup";
 import { pickBest } from "@/lib/model-stats";
 
 const headers = ["Загвар", "Төрөл", "Суудал", "Замын нөөц", "Эхлэх үнэ"];
@@ -28,7 +29,9 @@ export function CompareTable({ models }: { models: Model[] }) {
       <Reveal>
         <SectionHeading eyebrow="Харьцуулалт" title="Танд аль загвар тохирох вэ?" />
       </Reveal>
-      <Reveal className="overflow-x-auto">
+      {/* Хүснэгт цагаан карт дотор — хулганы орчимд хүрээ гэрэлтэж, мөрүүдийн ард туяа дагана */}
+      <Reveal>
+        <SpotlightGroup className="spotlight relative overflow-x-auto rounded-2xl bg-paper px-6 py-2 inset-ring inset-ring-line sm:px-8 [--spot-size:420px]">
         <table className="w-full min-w-[720px] border-collapse text-left">
           <thead>
             <tr>
@@ -72,6 +75,7 @@ export function CompareTable({ models }: { models: Model[] }) {
             ))}
           </tbody>
         </table>
+        </SpotlightGroup>
       </Reveal>
       <p className="mt-6 text-sm text-muted">
         {notes.map((model) => `* ${model.name}: ${model.rangeNote}. `)}

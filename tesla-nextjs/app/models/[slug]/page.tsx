@@ -13,6 +13,7 @@ import { TrimTabs } from "@/components/model/TrimTabs";
 import { Reveal } from "@/components/ui/Reveal";
 import { Section } from "@/components/ui/Section";
 import { SectionHeading } from "@/components/ui/SectionHeading";
+import { SpotlightGroup } from "@/components/ui/SpotlightGroup";
 import { getModelDetail } from "@/data/model-details";
 import { getModel, getModels, orderInfo } from "@/data/models";
 
@@ -70,13 +71,13 @@ export default async function ModelPage({ params }: PageProps<"/models/[slug]">)
         <Reveal>
           <SectionHeading eyebrow={overview.eyebrow} title={overview.title} lead={overview.lead} />
         </Reveal>
-        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+        <SpotlightGroup className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
           {overview.cards.map((card) => (
             <Reveal key={card.title}>
               <InfoCard {...card} />
             </Reveal>
           ))}
-        </div>
+        </SpotlightGroup>
       </Section>
 
       <Section id="interior" tone="beige">
@@ -96,13 +97,13 @@ export default async function ModelPage({ params }: PageProps<"/models/[slug]">)
         <Reveal>
           <SectionHeading eyebrow={connected.eyebrow} title={connected.title} lead={connected.lead} />
         </Reveal>
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <SpotlightGroup className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {connected.items.map((item) => (
             <Reveal key={item.title}>
               <IconCard {...item} />
             </Reveal>
           ))}
-        </div>
+        </SpotlightGroup>
       </Section>
 
       <SafetySection id="safety" safety={safety} />

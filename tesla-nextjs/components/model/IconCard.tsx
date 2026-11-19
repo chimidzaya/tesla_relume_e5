@@ -23,7 +23,8 @@ export const icons: Record<IconName, ReactNode> = {
 
 export function IconCard({ icon, title, text }: { icon: IconName; title: string; text: string }) {
   return (
-    <div className="flex h-full flex-col gap-2.5 rounded-xl bg-beige p-7">
+    // Beige карт тул туяа нь цагаан (paper) — хулганы орчимд карт гэрэлтэнэ
+    <div className="spotlight relative flex h-full flex-col gap-2.5 rounded-xl bg-beige p-7 [--spot-glow:var(--color-paper)]">
       <span className="mb-2 grid size-12 place-items-center rounded-full bg-paper text-ink" aria-hidden="true">
         <svg
           viewBox="0 0 24 24"

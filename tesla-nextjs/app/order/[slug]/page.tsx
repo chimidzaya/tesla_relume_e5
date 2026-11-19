@@ -5,6 +5,7 @@ import { notFound, redirect } from "next/navigation";
 import { LockIcon, OrderSteps } from "@/components/order/OrderSteps";
 import { PayForm } from "@/components/order/PayForm";
 import { Eyebrow } from "@/components/ui/Eyebrow";
+import { SpotlightGroup } from "@/components/ui/SpotlightGroup";
 import { h3, h4 } from "@/components/ui/typography";
 import { getModel } from "@/data/models";
 import { formatMNT } from "@/lib/format";
@@ -57,9 +58,10 @@ export default async function OrderReviewPage({ params, searchParams }: PageProp
       </header>
 
       <section className="bg-beige px-gutter py-12 lg:py-16">
-        <div className="mx-auto grid max-w-site items-start gap-6 lg:grid-cols-12 lg:gap-8">
+        {/* Хоёр карт нэг гэрлийг хуваалцана (spotlight) */}
+        <SpotlightGroup className="mx-auto grid max-w-site items-start gap-6 lg:grid-cols-12 lg:gap-8">
           {/* Баримт (receipt) — metaphor: юу худалдаж авч буйгаа нэг карт дээр */}
-          <article className="overflow-hidden rounded-2xl bg-paper shadow-[inset_0_0_0_1px_var(--color-line)] lg:col-span-7">
+          <article className="spotlight relative overflow-hidden rounded-2xl bg-paper inset-ring inset-ring-line lg:col-span-7">
             {model.image && (
               <div className="bg-brown-muted">
                 <Image
@@ -89,7 +91,7 @@ export default async function OrderReviewPage({ params, searchParams }: PageProp
             </div>
           </article>
 
-          <aside className="flex flex-col gap-6 rounded-2xl bg-paper p-6 shadow-[inset_0_0_0_1px_var(--color-line)] sm:p-8 lg:sticky lg:top-24 lg:col-span-5">
+          <aside className="spotlight relative flex flex-col gap-6 rounded-2xl bg-paper p-6 inset-ring inset-ring-line sm:p-8 lg:sticky lg:top-24 lg:col-span-5">
             {error && (
               <p role="alert" className="rounded-xl bg-[#f6e3de] px-4 py-3 font-sans text-sm text-[#b3412b]">
                 {error === "agree"
@@ -132,7 +134,7 @@ export default async function OrderReviewPage({ params, searchParams }: PageProp
               ← {model.name} руу буцах
             </Link>
           </aside>
-        </div>
+        </SpotlightGroup>
       </section>
     </>
   );
