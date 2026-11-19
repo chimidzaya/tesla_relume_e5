@@ -4,17 +4,19 @@ import { cn } from "@/lib/cn";
  * Төлбөрийн 3 алхмын зам (Norman: mapping + metaphor — «зам дээр хаана явна»).
  * Хэрэглэгч хаана байгаа, юу дууссан, юу үлдсэнийг нэг харцаар ойлгоно.
  */
-export const ORDER_STEPS = ["Захиалгаа шалгах", "Byl-ээр төлөх", "Баталгаажих"] as const;
+const DEFAULT_STEPS = ["Захиалгаа шалгах", "Byl-ээр төлөх", "Баталгаажих"] as const;
 
 type Props = {
-  /** Одоогийн алхам: 0, 1, 2 */
-  current: 0 | 1 | 2;
+  /** Одоогийн алхам (0-ээс) */
+  current: number;
   /** current алхмын байдал: явж буй / зогссон (цуцалсан) / бүгд дууссан */
   state?: "active" | "stopped" | "done";
   tone?: "dark" | "light";
+  /** Алхмуудын нэр (анхдагч — урьдчилгаа төлбөрийн 3 алхам) */
+  steps?: readonly string[];
 };
 
-export function OrderSteps({ current, state = "active", tone = "dark" }: Props) {
+export function OrderSteps({ current, state = "active", tone = "dark", steps: ORDER_STEPS = DEFAULT_STEPS }: Props) {
   const dark = tone === "dark";
   const shown = state === "done" ? ORDER_STEPS.length - 1 : current;
 

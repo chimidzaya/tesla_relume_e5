@@ -1,10 +1,10 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import Script from "next/script";
-import { createContext, useCallback, useContext, useEffect, useRef, useState, type ReactNode } from "react";
+import { createContext, useCallback, useContext, useEffect, useState, type ReactNode } from "react";
 import { CAL_LINK, CAL_NAMESPACE, calConfig, type TestDriveModel } from "@/lib/cal";
 import { ModelPicker, type PickerModel } from "./ModelPicker";
-import { BookedToast, type Booked } from "./BookedToast";
 
 /** Cal-ын bookingSuccessfulV2-г React рүү дамжуулах DOM event (скрипт React-аас хойно ачаалагдаж болох тул) */
 const BOOKED_EVENT = "testdrive:booked";
@@ -49,17 +49,15 @@ export function useTestDrive() {
 }
 
 /**
- * Туршилтын жолоодлогын урсгал: 1 Машин → 2 Цаг (Cal popup) → 3 Баталгаажуулалт.
- * Layout-д нэг удаа байрлана: Cal скриптийг ачаалж, машин сонгох цонх болон амжилтын мэдэгдлийг агуулна.
+ * Туршилтын жолоодлогын урсгал: 1 Машин → 2 Цаг (Cal popup) → 3 Төлбөр (20,000₮, Byl) → 4 Баталгаажих.
+ * Layout-д нэг удаа байрлана: Cal скриптийг ачаалж, машин сонгох цонхыг агуулна.
+ * Cal дээр цаг сонгомогц төлбөрийн хуудас (/test-drive/[uid]) руу шилжүүлнэ.
  */
 export function TestDriveProvider({ models, children }: { models: PickerModel[]; children: ReactNode }) {
+  const router = useRouter();
   const [picking, setPicking] = useState(false);
-  const [booked, setBooked] = useState<Booked | null>(null);
-  /** Сүүлд Cal-д дамжуулсан машин — амжилтын мэдэгдэлд нэрийг нь харуулна */
-  const lastModel = useRef<TestDriveModel | null>(null);
 
   const openCal = useCallback((model: TestDriveModel) => {
-    lastModel.current = model;
     const api = calApi();
     const config = calConfig(model);
     if (api) api("modal", { calLink: CAL_LINK, config });
@@ -76,17 +74,17 @@ export function TestDriveProvider({ models, children }: { models: PickerModel[];
     [models, openCal],
   );
 
-  const dismiss = useCallback(() => setBooked(null), []);
-
-  // Захиалга амжилттай болмогц (Cal-ын bookingSuccessfulV2) манай сайт дээр баталгаажуулалт харуулна
+  // Cal дээр цаг сонгогдмогц (bookingSuccessfulV2) цонхыг хааж, төлбөрийн алхам руу шилжинэ
   useEffect(() => {
     const onBooked = (event: Event) => {
-      const data = (event as CustomEvent<{ startTime?: string } | undefined>).detail;
-      setBooked({ model: lastModel.current?.name ?? null, startTime: data?.startTime ?? null });
+      const uid = (event as CustomEvent<{ uid?: string } | undefined>).detail?.uid;
+      if (!uid) return;
+      calApi()?.("closeModal");
+      router.push(`/test-drive/${encodeURIComponent(uid)}`);
     };
     window.addEventListener(BOOKED_EVENT, onBooked);
     return () => window.removeEventListener(BOOKED_EVENT, onBooked);
-  }, []);
+  }, [router]);
 
   return (
     <TestDriveContext.Provider value={{ open }}>
@@ -103,7 +101,6 @@ export function TestDriveProvider({ models, children }: { models: PickerModel[];
           openCal(model);
         }}
       />
-      <BookedToast booked={booked} onDismiss={dismiss} />
     </TestDriveContext.Provider>
   );
 }

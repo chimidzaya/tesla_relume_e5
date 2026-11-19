@@ -1,5 +1,6 @@
 import { verifyWebhookSignature, type BylWebhookEvent } from "@/lib/byl";
 import { createSupabaseAdminClient } from "@/lib/supabase-admin";
+import { markTestDrivePaid } from "@/lib/test-drive";
 
 /**
  * POST /api/byl/webhook — Byl төлбөр төлөгдөхөд энд мэдэгдэл (checkout.completed) илгээнэ.
@@ -44,6 +45,22 @@ export async function POST(request: Request) {
     console.error("[byl] webhook:", error.message);
     // 500 буцаавал Byl дахин оролдоно
     return Response.json({ ok: false }, { status: 500 });
+  }
+
+  // Туршилтын жолоодлогын төлбөр бол Cal дээрх цагийг баталгаажуулна.
+  // Дахин ирсэн event-д ч (захиалга аль хэдийн complete) энэ алхмыг давтана — баталгаажилт амжаагүй байж болно.
+  const { data: order } = await db
+    .from("orders")
+    .select("id, kind, booking_uid")
+    .eq("id", checkout.client_reference_id)
+    .maybeSingle<{ id: string; kind: string; booking_uid: string | null }>();
+  if (order?.kind === "test_drive" && order.booking_uid) {
+    try {
+      await markTestDrivePaid(order.booking_uid, order.id);
+    } catch (confirmError) {
+      console.error("[byl] туршилтын жолоодлого баталгаажсангүй:", confirmError);
+      return Response.json({ ok: false }, { status: 500 });
+    }
   }
 
   console.log(`[byl] Захиалга ${checkout.client_reference_id} төлөгдлөө (checkout ${checkout.id}).`);

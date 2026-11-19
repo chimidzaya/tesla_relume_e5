@@ -4,11 +4,12 @@ import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { buttonClass } from "@/components/ui/Button";
 import { cn } from "@/lib/cn";
-import type { TestDriveModel } from "@/lib/cal";
+import { HOLD_MINUTES, TEST_DRIVE_FEE, type TestDriveModel } from "@/lib/cal";
+import { formatMNT } from "@/lib/format";
 
 export type PickerModel = TestDriveModel & { category: string; image?: { src: string; alt: string } };
 
-const STEPS = ["Машин", "Цаг", "Баталгаажуулалт"];
+const STEPS = ["Машин", "Цаг", "Төлбөр", "Баталгаажих"];
 
 /**
  * Алхам 1 — машин сонгох цонх (native <dialog>: Esc-ээр хаагдана, focus цонхон дотор үлдэнэ).
@@ -152,6 +153,9 @@ export function ModelPicker({
             ) : (
               "Эхлээд машинаа сонгоно уу."
             )}
+            <span className="mt-0.5 block text-xs">
+              Цаг сонгосны дараа {formatMNT(TEST_DRIVE_FEE)} төлж баталгаажуулна ({HOLD_MINUTES} минутын дотор).
+            </span>
           </p>
           <button
             type="submit"

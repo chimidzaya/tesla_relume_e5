@@ -15,6 +15,11 @@ export const CAL_LINK = "chimidzaya-dashpurew-dsf3hv/tesla-test-driving";
  */
 export const CAL_MODEL_FIELD = "model";
 
+/** Туршилтын жолоодлогын төлбөр (₮) — машин сонгох цонх болон серверийн төлбөр хоёул эндээс авна */
+export const TEST_DRIVE_FEE = 20_000;
+/** Цаг сонгосноос хойш төлөх хугацаа (минут) */
+export const HOLD_MINUTES = 30;
+
 export type TestDriveModel = { slug: string; name: string };
 
 /**

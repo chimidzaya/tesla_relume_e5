@@ -43,7 +43,7 @@ export default async function AdminOrdersPage() {
       }
     >
       <p className="font-sans text-sm text-muted">
-        Нийт төлөгдсөн урьдчилгаа: <span className="font-semibold text-ink">{formatMNT(paidTotal)}</span>
+        Нийт төлөгдсөн (урьдчилгаа + туршилтын жолоодлого): <span className="font-semibold text-ink">{formatMNT(paidTotal)}</span>
       </p>
       {error && <p className="font-sans text-sm text-[#b3412b]">Уншиж чадсангүй: {error.message}</p>}
 
@@ -63,7 +63,12 @@ export default async function AdminOrdersPage() {
               <tr key={order.id} className="text-ink">
                 <td className="border-b border-line px-5 py-4 text-muted">{dateFormat.format(new Date(order.created_at))}</td>
                 <td className="border-b border-line px-5 py-4 font-mono text-xs">{order.id.slice(0, 8).toUpperCase()}</td>
-                <td className="border-b border-line px-5 py-4 font-semibold">{order.model_name}</td>
+                <td className="border-b border-line px-5 py-4 font-semibold">
+                  {order.model_name}
+                  <span className="block text-xs font-normal text-muted">
+                    {order.kind === "test_drive" ? "Туршилтын жолоодлого" : "Урьдчилгаа"}
+                  </span>
+                </td>
                 <td className="border-b border-line px-5 py-4 tabular-nums">{formatMNT(order.amount)}</td>
                 <td className="border-b border-line px-5 py-4">
                   <span className={`rounded-full px-2.5 py-1 text-xs font-medium ${STATUS[order.status].className}`}>

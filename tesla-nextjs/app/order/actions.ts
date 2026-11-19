@@ -1,18 +1,10 @@
 "use server";
 
-import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { createCheckout } from "@/lib/byl";
+import { siteOrigin } from "@/lib/site-origin";
 import { supabase } from "@/lib/supabase";
 import { createSupabaseAdminClient } from "@/lib/supabase-admin";
-
-/** Сайтын хаяг (Vercel дээр https://…vercel.app, локалд http://localhost:3000) */
-async function siteOrigin() {
-  const h = await headers();
-  const host = h.get("x-forwarded-host") ?? h.get("host");
-  const proto = h.get("x-forwarded-proto") ?? (host?.startsWith("localhost") ? "http" : "https");
-  return `${proto}://${host}`;
-}
 
 /**
  * «Захиалах» → захиалга үүсгээд Byl-ийн төлбөрийн хуудас руу шилжүүлнэ.

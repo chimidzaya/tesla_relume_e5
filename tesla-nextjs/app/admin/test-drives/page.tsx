@@ -4,16 +4,21 @@ import { redirect } from "next/navigation";
 import { AdminShell } from "@/components/admin/AdminShell";
 import { NotAdmin } from "@/components/admin/NotAdmin";
 import { getModels } from "@/data/models";
+import { TEST_DRIVE_FEE } from "@/lib/cal";
 import { cn } from "@/lib/cn";
+import { formatMNT } from "@/lib/format";
 import type { TestDriveRow, TestDriveStatus } from "@/lib/supabase-admin";
 import { getAdminUser } from "@/lib/supabase-server";
 
 export const metadata: Metadata = { title: "Admin — Туршилтын жолоодлого", robots: { index: false } };
 
 const STATUS: Record<TestDriveStatus, { label: string; className: string }> = {
-  booked: { label: "Захиалсан", className: "bg-[#e3efe3] text-[#2f6b35]" },
+  confirmed: { label: "Баталгаажсан", className: "bg-[#e3efe3] text-[#2f6b35]" },
+  pending_payment: { label: "Төлбөр хүлээж буй", className: "bg-beige text-ink" },
   rescheduled: { label: "Цаг өөрчилсөн", className: "bg-beige text-muted" },
   cancelled: { label: "Цуцалсан", className: "bg-[#f6e3de] text-[#b3412b]" },
+  expired: { label: "Төлөөгүй — цуцлагдсан", className: "bg-beige text-muted" },
+  refund_needed: { label: "Буцаалт хэрэгтэй", className: "bg-[#b3412b] text-white" },
 };
 
 const dateFormat = new Intl.DateTimeFormat("mn-MN", {
@@ -35,7 +40,10 @@ export default async function AdminTestDrivesPage({ searchParams }: PageProps<"/
   if (filter) query = query.eq("model_slug", filter);
   const [{ data, error }, models] = await Promise.all([query, getModels()]);
   const drives = (data ?? []) as TestDriveRow[];
-  const upcoming = drives.filter((d) => d.status === "booked" && new Date(d.start_time) > new Date()).length;
+  const now = new Date();
+  const upcoming = drives.filter((d) => d.status === "confirmed" && new Date(d.start_time) > now).length;
+  const refunds = drives.filter((d) => d.status === "refund_needed").length;
+  const paidTotal = drives.filter((d) => d.paid_at).length * TEST_DRIVE_FEE;
 
   const chip = (active: boolean) =>
     cn(
@@ -53,8 +61,16 @@ export default async function AdminTestDrivesPage({ searchParams }: PageProps<"/
         </Link>
       }
     >
-      <p className="font-sans text-sm text-muted">
-        Удахгүй болох: <span className="font-semibold text-ink">{upcoming}</span>
+      <p className="flex flex-wrap gap-x-6 gap-y-1 font-sans text-sm text-muted">
+        <span>
+          Удахгүй болох: <span className="font-semibold text-ink">{upcoming}</span>
+        </span>
+        <span>
+          Нийт төлбөр: <span className="font-semibold text-ink">{formatMNT(paidTotal)}</span>
+        </span>
+        {refunds > 0 && (
+          <span className="font-semibold text-[#b3412b]">Буцаалт хүлээж буй: {refunds}</span>
+        )}
       </p>
 
       <nav aria-label="Машинаар шүүх" className="flex flex-wrap gap-2">
@@ -79,7 +95,7 @@ export default async function AdminTestDrivesPage({ searchParams }: PageProps<"/
         <table className="w-full min-w-[760px] border-collapse text-left font-sans text-sm">
           <thead className="text-muted">
             <tr>
-              {["Цаг", "Машин", "Захиалагч", "Холбоо барих", "Төлөв"].map((header) => (
+              {["Цаг", "Машин", "Захиалагч", "Холбоо барих", "Төлбөр", "Төлөв"].map((header) => (
                 <th key={header} className="border-b border-line px-5 py-3 font-medium">
                   {header}
                 </th>
@@ -88,12 +104,18 @@ export default async function AdminTestDrivesPage({ searchParams }: PageProps<"/
           </thead>
           <tbody>
             {drives.map((drive) => (
-              <tr key={drive.booking_uid} className={cn("text-ink", drive.status !== "booked" && "text-muted")}>
+              <tr
+                key={drive.booking_uid}
+                className={cn("text-ink", ["expired", "cancelled", "rescheduled"].includes(drive.status) && "text-muted")}
+              >
                 <td className="border-b border-line px-5 py-4 tabular-nums">{dateFormat.format(new Date(drive.start_time))}</td>
                 <td className="border-b border-line px-5 py-4 font-semibold">{drive.model_name ?? drive.model_slug ?? "—"}</td>
                 <td className="border-b border-line px-5 py-4">{drive.name ?? "—"}</td>
                 <td className="border-b border-line px-5 py-4 text-muted">
                   {[drive.phone, drive.email].filter(Boolean).join(" · ") || "—"}
+                </td>
+                <td className="border-b border-line px-5 py-4 tabular-nums">
+                  {drive.paid_at ? formatMNT(TEST_DRIVE_FEE) : <span className="text-muted">—</span>}
                 </td>
                 <td className="border-b border-line px-5 py-4">
                   <span className={`rounded-full px-2.5 py-1 text-xs font-medium ${STATUS[drive.status].className}`}>
@@ -104,7 +126,7 @@ export default async function AdminTestDrivesPage({ searchParams }: PageProps<"/
             ))}
             {drives.length === 0 && (
               <tr>
-                <td colSpan={5} className="px-5 py-8 text-center text-muted">
+                <td colSpan={6} className="px-5 py-8 text-center text-muted">
                   Захиалга алга.
                 </td>
               </tr>

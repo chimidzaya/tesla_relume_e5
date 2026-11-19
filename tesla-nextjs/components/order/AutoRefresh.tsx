@@ -8,7 +8,15 @@ import { Spinner } from "./OrderSteps";
  * Webhook ирэхийг хүлээх үед хуудсыг 3 сек тутам шинэчилнэ (Norman: feedback — хэрэглэгч
  * «Дахин шалгах» дарж таах шаардлагагүй). 20 оролдлогын дараа гараар шалгахыг санал болгоно.
  */
-export function AutoRefresh({ interval = 3000, max = 20 }: { interval?: number; max?: number }) {
+export function AutoRefresh({
+  interval = 3000,
+  max = 20,
+  message = "Byl-ээс баталгаа хүлээж байна — хуудас өөрөө шинэчлэгдэнэ.",
+}: {
+  interval?: number;
+  max?: number;
+  message?: string;
+}) {
   const router = useRouter();
   const [tries, setTries] = useState(0);
   const waiting = tries < max;
@@ -26,7 +34,7 @@ export function AutoRefresh({ interval = 3000, max = 20 }: { interval?: number; 
     <p aria-live="polite" className="flex items-center gap-2 font-sans text-sm text-on-dark-muted">
       {waiting ? (
         <>
-          <Spinner /> Byl-ээс баталгаа хүлээж байна — хуудас өөрөө шинэчлэгдэнэ.
+          <Spinner /> {message}
         </>
       ) : (
         "Удаж байна. Доорх «Дахин шалгах» товчийг дарна уу."
