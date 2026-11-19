@@ -5,6 +5,7 @@ import type { Spec } from "@/data/models";
 import type { ImageRef } from "@/data/model-details";
 import { OrderButton, type OrderInfo } from "@/components/order/OrderButton";
 import { Button } from "@/components/ui/Button";
+import { TestDriveButton } from "@/components/testdrive/TestDriveButton";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { h1 } from "@/components/ui/typography";
 
@@ -46,7 +47,8 @@ export function DetailHero({ name, category, lead, image, stats, order }: Detail
         </dl>
         <div className="flex flex-wrap gap-4">
           <OrderButton order={order}>Захиалах</OrderButton>
-          <Button href="#trims" variant="outline-light">
+          <TestDriveButton variant="outline-light" />
+          <Button href="#trims" variant="glass">
             Хувилбаруудыг харах
           </Button>
         </div>

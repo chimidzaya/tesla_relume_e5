@@ -3,6 +3,7 @@ import Image from "next/image";
 import type { ModelDetail } from "@/data/model-details";
 import { OrderButton, type OrderInfo } from "@/components/order/OrderButton";
 import { Button } from "@/components/ui/Button";
+import { TestDriveButton } from "@/components/testdrive/TestDriveButton";
 import { Reveal } from "@/components/ui/Reveal";
 import { h2 } from "@/components/ui/typography";
 
@@ -18,6 +19,7 @@ export function CtaBanner({ cta, order }: { cta: ModelDetail["cta"]; order: Orde
         <p className="text-base">{cta.text}</p>
         <div className="flex flex-wrap justify-center gap-4">
           <OrderButton order={order}>Захиалах</OrderButton>
+          <TestDriveButton />
           <Button href={cta.secondary.href} variant="outline-light">
             {cta.secondary.label}
           </Button>
