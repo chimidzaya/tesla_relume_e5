@@ -1,4 +1,4 @@
-import { ScrambleText } from "@/components/ui/ScrambleText";
+import { WordReveal } from "@/components/ui/WordReveal";
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
@@ -51,7 +51,7 @@ export default async function OrderReviewPage({ params, searchParams }: PageProp
           <OrderSteps current={0} />
           <div className="flex flex-col gap-3">
             <h1 className={h3}>
-              <ScrambleText text="Захиалгаа шалгаад урьдчилгаа төлөх" delay={150} />
+              <WordReveal text="Захиалгаа шалгаад урьдчилгаа төлөх" delay={150} />
             </h1>
             <p className="max-w-[560px] text-on-dark-muted">
               {model.name}-д дараалалд орохын тулд {amount} урьдчилгаа төлнө. Үлдэгдлийг машин хүлээлгэн өгөхөд төлнө.

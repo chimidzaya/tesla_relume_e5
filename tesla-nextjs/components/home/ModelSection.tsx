@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/Button";
 import { formatMNT } from "@/lib/format";
 import { ModelVisual } from "@/components/ui/ModelVisual";
 import { Reveal } from "@/components/ui/Reveal";
-import { ScrambleText } from "@/components/ui/ScrambleText";
+import { WordReveal } from "@/components/ui/WordReveal";
 import { Tilt, TiltGlare } from "@/components/ui/Tilt";
 import { h2 } from "@/components/ui/typography";
 import { cn } from "@/lib/cn";
@@ -86,10 +86,10 @@ export function ModelSection({ model, index }: Props) {
               <p className={cn("font-sans text-xs font-medium uppercase tracking-label", muted)}>
                 <span className={dark ? "text-on-dark" : "text-ink"}>{pad(index + 1)}</span>
                 <span className="mx-3 opacity-40">/</span>
-                <ScrambleText text={model.category} />
+                <WordReveal text={model.category} />
               </p>
               <h2 className={h2}>
-                <ScrambleText text={model.name} delay={250} />
+                <WordReveal text={model.name} delay={250} />
               </h2>
               <p className={cn("line-clamp-2 max-w-[440px] font-serif leading-body", muted)}>{model.lead}</p>
             </div>

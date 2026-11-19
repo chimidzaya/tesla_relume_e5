@@ -1,4 +1,4 @@
-import { ScrambleText } from "@/components/ui/ScrambleText";
+import { WordReveal } from "@/components/ui/WordReveal";
 import { Button } from "@/components/ui/Button";
 import { h1 } from "@/components/ui/typography";
 
@@ -8,7 +8,7 @@ export default function NotFound() {
       <div className="mx-auto flex w-full max-w-site flex-col items-start gap-5">
         <p className="text-sm font-semibold uppercase tracking-[0.08em] text-on-dark-muted">404</p>
         <h1 className={h1}>
-          <ScrambleText text="Хуудас олдсонгүй" delay={150} />
+          <WordReveal text="Хуудас олдсонгүй" delay={150} />
         </h1>
         <p className="max-w-[564px] text-base text-on-dark-muted">
           Таны хайсан хуудас байхгүй эсвэл зөөгдсөн байна. Нүүр хуудаснаас загваруудтай танилцаарай.

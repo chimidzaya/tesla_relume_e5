@@ -1,4 +1,4 @@
-import { ScrambleText } from "@/components/ui/ScrambleText";
+import { WordReveal } from "@/components/ui/WordReveal";
 import type { ReactNode } from "react";
 import { cn } from "@/lib/cn";
 import { Eyebrow } from "@/components/ui/Eyebrow";
@@ -30,7 +30,7 @@ export function OrderResult({
           {icon}
           <Eyebrow tone="light">{eyebrow}</Eyebrow>
           <h1 className={h1}>
-            <ScrambleText text={title} delay={250} />
+            <WordReveal text={title} delay={250} />
           </h1>
         </div>
         <div className="flex w-full max-w-[564px] flex-col gap-5 text-base text-on-dark-muted">{children}</div>

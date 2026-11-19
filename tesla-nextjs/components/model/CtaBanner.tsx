@@ -1,4 +1,4 @@
-import { ScrambleText } from "@/components/ui/ScrambleText";
+import { WordReveal } from "@/components/ui/WordReveal";
 import Image from "next/image";
 import type { ModelDetail } from "@/data/model-details";
 import { OrderButton, type OrderInfo } from "@/components/order/OrderButton";
@@ -14,7 +14,7 @@ export function CtaBanner({ cta, order }: { cta: ModelDetail["cta"]; order: Orde
       <div className="absolute inset-0 bg-black/50" />
       <Reveal className="relative flex flex-col items-center gap-5">
         <h2 className={h2}>
-          <ScrambleText text={cta.title} />
+          <WordReveal text={cta.title} />
         </h2>
         <p className="text-base">{cta.text}</p>
         <div className="flex flex-wrap justify-center gap-4">
