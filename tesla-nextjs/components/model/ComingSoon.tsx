@@ -1,3 +1,4 @@
+import { ScrambleText } from "@/components/ui/ScrambleText";
 import Link from "next/link";
 import { orderInfo, type Model } from "@/data/models";
 import { OrderButton } from "@/components/order/OrderButton";
@@ -25,7 +26,9 @@ export function ComingSoon({ model }: { model: Model }) {
           <Eyebrow tone="on-dark" badge={model.badge}>
             {model.category}
           </Eyebrow>
-          <h1 className={h1}>{model.name}</h1>
+          <h1 className={h1}>
+            <ScrambleText text={model.name} delay={200} />
+          </h1>
           <p className="max-w-[564px] text-base text-on-dark-muted">{model.lead}</p>
         </div>
       </header>

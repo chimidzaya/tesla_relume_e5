@@ -1,3 +1,4 @@
+import { ScrambleText } from "@/components/ui/ScrambleText";
 import Image from "next/image";
 import type { ModelDetail } from "@/data/model-details";
 import { OrderButton, type OrderInfo } from "@/components/order/OrderButton";
@@ -11,7 +12,9 @@ export function CtaBanner({ cta, order }: { cta: ModelDetail["cta"]; order: Orde
       <Image src={cta.image.src} alt={cta.image.alt} fill sizes="100vw" className="object-cover" />
       <div className="absolute inset-0 bg-black/50" />
       <Reveal className="relative flex flex-col items-center gap-5">
-        <h2 className={h2}>{cta.title}</h2>
+        <h2 className={h2}>
+          <ScrambleText text={cta.title} />
+        </h2>
         <p className="text-base">{cta.text}</p>
         <div className="flex flex-wrap justify-center gap-4">
           <OrderButton order={order}>Захиалах</OrderButton>

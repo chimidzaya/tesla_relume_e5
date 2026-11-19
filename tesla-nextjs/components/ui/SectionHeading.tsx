@@ -1,5 +1,6 @@
 import { cn } from "@/lib/cn";
 import { Eyebrow } from "./Eyebrow";
+import { ScrambleText } from "./ScrambleText";
 import { h3, lead as leadClass } from "./typography";
 
 /** Хэсгийн гарчиг: жижиг дээд гарчиг + том гарчиг + тайлбар. */
@@ -20,8 +21,13 @@ export function SectionHeading({
   const dark = tone === "dark-bg";
   return (
     <div className={cn("mb-10 flex max-w-3xl flex-col gap-4 lg:mb-14", className)}>
-      <Eyebrow tone={dark ? "on-dark" : "default"}>{eyebrow}</Eyebrow>
-      <h2 className={h3}>{title}</h2>
+      {/* Staggered scramble: эхлээд жижиг гарчиг, 150ms-ийн дараа том гарчиг */}
+      <Eyebrow tone={dark ? "on-dark" : "default"}>
+        <ScrambleText text={eyebrow} />
+      </Eyebrow>
+      <h2 className={h3}>
+        <ScrambleText text={title} delay={150} />
+      </h2>
       {lead && <p className={cn(leadClass, dark && "text-on-dark-muted")}>{lead}</p>}
     </div>
   );

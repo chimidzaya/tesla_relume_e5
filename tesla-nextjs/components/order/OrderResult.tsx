@@ -1,3 +1,4 @@
+import { ScrambleText } from "@/components/ui/ScrambleText";
 import type { ReactNode } from "react";
 import { cn } from "@/lib/cn";
 import { Eyebrow } from "@/components/ui/Eyebrow";
@@ -28,7 +29,9 @@ export function OrderResult({
         <div className="flex flex-col items-start gap-5">
           {icon}
           <Eyebrow tone="light">{eyebrow}</Eyebrow>
-          <h1 className={h1}>{title}</h1>
+          <h1 className={h1}>
+            <ScrambleText text={title} delay={250} />
+          </h1>
         </div>
         <div className="flex w-full max-w-[564px] flex-col gap-5 text-base text-on-dark-muted">{children}</div>
         <div className="flex flex-wrap gap-3">{actions}</div>

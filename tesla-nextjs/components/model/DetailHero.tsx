@@ -1,3 +1,4 @@
+import { ScrambleText } from "@/components/ui/ScrambleText";
 import Image from "next/image";
 import Link from "next/link";
 import type { Spec } from "@/data/models";
@@ -31,7 +32,9 @@ export function DetailHero({ name, category, lead, image, stats, order }: Detail
           <span aria-current="page">{name}</span>
         </nav>
         <Eyebrow tone="light">{category}</Eyebrow>
-        <h1 className={h1}>{name}</h1>
+        <h1 className={h1}>
+          <ScrambleText text={name} delay={200} />
+        </h1>
         <p className="max-w-[564px] text-base text-on-dark-muted">{lead}</p>
         <dl className="my-2 flex flex-wrap gap-x-7 gap-y-3 sm:gap-x-12 sm:gap-y-4">
           {stats.map((stat) => (

@@ -1,3 +1,4 @@
+import { ScrambleText } from "@/components/ui/ScrambleText";
 import Image from "next/image";
 import type { ModelDetail } from "@/data/model-details";
 import { Eyebrow } from "@/components/ui/Eyebrow";
@@ -21,7 +22,9 @@ export function SafetySection({ id, safety }: { id: string; safety: ModelDetail[
         </div>
         <div className="flex flex-col gap-5">
           <Eyebrow tone="on-dark">{safety.eyebrow}</Eyebrow>
-          <h2 className={h3}>{safety.title}</h2>
+          <h2 className={h3}>
+            <ScrambleText text={safety.title} delay={150} />
+          </h2>
           {safety.lead && <p className="text-on-dark-muted">{safety.lead}</p>}
           <FeatureList items={safety.items} tone="light" />
           <div className="rounded-r-lg border-l-[3px] border-on-dark-muted bg-white/5 px-6 py-5">
