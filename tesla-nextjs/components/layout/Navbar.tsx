@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState, useSyncExternalStore } from "react";
 import { cn } from "@/lib/cn";
 import { Button } from "@/components/ui/Button";
+import { TestDriveButton } from "@/components/testdrive/TestDriveButton";
 import { Logo } from "./Logo";
 
 const SCROLL_THRESHOLD = 40;
@@ -122,7 +123,17 @@ export function Navbar({ links }: { links: NavLink[] }) {
               );
             })}
           </ul>
-          <div className="flex gap-4">
+          <div className="flex flex-wrap gap-4 nav:flex-nowrap">
+            <TestDriveButton
+              size="sm"
+              variant={solid ? "secondary" : "glass"}
+              magnetic={false}
+              // 1152–1279px-д цэс багтахгүй тул нуугдана (hero дээрх товч хэвээр); утасны цэсэнд бүтэн өргөнөөр
+              className="w-full nav:hidden xl:inline-flex xl:w-auto"
+              onClick={close}
+            >
+              Туршиж үзэх
+            </TestDriveButton>
             <Button
               href="/#compare"
               size="sm"

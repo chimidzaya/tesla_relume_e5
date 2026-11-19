@@ -47,7 +47,7 @@ export function DetailHero({ name, category, lead, image, stats, order }: Detail
         </dl>
         <div className="flex flex-wrap gap-4">
           <OrderButton order={order}>Захиалах</OrderButton>
-          <TestDriveButton variant="outline-light" />
+          <TestDriveButton model={order.slug} variant="outline-light" />
           <Button href="#trims" variant="glass">
             Хувилбаруудыг харах
           </Button>

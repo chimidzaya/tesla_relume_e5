@@ -32,6 +32,9 @@ export default async function AdminPage({ searchParams }: PageProps<"/admin">) {
           <Link href="/admin/orders" className="font-sans text-sm font-medium text-ink underline underline-offset-[3px]">
             Захиалгууд (Byl) →
           </Link>
+          <Link href="/admin/test-drives" className="font-sans text-sm font-medium text-ink underline underline-offset-[3px]">
+            Туршилтын жолоодлого →
+          </Link>
         </>
       }
     >

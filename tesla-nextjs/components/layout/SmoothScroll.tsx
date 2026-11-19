@@ -14,7 +14,13 @@ import { useEffect } from "react";
 export function SmoothScroll() {
   useEffect(() => {
     if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    const lenis = new Lenis({ autoRaf: true, anchors: true, lerp: 0.1 });
+    const lenis = new Lenis({
+      autoRaf: true,
+      anchors: true,
+      lerp: 0.1,
+      // Цонх (машин сонгох <dialog>, Cal.com-ын popup) дотор гүйлгэхэд Lenis оролцохгүй — цонх өөрөө гүйлгэгдэнэ
+      prevent: (node) => node.nodeName === "DIALOG" || node.nodeName === "CAL-MODAL-BOX",
+    });
     return () => lenis.destroy();
   }, []);
 

@@ -19,7 +19,7 @@ export function CtaBanner({ cta, order }: { cta: ModelDetail["cta"]; order: Orde
         <p className="text-base">{cta.text}</p>
         <div className="flex flex-wrap justify-center gap-4">
           <OrderButton order={order}>Захиалах</OrderButton>
-          <TestDriveButton />
+          <TestDriveButton model={order.slug} />
           <Button href={cta.secondary.href} variant="outline-light">
             {cta.secondary.label}
           </Button>

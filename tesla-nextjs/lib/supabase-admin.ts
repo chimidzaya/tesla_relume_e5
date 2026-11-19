@@ -11,6 +11,23 @@ export function createSupabaseAdminClient() {
   return createClient(url, key, { auth: { persistSession: false, autoRefreshToken: false } });
 }
 
+export type TestDriveStatus = "booked" | "rescheduled" | "cancelled";
+
+export type TestDriveRow = {
+  booking_uid: string;
+  model_slug: string | null;
+  model_name: string | null;
+  name: string | null;
+  email: string | null;
+  phone: string | null;
+  start_time: string;
+  end_time: string | null;
+  status: TestDriveStatus;
+  rescheduled_from: string | null;
+  created_at: string;
+  updated_at: string;
+};
+
 export type OrderStatus = "open" | "complete" | "expired" | "failed";
 
 export type OrderRow = {

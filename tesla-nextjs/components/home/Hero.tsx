@@ -4,6 +4,7 @@ import { CountUp } from "@/components/ui/CountUp";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { TextReveal } from "@/components/ui/TextReveal";
 import { Magnetic } from "@/components/ui/Magnetic";
+import { TestDriveButton } from "@/components/testdrive/TestDriveButton";
 import { h1 } from "@/components/ui/typography";
 
 export type HeroStat = { value: string; label: string };
@@ -47,8 +48,9 @@ export function Hero({ firstSectionId, stats }: { firstSectionId: string; stats:
                 Загваруудтай танилцах
               </Button>
             </Magnetic>
+            <TestDriveButton variant="glass" />
             <Magnetic>
-              <Button href="#compare" variant="glass">
+              <Button href="#compare" variant="link-light" arrow>
                 Харьцуулах
               </Button>
             </Magnetic>

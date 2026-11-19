@@ -3,6 +3,7 @@ import Link from "next/link";
 import { orderInfo, type Model } from "@/data/models";
 import { OrderButton } from "@/components/order/OrderButton";
 import { Button } from "@/components/ui/Button";
+import { TestDriveButton } from "@/components/testdrive/TestDriveButton";
 import { formatMNT } from "@/lib/format";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { FeatureList } from "@/components/ui/FeatureList";
@@ -53,6 +54,11 @@ export function ComingSoon({ model }: { model: Model }) {
               </OrderButton>
             </div>
           )}
+          <div className="flex flex-col items-start gap-4 rounded-xl p-8 inset-ring inset-ring-line">
+            <p className="text-xl font-semibold">Жолоодож үзмээр байна уу?</p>
+            <p className="text-muted">{model.name}-ийг 30 минут туршиж жолоодох цагаа захиалаарай.</p>
+            <TestDriveButton model={model.slug} variant="dark" />
+          </div>
           <div className="flex flex-col items-start gap-4 rounded-xl bg-beige p-8">
             <p className="text-xl font-semibold">Дэлгэрэнгүй хуудас удахгүй нэмэгдэнэ</p>
             <p className="text-muted">
