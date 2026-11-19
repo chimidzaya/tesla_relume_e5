@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { cn } from "@/lib/cn";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { h1 } from "@/components/ui/typography";
 
@@ -44,7 +45,17 @@ export function StatusIcon({ status }: { status: "paid" | "pending" | "stopped" 
     stopped: "bg-[#b3412b] text-white",
   }[status];
   return (
-    <span aria-hidden="true" className={`flex size-14 items-center justify-center rounded-full ${styles}`}>
+    <span
+      aria-hidden="true"
+      className={cn(
+        "flex size-14 items-center justify-center rounded-full",
+        // Хуудас нээгдэхэд жижгээс томорч гарна (Tailwind 4 starting: = CSS @starting-style)
+        "transition duration-500 ease-out motion-safe:starting:scale-50 starting:opacity-0",
+        // Хүлээгдэж буй үед зөөлөн лугшина — «ажиллаж байна» гэсэн feedback
+        status === "pending" && "motion-safe:animate-pulse",
+        styles,
+      )}
+    >
       <svg viewBox="0 0 24 24" className="size-7" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round">
         {status === "paid" && <path d="M5 12.5l4.5 4.5L19 7.5" strokeLinejoin="round" />}
         {status === "pending" && (

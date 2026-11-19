@@ -7,7 +7,7 @@ export type Size = "md" | "sm";
 
 /** REBA .btn: pill, sans 500, 0.2s өнгөний шилжилт, дарахад 1px доош суух (press feedback). */
 const base =
-  "inline-flex items-center justify-center gap-2 rounded-full font-sans font-medium leading-body whitespace-nowrap transition-[background-color,color,transform] duration-200 ease-in-out active:translate-y-px";
+  "inline-flex items-center justify-center gap-2 rounded-full font-sans font-medium leading-body whitespace-nowrap transition duration-200 ease-in-out active:translate-y-px";
 
 const sizes: Record<Size, string> = {
   md: "min-h-[46px] px-6 py-2.5 text-base",
@@ -54,7 +54,7 @@ export function Button({ href, children, variant = "primary", size = "md", arrow
     <>
       {children}
       {arrow && (
-        <span aria-hidden="true" className="transition-transform group-hover:translate-x-1">
+        <span aria-hidden="true" className="transition-transform duration-200 ease-out motion-safe:group-hover:translate-x-1">
           →
         </span>
       )}

@@ -31,7 +31,12 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
   const navLinks = models.map((model) => ({ label: model.name, href: modelHref(model) }));
 
   return (
-    <html lang="mn" className={`${onest.variable} ${literata.variable}`} suppressHydrationWarning>
+    <html
+      lang="mn"
+      className={`${onest.variable} ${literata.variable} motion-safe:scroll-smooth`}
+      data-scroll-behavior="smooth"
+      suppressHydrationWarning
+    >
       <body>
         {/* Reveal анимацыг зөвхөн JS ажиллаж байхад идэвхжүүлнэ */}
         <Script id="js-flag" strategy="beforeInteractive">

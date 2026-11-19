@@ -51,7 +51,7 @@ export function CompareTable({ models }: { models: Model[] }) {
                     {model.name}
                     <span
                       aria-hidden="true"
-                      className="text-muted opacity-0 transition-[opacity,transform] duration-300 group-hover:translate-x-1 group-hover:opacity-100"
+                      className="text-muted opacity-0 transition duration-300 ease-out group-hover:opacity-100 motion-safe:group-hover:translate-x-1"
                     >
                       →
                     </span>

@@ -5,7 +5,7 @@ export const inputClass =
   "w-full rounded-lg border border-line bg-paper px-3.5 py-2.5 font-sans text-base text-ink outline-none transition-colors duration-200 placeholder:text-muted/70 focus:border-ink aria-[invalid=true]:border-[#b3412b]";
 
 export const submitClass =
-  "inline-flex min-h-[46px] items-center justify-center rounded-full bg-taupe px-6 font-sans text-base font-medium text-ink transition-[background-color,transform] duration-200 hover:bg-taupe-hover active:translate-y-px disabled:opacity-60";
+  "inline-flex min-h-[46px] items-center justify-center rounded-full bg-taupe px-6 font-sans text-base font-medium text-ink transition duration-200 hover:bg-taupe-hover active:translate-y-px disabled:opacity-60";
 
 /** Шошго + оролт + алдааны мессеж */
 export function Field({

@@ -58,7 +58,7 @@ export function ModelSection({ model, index }: Props) {
                 height={1000}
                 sizes="(min-width: 1024px) 58vw, 100vw"
                 loading="eager"
-                className="block h-auto w-full transition-transform duration-[1400ms] ease-out group-hover:scale-[1.03]"
+                className="block h-auto w-full transition-transform duration-1000 ease-out motion-safe:group-hover:scale-103"
               />
             ) : (
               model.visual && <ModelVisual name={model.name} tag={model.visual.tag} theme={model.visual.theme} />

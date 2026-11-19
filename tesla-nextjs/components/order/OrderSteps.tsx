@@ -39,7 +39,7 @@ export function OrderSteps({ current, state = "active", tone = "dark" }: Props) 
           >
             <span
               className={cn(
-                "flex size-8 shrink-0 items-center justify-center rounded-full text-xs font-semibold transition-colors",
+                "flex size-8 shrink-0 items-center justify-center rounded-full text-xs font-semibold transition duration-300",
                 done && (dark ? "bg-on-dark text-ink" : "bg-ink text-on-dark"),
                 isCurrent && !stopped && (dark ? "bg-taupe text-ink ring-4 ring-taupe/25" : "bg-ink text-on-dark ring-4 ring-ink/15"),
                 stopped && "bg-[#b3412b] text-white ring-4 ring-[#b3412b]/25",

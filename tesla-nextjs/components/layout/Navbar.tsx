@@ -46,9 +46,9 @@ export function Navbar({ links }: { links: NavLink[] }) {
     <nav
       aria-label="Үндсэн цэс"
       className={cn(
-        // Transparent → Solid Header: 40px-ээс доош гүйлгэхэд cream дэвсгэр + hairline · --dur-medium.
+        // Transparent → Solid Header: 40px-ээс доош гүйлгэхэд cream дэвсгэр + hairline · transition duration-400.
         // Тунгалаг үед header scrim (ink 35% → transparent) бичвэрийг уншигдахуйц болгоно.
-        "fixed inset-x-0 top-0 z-50 h-[72px] px-gutter transition-[background-color,color,box-shadow] duration-[var(--dur-medium)]",
+        "fixed inset-x-0 top-0 z-50 h-[72px] px-gutter transition duration-400 ease-in-out",
         solid
           ? "bg-paper/85 text-ink shadow-[0_1px_0_var(--color-line)] backdrop-blur-xl"
           : "bg-[linear-gradient(180deg,rgb(25_20_14/0.35),transparent)] text-on-dark",

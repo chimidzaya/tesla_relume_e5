@@ -51,13 +51,9 @@
   /* Хэлбэр: REBA-гийн radius-sm 8 · radius 12 · radius-lg 24 · pill нь
      Tailwind-ийн rounded-lg · rounded-xl · rounded-3xl · rounded-full-тэй яг таарна. */
 
-  /* Хөдөлгөөн */
-  --ease-out: cubic-bezier(0.2, 0.7, 0.2, 1);
-  --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
-  --ease-snap: cubic-bezier(0.22, 1, 0.36, 1);
-  --ease-calm: cubic-bezier(0.25, 0.1, 0.25, 1);
-  --ease-page: cubic-bezier(0.65, 0, 0.15, 1);
-
+  /* Хөдөлгөөн: Tailwind-ийн үндсэн transition (duration-*, ease-*, delay-*), animate-spin/pulse,
+     motion-safe:/motion-reduce:, starting: variant-уудыг шууд ашиглана. Энд зөвхөн Tailwind-д
+     байхгүй цорын ганц animation — scroll-dot — нэмэгдэнэ (animate-scroll-dot). */
   --animate-scroll-dot: scroll-dot 1.8s infinite;
 
   @keyframes scroll-dot {
@@ -78,16 +74,8 @@
   --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
 }
 
-/* Tailwind-ийн theme-д ордоггүй токенууд (хугацаа, бүрхүүл, header) */
+/* Tailwind-ийн theme-д ордоггүй токенууд (бүрхүүл, header) */
 :root {
-  --dur-instant: 0.1s;
-  --dur-micro: 0.2s;
-  --dur-short: 0.3s;
-  --dur-medium: 0.4s;
-  --dur-long: 0.8s;
-  --dur-page: 1.2s;
-  --dur-ambient: 1.6s;
-
   --overlay-soft: color-mix(in srgb, var(--color-shade) 32%, transparent);
   --overlay: color-mix(in srgb, var(--color-shade) 50%, transparent);
   --overlay-strong: color-mix(in srgb, var(--color-shade) 80%, transparent);
@@ -97,7 +85,7 @@
 
 @layer base {
   html {
-    scroll-behavior: smooth;
+    /* Зөөлөн гүйлгэлт: layout.tsx дээр motion-safe:scroll-smooth */
     /* Тогтмол дээд цэсний доор гарчиг нуугдахгүй байх */
     scroll-padding-top: var(--header-h);
   }
@@ -140,40 +128,5 @@
   ::selection {
     background: var(--color-beige);
     color: var(--color-ink);
-  }
-}
-
-/* ===== Гүйлгэхэд гарч ирэх анимац (components/ui/Reveal.tsx) =====
-   `.js` класс зөвхөн JavaScript ажиллаж байхад нэмэгдэх тул JS-гүй үед агуулга шууд харагдана. */
-.js [data-reveal] {
-  opacity: 0;
-  transform: translateY(16px);
-  transition:
-    opacity var(--dur-long) var(--ease-out),
-    transform var(--dur-long) var(--ease-out);
-}
-
-.js [data-reveal].is-visible {
-  opacity: 1;
-  transform: none;
-}
-
-/* Reduced motion: бүх хөдөлгөөн зогсоно */
-@media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
-
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
-
-  .js [data-reveal] {
-    opacity: 1;
-    transform: none;
   }
 }

@@ -22,7 +22,7 @@ export function PayForm({ slug, amountLabel }: { slug: string; amountLabel: stri
 
       <label
         className={cn(
-          "flex cursor-pointer items-start gap-3 rounded-xl p-4 font-sans text-sm leading-snug text-ink transition-shadow",
+          "flex cursor-pointer items-start gap-3 rounded-xl p-4 font-sans text-sm leading-snug text-ink transition-shadow duration-200",
           agreed ? "shadow-[inset_0_0_0_2px_var(--color-ink)]" : "shadow-[inset_0_0_0_1px_var(--color-line)] hover:shadow-[inset_0_0_0_1px_var(--color-ink)]",
         )}
       >
