@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useActionState, useEffect, useState } from "react";
 import type { Model } from "@/data/models";
+import { LoadingButton } from "@/components/ui/LoadingButton";
 import { cn } from "@/lib/cn";
 import { IMAGE_TYPES, SPEC_ROWS, VISUAL_THEMES, type ModelFormState } from "@/lib/model-form";
 import { Field, Fieldset, inputClass, submitClass } from "./fields";
@@ -193,9 +194,9 @@ export function ModelForm({ initial, action }: { initial: Model; action: SaveAct
       </Fieldset>
 
       <div className="flex flex-wrap items-center gap-6">
-        <button type="submit" disabled={pending} className={submitClass}>
-          {pending ? "Хадгалж байна…" : "Хадгалах"}
-        </button>
+        <LoadingButton loading={pending} loadingText="Хадгалж байна…" className={submitClass}>
+          Хадгалах
+        </LoadingButton>
         <Link href="/admin" className="font-sans text-base text-ink underline-offset-[3px] hover:underline">
           Болих
         </Link>

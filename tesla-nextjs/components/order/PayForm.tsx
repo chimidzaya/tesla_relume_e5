@@ -4,9 +4,10 @@ import { useState } from "react";
 import { useFormStatus } from "react-dom";
 import { startCheckout } from "@/app/order/actions";
 import { buttonClass } from "@/components/ui/Button";
+import { LoadingButton } from "@/components/ui/LoadingButton";
 import { Magnetic } from "@/components/ui/Magnetic";
 import { cn } from "@/lib/cn";
-import { LockIcon, Spinner } from "./OrderSteps";
+import { LockIcon } from "./OrderSteps";
 
 /**
  * Төлөх маягт.
@@ -60,26 +61,15 @@ function Submit({ disabled, amountLabel }: { disabled: boolean; amountLabel: str
   const { pending } = useFormStatus();
 
   return (
-    <button
-      type="submit"
-      disabled={disabled || pending}
-      aria-busy={pending}
-      className={buttonClass(
-        "dark",
-        "md",
-        "min-h-[54px] w-full text-md disabled:cursor-not-allowed disabled:bg-ink/30 disabled:text-on-dark/80",
-      )}
+    <LoadingButton
+      loading={pending}
+      disabled={disabled}
+      loadingText="Byl руу шилжиж байна…"
+      // Hover-ийн өнгө идэвхгүй үед солигдохгүй (товч «дарагдахгүй» харагдана)
+      className={buttonClass("dark", "md", "min-h-[54px] w-full text-md disabled:hover:bg-ink")}
     >
-      {pending ? (
-        <>
-          <Spinner /> Byl руу шилжиж байна…
-        </>
-      ) : (
-        <>
-          <LockIcon /> {amountLabel} төлөх
-          <span aria-hidden="true">→</span>
-        </>
-      )}
-    </button>
+      <LockIcon /> {amountLabel} төлөх
+      <span aria-hidden="true">→</span>
+    </LoadingButton>
   );
 }

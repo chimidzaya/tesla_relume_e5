@@ -34,6 +34,8 @@ export function Magnetic({
     const clamp = (value: number) => Math.max(-max, Math.min(max, value * strength));
 
     const move = (event: PointerEvent) => {
+      // Идэвхгүй / ачаалж буй товч татагдахгүй — «дарж болно» гэсэн дохио өгөхгүй
+      if (el.querySelector(":disabled, [aria-busy='true']")) return leave();
       const rect = el.getBoundingClientRect();
       const x = clamp(event.clientX - (rect.left + rect.width / 2));
       const y = clamp(event.clientY - (rect.top + rect.height / 2));

@@ -2,6 +2,7 @@
 
 import { useState, type FormEvent, type ReactNode } from "react";
 import type { ContactErrors } from "@/lib/contact";
+import { LoadingButton } from "@/components/ui/LoadingButton";
 import { cn } from "@/lib/cn";
 
 type Status =
@@ -57,13 +58,13 @@ export function ContactForm() {
         <textarea name="message" rows={3} maxLength={2000} required className={cn(inputClass, "resize-y")} />
       </Field>
 
-      <button
-        type="submit"
-        disabled={status.state === "sending"}
-        className="mt-1 inline-flex min-h-10 items-center justify-center rounded-full bg-taupe px-6 self-start font-sans text-base font-medium text-ink transition duration-200 hover:bg-taupe-hover active:translate-y-px disabled:opacity-60"
+      <LoadingButton
+        loading={status.state === "sending"}
+        loadingText="Илгээж байна…"
+        className="mt-1 inline-flex min-h-10 items-center justify-center self-start rounded-full bg-taupe px-6 font-sans text-base font-medium text-ink transition duration-200 hover:bg-taupe-hover active:translate-y-px disabled:hover:bg-taupe"
       >
-        {status.state === "sending" ? "Илгээж байна…" : "Илгээх"}
-      </button>
+        Илгээх
+      </LoadingButton>
 
       <p
         role="status"
