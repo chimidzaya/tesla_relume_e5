@@ -1,6 +1,7 @@
 import { ChargingStats } from "@/components/home/ChargingStats";
 import { CompareTable } from "@/components/home/CompareTable";
 import { Hero, type HeroStat } from "@/components/home/Hero";
+import { ModelRail } from "@/components/home/ModelRail";
 import { ModelSection } from "@/components/home/ModelSection";
 import { getModels } from "@/data/models";
 import { acceleration, pickBest } from "@/lib/model-stats";
@@ -23,6 +24,8 @@ export default async function HomePage() {
   return (
     <>
       <Hero firstSectionId={models[0]?.slug ?? "compare"} stats={stats} />
+      {/* Загварын бүлгийн зам — баруун талд, том дэлгэцэнд */}
+      <ModelRail items={models.map((model) => ({ slug: model.slug, name: model.name }))} />
       {models.map((model, index) => (
         <ModelSection key={model.slug} model={model} index={index} />
       ))}

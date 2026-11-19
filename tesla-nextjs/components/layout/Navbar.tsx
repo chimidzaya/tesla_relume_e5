@@ -54,6 +54,15 @@ export function Navbar({ links }: { links: NavLink[] }) {
           : "bg-[linear-gradient(180deg,rgb(25_20_14/0.35),transparent)] text-on-dark",
       )}
     >
+      {/* Scroll progress: цэсний hairline-ийн дээгүүр 1px ink шугам дүүрнэ.
+          Hero дээр (тунгалаг цэс) нуугдана; хөтөч scroll-driven animation дэмжихгүй бол огт гарахгүй. */}
+      <span
+        aria-hidden="true"
+        className={cn(
+          "pointer-events-none absolute inset-x-0 -bottom-px hidden h-px bg-ink/70 scroll-progress transition-opacity duration-500 supports-[animation-timeline:scroll()]:block",
+          solid && !open ? "opacity-100" : "opacity-0",
+        )}
+      />
       <div className="mx-auto flex h-full max-w-site items-center justify-between">
         <Logo onClick={close} />
 

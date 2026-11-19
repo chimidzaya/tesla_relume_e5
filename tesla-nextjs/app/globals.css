@@ -126,6 +126,24 @@
   }
 }
 
+@keyframes grow-x {
+  from {
+    scale: 0 1;
+  }
+  to {
+    scale: 1 1;
+  }
+}
+
+/* Хуудасны гүйлгэлтийн явц — цэсний доорх hairline зүүнээс баруун тийш дүүрнэ (JS-гүй, гүйлгэлттэй зэрэг) */
+@utility scroll-progress {
+  transform-origin: left;
+  @supports (animation-timeline: scroll()) {
+    animation: grow-x auto linear both;
+    animation-timeline: scroll(root block);
+  }
+}
+
 /* Hero зураг: доош гүйлгэхэд удаан доошилж томорно (parallax) */
 @utility scroll-parallax {
   @supports (animation-timeline: view()) {
