@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useFormStatus } from "react-dom";
 import { startCheckout } from "@/app/order/actions";
 import { buttonClass } from "@/components/ui/Button";
+import { Magnetic } from "@/components/ui/Magnetic";
 import { cn } from "@/lib/cn";
 import { LockIcon, Spinner } from "./OrderSteps";
 
@@ -41,7 +42,10 @@ export function PayForm({ slug, amountLabel }: { slug: string; amountLabel: stri
         </span>
       </label>
 
-      <Submit disabled={!agreed} amountLabel={amountLabel} />
+      {/* Гол үйлдэл — magnetic (бүтэн өргөнтэй тул бага хүчтэй) */}
+      <Magnetic className="block" max={6}>
+        <Submit disabled={!agreed} amountLabel={amountLabel} />
+      </Magnetic>
 
       <p id="agree-hint" aria-live="polite" className="font-sans text-xs text-muted">
         {agreed

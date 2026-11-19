@@ -45,7 +45,7 @@ export function ComingSoon({ model }: { model: Model }) {
               <p className="text-on-dark-muted">
                 Урьдчилгаагаа Byl-ээр төлж {model.name}-д дараалалд орно. Үлдэгдлийг машин хүлээлгэн өгөхөд төлнө.
               </p>
-              <OrderButton order={orderInfo(model)} variant="outline-light" className="mt-2">
+              <OrderButton order={orderInfo(model)} variant="outline-light">
                 {model.orderLabel}
               </OrderButton>
             </div>

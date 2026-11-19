@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/Button";
 import { CountUp } from "@/components/ui/CountUp";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { TextReveal } from "@/components/ui/TextReveal";
+import { Magnetic } from "@/components/ui/Magnetic";
 import { h1 } from "@/components/ui/typography";
 
 export type HeroStat = { value: string; label: string };
@@ -41,12 +42,16 @@ export function Hero({ firstSectionId, stats }: { firstSectionId: string; stats:
             Таван загвар. Нэг зорилго — цэвэр эрчим хүчээр илүү хол, илүү хурдан.
           </p>
           <div className={`mt-2 flex flex-wrap items-center gap-3 ${fadeIn} delay-700`}>
-            <Button href={`#${firstSectionId}`} variant="outline-light">
-              Загваруудтай танилцах
-            </Button>
-            <Button href="#compare" variant="glass">
-              Харьцуулах
-            </Button>
+            <Magnetic>
+              <Button href={`#${firstSectionId}`} variant="outline-light">
+                Загваруудтай танилцах
+              </Button>
+            </Magnetic>
+            <Magnetic>
+              <Button href="#compare" variant="glass">
+                Харьцуулах
+              </Button>
+            </Magnetic>
           </div>
         </div>
 
