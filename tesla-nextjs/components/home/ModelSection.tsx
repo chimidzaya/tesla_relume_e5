@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/Button";
 import { formatMNT } from "@/lib/format";
 import { ModelVisual } from "@/components/ui/ModelVisual";
 import { Reveal } from "@/components/ui/Reveal";
+import { TextReveal } from "@/components/ui/TextReveal";
 import { h2 } from "@/components/ui/typography";
 import { cn } from "@/lib/cn";
 
@@ -49,7 +50,8 @@ export function ModelSection({ model, index }: Props) {
     >
       <div className="mx-auto grid max-w-site items-center gap-10 lg:grid-cols-12 lg:gap-16">
         <Reveal className={cn("lg:col-span-7", flip && "lg:order-2")}>
-          <div className="relative overflow-hidden rounded-2xl bg-brown-muted">
+          {/* Дэлгэцэнд орж ирэхэд хөшиг нээгдэх мэт тэлнэ (scroll-driven clip-path) */}
+          <div className="relative overflow-hidden rounded-2xl bg-brown-muted scroll-clip-reveal">
             {model.image ? (
               <Image
                 src={model.image.src}
@@ -75,7 +77,9 @@ export function ModelSection({ model, index }: Props) {
                 <span className="mx-3 opacity-40">/</span>
                 {model.category}
               </p>
-              <h2 className={h2}>{model.name}</h2>
+              <h2 className={h2}>
+                <TextReveal text={model.name} delay={200} step={90} onReveal />
+              </h2>
               <p className={cn("line-clamp-2 max-w-[440px] font-serif leading-body", muted)}>{model.lead}</p>
             </div>
 

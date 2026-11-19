@@ -1,3 +1,4 @@
+import { CountUp } from "@/components/ui/CountUp";
 import { Reveal } from "@/components/ui/Reveal";
 import { Section } from "@/components/ui/Section";
 import { SectionHeading } from "@/components/ui/SectionHeading";
@@ -18,7 +19,7 @@ export function ChargingStats() {
         {stats.map((stat) => (
           <Reveal key={stat.label} className="border-t border-white/15 pt-6 lg:border-l lg:border-t-0 lg:pl-8 lg:pt-0">
             <p className="whitespace-nowrap font-sans text-display-2 font-light leading-display tracking-display tabular-nums">
-              {stat.value}
+              <CountUp value={stat.value} duration={2000} />
             </p>
             <p className="mt-3 text-md text-on-dark-muted">{stat.label}</p>
           </Reveal>

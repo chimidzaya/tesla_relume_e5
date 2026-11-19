@@ -3,6 +3,7 @@ import { Literata, Onest } from "next/font/google";
 import Script from "next/script";
 import { Footer } from "@/components/layout/Footer";
 import { Navbar } from "@/components/layout/Navbar";
+import { SmoothScroll } from "@/components/layout/SmoothScroll";
 import { getModels, modelHref } from "@/data/models";
 import "./globals.css";
 
@@ -33,7 +34,8 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="mn"
-      className={`${onest.variable} ${literata.variable} motion-safe:scroll-smooth`}
+      // Lenis асвал (html.lenis) хөтчийн smooth-ийг унтраана — хоёр зэрэг ажиллавал гүйлгэлт «гацна»
+      className={`${onest.variable} ${literata.variable} motion-safe:scroll-smooth [&.lenis]:scroll-auto`}
       data-scroll-behavior="smooth"
       suppressHydrationWarning
     >
@@ -42,6 +44,7 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
         <Script id="js-flag" strategy="beforeInteractive">
           {`document.documentElement.classList.add("js")`}
         </Script>
+        <SmoothScroll />
         <Navbar links={navLinks} />
         <main>{children}</main>
         <Footer />
