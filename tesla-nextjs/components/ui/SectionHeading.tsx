@@ -21,12 +21,12 @@ export function SectionHeading({
   const dark = tone === "dark-bg";
   return (
     <div className={cn("mb-10 flex max-w-3xl flex-col gap-4 lg:mb-14", className)}>
-      {/* Staggered scramble: эхлээд жижиг гарчиг, 150ms-ийн дараа том гарчиг */}
+      {/* Staggered scramble: эхлээд жижиг гарчиг, 300ms-ийн дараа том гарчиг */}
       <Eyebrow tone={dark ? "on-dark" : "default"}>
         <ScrambleText text={eyebrow} />
       </Eyebrow>
       <h2 className={h3}>
-        <ScrambleText text={title} delay={150} />
+        <ScrambleText text={title} delay={300} />
       </h2>
       {lead && <p className={cn(leadClass, dark && "text-on-dark-muted")}>{lead}</p>}
     </div>

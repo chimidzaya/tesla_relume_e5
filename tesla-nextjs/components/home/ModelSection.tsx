@@ -89,7 +89,7 @@ export function ModelSection({ model, index }: Props) {
                 <ScrambleText text={model.category} />
               </p>
               <h2 className={h2}>
-                <ScrambleText text={model.name} delay={120} />
+                <ScrambleText text={model.name} delay={250} />
               </h2>
               <p className={cn("line-clamp-2 max-w-[440px] font-serif leading-body", muted)}>{model.lead}</p>
             </div>

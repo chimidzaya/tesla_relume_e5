@@ -9,11 +9,11 @@ import { Fragment, useEffect, useRef } from "react";
  * - Байршил огт хөдлөхгүй: эцсийн үсэг бүр DOM-д байрандаа (нууцлагдсан) байж, санамсаргүй тэмдэгт
  *   нь түүний дээр давхарлагдана → мөр шилжихгүй, гарчиг «чичрэхгүй»
  * - Долгион: үсэг бүр зүүнээс баруун тийш ээлжлэн эхэлж, хэдэн удаа солигдоод тогтоно;
- *   урт гарчигт алхам богиносож нийт хугацаа ~1 сек-ээс хэтрэхгүй
+ *   ease-in-out тархалттай (удаан эхэлж, удаан тогтоно) — slow motion, нийт ≈ 1.1–1.7 сек
  * - Тэмдэгтийн «жин» хадгална: том үсгийг кирилл том үсгээр, жижгийг жижгээр, тоог тоогоор солино
  * - Солигдож буй тэмдэгт бүдэг (60%), эцсийн үсэг тод болж тогтоно — нүд зөвхөн тогтсон үсгийг уншина
- * - Тэмдэгт 45ms тутам л солигдоно (60fps бүрт биш) — тайван, «дижитал» хэмнэл
- * - Дэлгэцэнд орж ирэхэд нэг удаа (IntersectionObserver)
+ * - Тэмдэгт 80ms тутам л солигдоно (60fps бүрт биш) — тайван, «дижитал» хэмнэл
+ * - Дэлгэцэнд гүн орж ирэхэд нэг удаа (IntersectionObserver) — хурдан гүйлгэхэд ч харагдаж амжина
  * - JS-гүй үед, «хөдөлгөөн багасгах» үед гарчиг шууд, бүтнээрээ харагдана
  * - Дэлгэц уншигч бүтэн гарчгийг нэг удаа уншина (sr-only), хөдөлгөөнт үсгүүдийг алгасна
  */
@@ -22,6 +22,13 @@ const UPPER = "АБВГДЕЖЗИКЛМНОӨПРСТУҮФХЦЧШЭЮЯ";
 const LOWER = UPPER.toLowerCase();
 const DIGIT = "0123456789";
 const SYMBOL = "/+_#*<>";
+
+/** Хэмнэл (slow motion): үсэг бүр 460–720ms солигдоно, тэмдэгт 80ms тутам шинэчлэгдэнэ. Нийт ≈ 1.7 сек */
+const SCRAMBLE_MIN = 460;
+const SCRAMBLE_JITTER = 260;
+const GLYPH_EVERY = 80;
+
+const easeInOut = (x: number) => -(Math.cos(Math.PI * x) - 1) / 2;
 
 function randomGlyph(ch: string) {
   const set = /\d/.test(ch) ? DIGIT : ch !== ch.toLowerCase() ? UPPER : ch !== ch.toUpperCase() ? LOWER : SYMBOL;
@@ -56,16 +63,22 @@ export function ScrambleText({
 
     let frame = 0;
     const run = () => {
-      const step = Math.min(32, 640 / Math.max(chars.length, 1)); // урт гарчигт долгион хурдасна
-      const plan = chars.map((el, i) => ({
-        el,
-        glyph: el.firstElementChild as HTMLElement,
-        final: el.dataset.ch ?? "",
-        begin: i * step,
-        end: i * step + 220 + Math.random() * 160, // үсэг бүр өөр урттай солигдоно
-        last: 0,
-        done: false,
-      }));
+      // Долгион бүх үсгээр тархах хугацаа: богино гарчигт 420ms, урт гарчигт 950ms хүртэл
+      const spread = Math.min(950, Math.max(420, chars.length * 48));
+      const last = Math.max(chars.length - 1, 1);
+      const plan = chars.map((el, i) => {
+        // ease-in-out: долгион удаан эхэлж, дунд хурдасч, төгсгөлдөө удаан тогтоно (slow motion мэдрэмж)
+        const begin = spread * easeInOut(i / last);
+        return {
+          el,
+          glyph: el.firstElementChild as HTMLElement,
+          final: el.dataset.ch ?? "",
+          begin,
+          end: begin + SCRAMBLE_MIN + Math.random() * SCRAMBLE_JITTER, // үсэг бүр өөр урттай солигдоно
+          last: 0,
+          done: false,
+        };
+      });
       const start = performance.now() + delay;
 
       const tick = (now: number) => {
@@ -82,7 +95,7 @@ export function ScrambleText({
             p.done = true;
             continue;
           }
-          if (now - p.last > 45) {
+          if (now - p.last > GLYPH_EVERY) {
             p.el.setAttribute("data-active", "");
             p.glyph.textContent = randomGlyph(p.final);
             p.last = now;
@@ -99,7 +112,9 @@ export function ScrambleText({
         observer.disconnect();
         run();
       },
-      { threshold: 0.4, rootMargin: "0px 0px -8% 0px" },
+      // Гарчиг дэлгэцийн доод ирмэгээс 18% дээш, 60% нь харагдсан үед л эхэлнэ — хурдан гүйлгэхэд
+      // ирмэг дээр «харагдаагүй байхад дуусах»-аас сэргийлнэ
+      { threshold: 0.6, rootMargin: "0px 0px -18% 0px" },
     );
     observer.observe(root);
 
@@ -125,7 +140,7 @@ export function ScrambleText({
                   {/* Санамсаргүй тэмдэгт — эцсийн үсгийн голд, бүдэг */}
                   <span className="pointer-events-none absolute left-1/2 top-0 -translate-x-1/2 opacity-0 group-data-active/ch:opacity-60" />
                   {/* Эцсийн үсэг — JS ажиллаж буй үед тогтох хүртлээ нууцлагдана (зай нь хадгалагдана) */}
-                  <span className="transition-opacity duration-150 motion-safe:in-[.js]:opacity-0 motion-safe:in-[.js]:group-data-done/ch:opacity-100">
+                  <span className="transition-opacity duration-300 ease-out motion-safe:in-[.js]:opacity-0 motion-safe:in-[.js]:group-data-done/ch:opacity-100">
                     {ch}
                   </span>
                 </span>
