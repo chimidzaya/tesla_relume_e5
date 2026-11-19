@@ -6,6 +6,7 @@ import { formatMNT } from "@/lib/format";
 import { ModelVisual } from "@/components/ui/ModelVisual";
 import { Reveal } from "@/components/ui/Reveal";
 import { TextReveal } from "@/components/ui/TextReveal";
+import { Tilt, TiltGlare } from "@/components/ui/Tilt";
 import { h2 } from "@/components/ui/typography";
 import { cn } from "@/lib/cn";
 
@@ -19,10 +20,10 @@ function keySpecs(model: Model) {
   return (specs.length > 0 ? specs : model.specs).slice(0, 3);
 }
 
-/** «Шинэ», «Урьдчилсан захиалга» — зураг дээр бага зэрэг хазайсан наалт */
+/** «Шинэ», «Урьдчилсан захиалга» — зураг дээр бага зэрэг хазайсан наалт; tilt үед 48px «хөвж» гарна (translate-z) */
 function Sticker({ children }: { children: string }) {
   return (
-    <span className="absolute left-4 top-4 z-10 -rotate-2 rounded-full bg-paper px-3.5 py-1.5 font-sans text-2xs font-semibold uppercase leading-none tracking-tagline text-ink shadow-[0_6px_20px_rgb(0_0_0/0.2)] sm:left-6 sm:top-6">
+    <span className="absolute left-4 top-4 z-10 -rotate-2 translate-z-12 rounded-full bg-paper px-3.5 py-1.5 font-sans text-2xs font-semibold uppercase leading-none tracking-tagline text-ink shadow-[0_6px_20px_rgb(0_0_0/0.2)] sm:left-6 sm:top-6">
       {children}
     </span>
   );
@@ -50,23 +51,33 @@ export function ModelSection({ model, index }: Props) {
     >
       <div className="mx-auto grid max-w-site items-center gap-10 lg:grid-cols-12 lg:gap-16">
         <Reveal className={cn("lg:col-span-7", flip && "lg:order-2")}>
-          {/* Дэлгэцэнд орж ирэхэд хөшиг нээгдэх мэт тэлнэ (scroll-driven clip-path) */}
-          <div className="relative overflow-hidden rounded-2xl bg-brown-muted scroll-clip-reveal">
-            {model.image ? (
-              <Image
-                src={model.image.src}
-                alt={model.image.alt}
-                width={1600}
-                height={1000}
-                sizes="(min-width: 1024px) 58vw, 100vw"
-                loading="eager"
-                className="block h-auto w-full transition-transform duration-1000 ease-out motion-safe:group-hover:scale-103"
-              />
-            ) : (
-              model.visual && <ModelVisual name={model.name} tag={model.visual.tag} theme={model.visual.theme} />
-            )}
+          {/* 3D tilt: хулганаар зураг бага зэрэг хазайж, гэрэл тусна; наалт нь зургаас «хөвж» гарна */}
+          <Tilt>
+            {/* Өргөгдсөн сүүдэр — зургаас тусдаа (clip-path сүүдрийг огтолдог тул) */}
+            <span
+              aria-hidden="true"
+              className="absolute inset-0 rounded-2xl transition-shadow duration-700 group-data-tilting/tilt:shadow-2xl group-data-tilting/tilt:shadow-ink/25"
+            />
+            {/* Дэлгэцэнд орж ирэхэд хөшиг нээгдэх мэт тэлнэ (scroll-driven clip-path).
+                overflow-hidden энд (Tilt-ийн дотор) — 3D гүнийг хавтгайруулахгүйн тулд */}
+            <div className="relative overflow-hidden rounded-2xl bg-brown-muted scroll-clip-reveal">
+              {model.image ? (
+                <Image
+                  src={model.image.src}
+                  alt={model.image.alt}
+                  width={1600}
+                  height={1000}
+                  sizes="(min-width: 1024px) 58vw, 100vw"
+                  loading="eager"
+                  className="block h-auto w-full transition-transform duration-1000 ease-out motion-safe:group-hover:scale-103"
+                />
+              ) : (
+                model.visual && <ModelVisual name={model.name} tag={model.visual.tag} theme={model.visual.theme} />
+              )}
+              <TiltGlare />
+            </div>
             {model.badge && <Sticker>{model.badge}</Sticker>}
-          </div>
+          </Tilt>
         </Reveal>
 
         <Reveal className="lg:col-span-5">
